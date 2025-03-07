@@ -67,6 +67,7 @@ export function ModalInfoTarefa({ infos, fecharModal }: InfosProps) {
                 cor: tarefa.backgroundColor
             })
             fecharModal()
+            window.location.reload()
             toast.success('Edição salva com sucesso!')
         }
         catch (erro) {

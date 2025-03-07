@@ -36,7 +36,7 @@ export function ModalAddTarefa({ fecharModal, dataSelecionada }: ModalAddTarefaP
         dataHoraFim: '',
         status: '',
         prioridade: '',
-        cor: ''
+        cor: '#0B5ED7'
     })
 
     async function addTarefa() {

@@ -134,10 +134,16 @@ export function Agenda() {
                 droppable={true}
                 eventDrop={moverEvento}
                 eventResize={moverEvento}
+                eventDidMount={(info) => {
+                    if (info.event.extendedProps.status === 'Concluido') {
+                        info.el.style.textDecoration = 'line-through';
+                        info.el.style.opacity = '0.6';
+                    }
+                }}
             />
             <AnimatePresence>
                 {modalAdd && <ModalAddTarefa fecharModal={() => setModalAdd(false)} dataSelecionada={dataSelecionada} />}
-                {modalInfo && <ModalInfoTarefa infos={modlaObj} fecharModal={() => setModalInfo(false)} />}
+                {modalInfo && <ModalInfoTarefa infos={modlaObj} fecharModal={() => { setModalInfo(false) }} />}
             </AnimatePresence>
 
         </div>
