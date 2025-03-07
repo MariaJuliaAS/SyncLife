@@ -16,7 +16,6 @@ import { ModalInfoTarefa } from '../../components/componentsAgenda/modalInfoTare
 import { EventClickArg } from '@fullcalendar/core/index.js';
 import { AnimatePresence } from 'framer-motion';
 import { toast } from 'react-toastify';
-import { formatarData } from '../../utils/dataFormatada';
 
 interface EventosProps {
     title: string;
