@@ -2,13 +2,13 @@ import { initializeApp } from 'firebase/app';
 import { getFirestore } from 'firebase/firestore'
 
 const firebaseConfig = {
-    apiKey: "AIzaSyBNiH1ENxlQmRE0aUFc4m5OETvYBbQ3pKQ",
-    authDomain: "synclife-6a69c.firebaseapp.com",
-    projectId: "synclife-6a69c",
-    storageBucket: "synclife-6a69c.firebasestorage.app",
-    messagingSenderId: "434208380081",
-    appId: "1:434208380081:web:1bfb36cb638619d1d2fe90",
-    measurementId: "G-B74V86MXSM"
+    apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+    authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+    projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+    storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+    messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+    appId: import.meta.env.VITE_FIREBASE_APP_ID,
+    measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID
 };
 
 const firebaseApp = initializeApp(firebaseConfig);
