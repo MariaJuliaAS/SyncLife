@@ -1,0 +1,47 @@
+
+.sobreposicao{
+    background-color: rgba(0, 0, 0, 0.4);
+    position: fixed;
+    inset: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+}
+.conteudo{
+    background-color: #fff;
+    width: 90%;
+    max-width: 600px;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+    padding: 30px;
+}
+
+.header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.header h1{
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.header button{
+    font-weight: bold;
+    font-size: 20px;
+    cursor: pointer;
+    color: #888;
+    position: relative;
+    bottom: 5px;
+    transition: all 0.3s ease-in-out;
+}
+
+.header button:hover{
+    color: #ff3b3b;
+}

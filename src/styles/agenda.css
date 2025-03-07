@@ -1,0 +1,20 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: calc(100vh - 70px);
+}
+
+.fc {
+    width: 90%;
+    height: 90%;
+    background-color: #fff;
+    padding: 30px;
+    margin-bottom: 50px;
+    border-radius: 4px;
+}
+
+.fc-daygrid-day-frame {
+    cursor: pointer;
+}
