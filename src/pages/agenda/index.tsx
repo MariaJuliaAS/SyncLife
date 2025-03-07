@@ -2,7 +2,7 @@ import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import listPlugin from '@fullcalendar/list';
-import interactionPlugin, { DateClickArg } from '@fullcalendar/interaction';
+import interactionPlugin, { DateClickArg, EventResizeDoneArg } from '@fullcalendar/interaction';
 import bootstrap5Plugin from '@fullcalendar/bootstrap5';
 import ptLocale from '@fullcalendar/core/locales/pt'
 import '../../styles/agenda.css';
@@ -10,12 +10,13 @@ import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import { useState, useEffect } from 'react';
 import { db } from '../../services/firebaseConnection';
-import { collection, onSnapshot } from 'firebase/firestore';
-import { ModalAddTarefa } from '../../components/modalAddTarefa';
-import { ModalInfoTarefa } from '../../components/modalInfoTarefa';
+import { collection, doc, onSnapshot, updateDoc } from 'firebase/firestore';
+import { ModalAddTarefa } from '../../components/componentsAgenda/modalAddTarefa';
+import { ModalInfoTarefa } from '../../components/componentsAgenda/modalInfoTarefa';
 import { EventClickArg } from '@fullcalendar/core/index.js';
 import { AnimatePresence } from 'framer-motion';
 import { toast } from 'react-toastify';
+import { formatarData } from '../../utils/dataFormatada';
 
 interface EventosProps {
     title: string;
@@ -48,7 +49,7 @@ export function Agenda() {
 
     useEffect(() => {
 
-        async function pegarTarefas() {
+        async function carregarEventos() {
             const unsub = onSnapshot(collection(db, 'tarefas'), (snapshot) => {
                 let lista: EventosProps[] = [];
 
@@ -69,10 +70,25 @@ export function Agenda() {
             })
         }
 
-        pegarTarefas();
+        carregarEventos();
 
     }, [])
 
+    async function moverEvento(info: EventClickArg | EventResizeDoneArg) {
+        const event = info.event;
+        const docRef = doc(db, 'tarefas', event.id)
+
+        try {
+            await updateDoc(docRef, {
+                dataHoraInicio: event.startStr,
+                dataHoraFim: event.endStr
+            })
+            toast.success('Evento editado com sucesso!')
+        }
+        catch (err) {
+            console.log(err)
+        }
+    }
 
     function selecionarDia(info: DateClickArg): void {
         setModalAdd(true);
@@ -81,8 +97,7 @@ export function Agenda() {
 
     function abrirModalInfo(info: EventClickArg): void {
         const event = info.event;
-        console.log(event)
-
+        console.log(event.start?.toISOString())
         setModalObj({
             title: event.title,
             start: event.startStr,
@@ -97,6 +112,7 @@ export function Agenda() {
 
         setModalInfo(true);
     }
+
 
     return (
         <div className='container'>
@@ -115,6 +131,10 @@ export function Agenda() {
                 dateClick={selecionarDia}
                 events={eventos}
                 eventClick={abrirModalInfo}
+                editable={true}
+                droppable={true}
+                eventDrop={moverEvento}
+                eventResize={moverEvento}
             />
             <AnimatePresence>
                 {modalAdd && <ModalAddTarefa fecharModal={() => setModalAdd(false)} dataSelecionada={dataSelecionada} />}

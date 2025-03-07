@@ -1,9 +1,9 @@
-import styles from '../../styles/modalAddTarefa.module.css';
-import '../../styles/modal.css'
-import { formatarData } from '../../utils/dataFormatada';
+import styles from '../../../styles/modalAddTarefa.module.css';
+import '../../../styles/modal.css'
+import { formatarData } from '../../../utils/dataFormatada';
 import { useState } from 'react';
 import { addDoc, collection } from 'firebase/firestore';
-import { db } from '../../services/firebaseConnection';
+import { db } from '../../../services/firebaseConnection';
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import { Select, MenuItem, FormControl, InputLabel } from '@mui/material';
@@ -22,14 +22,13 @@ interface TarefaProps {
     dataHoraFim: string;
     status: string;
     prioridade: string;
-    corFundo: string;
+    cor: string;
 }
 
 export function ModalAddTarefa({ fecharModal, dataSelecionada }: ModalAddTarefaProps) {
 
     const { dataFormatada, dataHoraFormatada, temHorario, dataAjustada } = formatarData(dataSelecionada)
 
-    const [listaTarefas, setListaTarefas] = useState<TarefaProps[]>([])
     const [tarefa, setTarefa] = useState<TarefaProps>({
         titulo: '',
         descricao: '',
@@ -37,7 +36,7 @@ export function ModalAddTarefa({ fecharModal, dataSelecionada }: ModalAddTarefaP
         dataHoraFim: '',
         status: '',
         prioridade: '',
-        corFundo: ''
+        cor: ''
     })
 
     async function addTarefa() {
@@ -48,7 +47,6 @@ export function ModalAddTarefa({ fecharModal, dataSelecionada }: ModalAddTarefaP
             }
 
             await addDoc(collection(db, 'tarefas'), tarefa)
-            setListaTarefas(prev => [...prev, tarefa])
             setTarefa({
                 titulo: '',
                 descricao: '',
@@ -56,7 +54,7 @@ export function ModalAddTarefa({ fecharModal, dataSelecionada }: ModalAddTarefaP
                 dataHoraFim: '',
                 status: '',
                 prioridade: '',
-                corFundo: ''
+                cor: ''
             })
             toast.success('Tarefa adicionada com sucesso!')
         }
@@ -154,7 +152,7 @@ export function ModalAddTarefa({ fecharModal, dataSelecionada }: ModalAddTarefaP
                                     <MenuItem value='Média prioridade'>Baixa prioridade</MenuItem>
                                 </Select>
                             </FormControl>
-                            <input className={styles.inputCor} type='color' value={tarefa.corFundo} onChange={(e) => setTarefa(prev => ({ ...prev, cor: e.target.value }))} />
+                            <input className={styles.inputCor} type='color' value={tarefa.cor} onChange={(e) => setTarefa(prev => ({ ...prev, cor: e.target.value }))} />
                         </div>
 
                     </div>

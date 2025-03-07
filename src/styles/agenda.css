@@ -15,6 +15,7 @@
     border-radius: 4px;
 }
 
-.fc-daygrid-day-frame {
+.fc-daygrid-day-frame, .fc-timegrid-slot, .fc-list-event {
     cursor: pointer;
 }
+

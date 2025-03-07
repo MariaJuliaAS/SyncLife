@@ -1,11 +1,11 @@
-import styles from '../../styles/modalInfoTarefa.module.css';
-import '../../styles/modal.css'
-import { formatarData } from '../../utils/dataFormatada';
+import styles from '../../../styles/modalInfoTarefa.module.css';
+import '../../../styles/modal.css'
+import { formatarData } from '../../../utils/dataFormatada';
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import { Select, MenuItem, FormControl, InputLabel } from '@mui/material';
 import { useState } from 'react';
-import { db } from '../../services/firebaseConnection';
+import { db } from '../../../services/firebaseConnection';
 import { doc, updateDoc, deleteDoc } from 'firebase/firestore';
 import { motion } from 'framer-motion';
 import { toast } from 'react-toastify';

@@ -1,5 +1,5 @@
 export function PagInicial() {
     return (
-        <h1>pagina inicial</h1>
+        <h1>pagina de login</h1>
     )
 }
