@@ -1,0 +1,105 @@
+.container{
+    width: 100%;
+    height: 100vh;
+    background-color: #F5F5F5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.areaLogin{
+    background-color: #fff;
+    width: 80%;
+    height: 75%;
+    display: flex;
+    flex-direction: row;
+}
+
+.areaLeft, .areaRight{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    flex: 1;
+    padding: 100px;
+    width: 100%;
+}
+
+.areaRight{
+    align-items: center;
+    background-color: #0B5ED7;
+}
+
+.logo{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 35px;
+}
+
+.logoIcon{
+    margin-left: 6px;
+    margin-bottom: 8px;
+}
+
+.title{
+    color: #0B5ED7;
+    font-weight: bold;
+    font-size: 26px;
+}
+
+.titleAuth{
+    font-weight: bold;
+    font-size: 36px;
+    margin-bottom: 15px;
+}
+
+.descriptionAuth{
+    font-size: 14px;
+    color: #778899;
+}
+
+.form{
+    margin: 35px 0 50px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.textAccount{
+    color: #778899;
+    font-size: 14px;
+    margin: 0 auto;
+}
+
+.registerLogin{
+    color: #0B5ED7;
+}
+
+.areaRight img{
+    width: 100%;
+    max-width: 450px;
+    height: auto;
+    margin-top: 50px;
+}
+
+.motivational{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 50px;
+}
+
+.motivational h3{
+    font-size: 20px;
+    font-weight: bold;
+    color: #fff;
+}
+
+.motivational p{
+    color: #dcdcdc;
+    text-align: center;
+    margin-top: 10px;
+    max-width: 90%;
+    font-size: 15px;
+}

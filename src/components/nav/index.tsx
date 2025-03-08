@@ -2,6 +2,7 @@ import { TbMenu2 } from "react-icons/tb";
 import styles from '../../styles/navmenu.module.css';
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { FiTarget } from "react-icons/fi";
 
 export function NavMenu() {
     const [statusNav, setStatusNav] = useState(false)
@@ -20,7 +21,7 @@ export function NavMenu() {
 
             <nav className={`${styles.navMenu} ${statusNav ? styles.aberto : ''}`}>
                 <div className={styles.navHeader}>
-                    <Link to='/' className={styles.titulo}>SyncLife</Link>
+                    <Link to='/' className={styles.titulo}>SyncLife <FiTarget size={30} color="#0B5ED7" /> </Link>
                     <button onClick={alternarMenu} className={styles.fecharBtn}>X</button>
                 </div>
 

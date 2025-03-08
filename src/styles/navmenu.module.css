@@ -31,16 +31,22 @@
 
 .titulo {
     font-size: 40px;
-    color: #000;
+    color: #0B5ED7;
     font-weight: bold;
 }
 
 .fecharBtn {
     position: relative;
-    left: 50px;
-    bottom: 10px;
+    left: 25px;
+    bottom: 5px;
     font-weight: bold;
-    font-size: 18px;
+    font-size: 20px;
+    color: #888;
+    transition: all 0.3s ease-in-out;
+}
+
+.fecharBtn:hover{
+    color: #ff3b3b;
 }
 
 .navLinks {

@@ -1,7 +1,8 @@
 import { createBrowserRouter } from "react-router-dom";
 import { Agenda } from './pages/agenda';
 import { Financas } from './pages/financas';
-import { PagInicial } from "./pages/inicial";
+import { Login } from "./pages/login";
+import { Register } from "./pages/register";
 import { Layout } from "./components/layout";
 
 const router = createBrowserRouter([
@@ -10,7 +11,11 @@ const router = createBrowserRouter([
         children: [
             {
                 path: '/',
-                element: <PagInicial />
+                element: <Login />
+            },
+            {
+                path: '/cadastro',
+                element: <Register />
             },
             {
                 path: '/agenda',
