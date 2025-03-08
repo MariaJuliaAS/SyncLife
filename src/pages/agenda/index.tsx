@@ -9,8 +9,8 @@ import '../../styles/agenda.css';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import { useState, useEffect } from 'react';
-import { db } from '../../services/firebaseConnection';
-import { collection, doc, onSnapshot, updateDoc } from 'firebase/firestore';
+import { auth, db } from '../../services/firebaseConnection';
+import { collection, doc, onSnapshot, query, updateDoc, where } from 'firebase/firestore';
 import { ModalAddTarefa } from '../../components/componentsAgenda/modalAddTarefa';
 import { ModalInfoTarefa } from '../../components/componentsAgenda/modalInfoTarefa';
 import { EventClickArg } from '@fullcalendar/core/index.js';
@@ -26,10 +26,11 @@ interface EventosProps {
     priority: string;
     backgroundColor: string;
     borderColor: string;
-    id: string;
+    idDocument: string;
 }
 
 export function Agenda() {
+
     const [eventos, setEventos] = useState<EventosProps[]>()
     const [modalAdd, setModalAdd] = useState(false)
     const [modalInfo, setModalInfo] = useState(false)
@@ -42,34 +43,68 @@ export function Agenda() {
         priority: '',
         backgroundColor: '',
         borderColor: '',
-        id: '',
+        idDocument: '',
     })
     const [dataSelecionada, setDataSelecionada] = useState<string | null>(null)
 
     useEffect(() => {
+        const unsubeAuth = auth.onAuthStateChanged((user) => {
+            if (user) {
 
-        async function carregarEventos() {
-            const unsub = onSnapshot(collection(db, 'tarefas'), (snapshot) => {
-                let lista: EventosProps[] = [];
+                const q = query(
+                    collection(db, 'tarefas'),
+                    where('userId', '==', user.uid)
+                )
 
-                snapshot.forEach((doc) => {
-                    lista.push({
-                        title: doc.data().titulo,
-                        start: doc.data().dataHoraInicio,
-                        end: doc.data().dataHoraFim,
-                        description: doc.data().descricao,
-                        status: doc.data().status,
-                        priority: doc.data().prioridade,
-                        backgroundColor: doc.data().cor,
-                        borderColor: doc.data().cor,
-                        id: doc.id,
+                const unsbutFirestore = onSnapshot(q, (snapshot) => {
+                    let list: EventosProps[] = [];
+
+                    snapshot.forEach((doc) => {
+                        list.push({
+                            title: doc.data().titulo,
+                            start: doc.data().dataHoraInicio,
+                            end: doc.data().dataHoraFim,
+                            description: doc.data().descricao,
+                            status: doc.data().status,
+                            priority: doc.data().prioridade,
+                            backgroundColor: doc.data().backgroundColor,
+                            borderColor: doc.data().backgroundColor,
+                            idDocument: doc.id,
+                        })
                     })
-                })
-                setEventos(lista)
-            })
-        }
 
-        carregarEventos();
+                    setEventos(list)
+
+                })
+            } else {
+                setEventos([])
+            }
+        })
+
+        // async function carregarEventos() {
+
+
+        //     const unsub = onSnapshot(collection(db, 'tarefas'), (snapshot) => {
+        //         let lista: EventosProps[] = [];
+
+        //         snapshot.forEach((doc) => {
+        //             lista.push({
+        //                 title: doc.data().titulo,
+        //                 start: doc.data().dataHoraInicio,
+        //                 end: doc.data().dataHoraFim,
+        //                 description: doc.data().descricao,
+        //                 status: doc.data().status,
+        //                 priority: doc.data().prioridade,
+        //                 backgroundColor: doc.data().backgroundColor,
+        //                 borderColor: doc.data().backgroundColor,
+        //                 idDocument: doc.id,
+        //             })
+        //         })
+        //         setEventos(lista)
+        //     })
+        // }
+
+        // carregarEventos();
 
     }, [])
 
@@ -89,14 +124,13 @@ export function Agenda() {
         }
     }
 
-    function selecionarDia(info: DateClickArg): void {
+    function abrirModalAdd(info: DateClickArg): void {
         setModalAdd(true);
         setDataSelecionada(info.dateStr);
     }
 
     function abrirModalInfo(info: EventClickArg): void {
         const event = info.event;
-        console.log(event.start?.toISOString())
         setModalObj({
             title: event.title,
             start: event.startStr,
@@ -106,7 +140,7 @@ export function Agenda() {
             priority: event.extendedProps.priority,
             backgroundColor: event.backgroundColor,
             borderColor: event.borderColor,
-            id: event.id,
+            idDocument: event.id,
         });
 
         setModalInfo(true);
@@ -127,7 +161,7 @@ export function Agenda() {
                 }}
                 locale='pt'
                 locales={[ptLocale]}
-                dateClick={selecionarDia}
+                dateClick={abrirModalAdd}
                 events={eventos}
                 eventClick={abrirModalInfo}
                 editable={true}

@@ -10,13 +10,13 @@ interface TaksProps {
     status: string;
     prioridade: string,
     backgroundColor: string;
+    userId?: string;
 }
 
 interface FormProps {
     tarefa: TaksProps;
     setTarefa: React.Dispatch<React.SetStateAction<TaksProps>>
     habilitarEdicao?: boolean;
-
 }
 
 export function LayoutForm({ tarefa, setTarefa, habilitarEdicao }: FormProps) {

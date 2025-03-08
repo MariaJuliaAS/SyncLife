@@ -8,6 +8,7 @@ import Button from "@mui/material/Button";
 import { motion } from 'framer-motion';
 import { toast } from 'react-toastify';
 import { LayoutForm } from '../layoutForm';
+import { auth } from '../../../services/firebaseConnection';
 
 interface ModalAddTarefaProps {
     fecharModal: () => void;
@@ -22,6 +23,7 @@ interface TarefaProps {
     status: string;
     prioridade: string;
     backgroundColor: string;
+    userId?: string;
 }
 
 export function ModalAddTarefa({ fecharModal, dataSelecionada }: ModalAddTarefaProps) {
@@ -35,7 +37,8 @@ export function ModalAddTarefa({ fecharModal, dataSelecionada }: ModalAddTarefaP
         dataHoraFim: '',
         status: '',
         prioridade: '',
-        backgroundColor: '#0B5ED7'
+        backgroundColor: '#0B5ED7',
+        userId: auth.currentUser?.uid
     })
 
     async function addTarefa() {
@@ -53,7 +56,8 @@ export function ModalAddTarefa({ fecharModal, dataSelecionada }: ModalAddTarefaP
                 dataHoraFim: '',
                 status: '',
                 prioridade: '',
-                backgroundColor: ''
+                backgroundColor: '',
+                userId: ''
             })
             toast.success('Tarefa adicionada com sucesso!')
         }
@@ -82,7 +86,6 @@ export function ModalAddTarefa({ fecharModal, dataSelecionada }: ModalAddTarefaP
                 />
 
                 <section className={styles.btn}>
-
                     <Button variant="contained" color="primary" onClick={addTarefa} className={styles.btnAdicionar}>
                         Adicionar
                     </Button>

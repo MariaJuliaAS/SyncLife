@@ -29,6 +29,11 @@
     left: 0;
 }
 
+.navHeader{
+    display: flex;
+    flex-direction: row;
+}
+
 .titulo {
     font-size: 40px;
     color: #0B5ED7;
@@ -52,24 +57,44 @@
 .navLinks {
     display: flex;
     flex-direction: column;
-    text-align: center;
     margin-top: 50px;
     width: 100%;
 }
 
-.links {
-    margin-bottom: 15px;
+.buttonNavLink{
     background-color: #fff;
     padding: 8px 15px;
     border-radius: 4px;
     width: 100%;
+    transition: all 0.3s ease-in-out;
+    cursor: pointer;
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.links {
     color: #000;
     font-weight: 500;
     font-size: 20px;
-    transition: all 0.3s ease-in-out;
+    margin-left: 10px;
 }
 
-.links:hover {
-    padding: 13px 0;
+.buttonNavLink:hover {
     box-shadow: 4px 4px 5px 0px rgba(0, 0, 0, 0.3);
+}
+
+.footer{
+    position: fixed;
+    bottom: 0;
+    margin: 0 auto;
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+    margin-bottom: 10px;
+}
+
+.footer button{
+    color: #fff;
+    font-weight: bold;
+    font-size: 20px;
 }

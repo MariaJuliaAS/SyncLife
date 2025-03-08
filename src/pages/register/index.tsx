@@ -8,12 +8,70 @@ import { IoPersonOutline } from "react-icons/io5";
 import { useState } from 'react';
 import { CustomInput } from '../../components/customInput';
 import { LayoutAuth } from '../../components/componentsAuth/layoutAuth';
-import logoFinance from '../../assets/undraw_savings_uwjn.svg'
+import logoFinance from '../../assets/undraw_savings_uwjn.svg';
+import { auth, db } from '../../services/firebaseConnection';
+import { createUserWithEmailAndPassword, sendEmailVerification } from 'firebase/auth';
+import { toast } from 'react-toastify';
+import { addDoc, collection } from 'firebase/firestore';
+import { useNavigate } from 'react-router-dom';
 
+interface UserCreateProps {
+    name: string;
+    email: string;
+    password: string;
+}
 
 export function Register() {
+    const navigate = useNavigate();
+    const [viewPassword, setViewPassword] = useState(false);
+    const [userRegister, setUserRegister] = useState<UserCreateProps>({
+        name: '',
+        email: '',
+        password: ''
+    })
 
-    const [viewPassword, setViewPassword] = useState(false)
+    async function createAccount() {
+        await createUserWithEmailAndPassword(auth, userRegister.email, userRegister.password)
+            .then((infoUser) => {
+                const user = infoUser.user
+                sendEmailVerification(user)
+
+                    .then(() => {
+                        toast.success('Email de verificação enviado!')
+                        setUserRegister({
+                            name: '',
+                            email: '',
+                            password: ''
+                        })
+
+                        addDoc(collection(db, 'cadastro-usuarios'), {
+                            name: userRegister.name,
+                            email: userRegister.email,
+                            password: userRegister.password,
+                            userId: auth.currentUser?.uid
+                        })
+                    })
+
+                    .catch((error) => {
+                        console.log('Erro ao enviar email de verificação, ' + error)
+                    })
+
+                navigate('/')
+
+            })
+            .catch((error) => {
+                if (error.code === 'auth/weak-password') {
+                    toast.error('Senha muito fraca!', {
+                        closeOnClick: true
+                    })
+                } else if (error.code === 'auth/email-already-in-use') {
+                    toast.error('Esse email já existe!', {
+                        closeOnClick: true
+                    })
+                }
+            })
+    }
+
 
     return (
         <LayoutAuth
@@ -29,12 +87,16 @@ export function Register() {
                     label='Nome'
                     icon={<IoPersonOutline size={35} color='#dcdcdc' />}
                     className={styles.icon}
+                    value={userRegister?.name}
+                    onChange={(e) => setUserRegister(prev => ({ ...prev, name: e.target.value }))}
                 />
 
                 <CustomInput
                     label='Email'
                     icon={<MdOutlineEmail size={35} color='#dcdcdc' />}
                     className={styles.icon}
+                    value={userRegister?.email}
+                    onChange={(e) => setUserRegister(prev => ({ ...prev, email: e.target.value }))}
                 />
 
                 <CustomInput
@@ -44,9 +106,11 @@ export function Register() {
                     icon={<TbLockPassword size={35} color='#dcdcdc' />}
                     endIcon={viewPassword ? <LuEye size={30} color='#dcdcdc' /> : <LuEyeOff size={30} color='#dcdcdc' />}
                     onEndIconCliclk={() => setViewPassword(!viewPassword)}
+                    value={userRegister?.password}
+                    onChange={(e) => setUserRegister(prev => ({ ...prev, password: e.target.value }))}
                 />
 
-                <Button variant="contained" color="primary" fullWidth className={styles.btnEntrar}>
+                <Button variant="contained" color="primary" fullWidth className={styles.btnEntrar} onClick={createAccount}>
                     Cadastre-se
                 </Button>
 

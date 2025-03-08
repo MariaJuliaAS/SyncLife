@@ -4,6 +4,7 @@ import { Financas } from './pages/financas';
 import { Login } from "./pages/login";
 import { Register } from "./pages/register";
 import { Layout } from "./components/layout";
+import CheckLogged from "./utils/checkLogged";
 
 const router = createBrowserRouter([
     {
@@ -11,7 +12,11 @@ const router = createBrowserRouter([
         children: [
             {
                 path: '/',
-                element: <Login />
+                element: (
+                    <CheckLogged>
+                        <Login />
+                    </CheckLogged>
+                )
             },
             {
                 path: '/cadastro',
@@ -19,11 +24,19 @@ const router = createBrowserRouter([
             },
             {
                 path: '/agenda',
-                element: <Agenda />
+                element: (
+                    <CheckLogged>
+                        <Agenda />
+                    </CheckLogged>
+                )
             },
             {
                 path: '/financas',
-                element: <Financas />
+                element: (
+                    <CheckLogged>
+                        <Financas />
+                    </CheckLogged>
+                )
             }
         ]
     }

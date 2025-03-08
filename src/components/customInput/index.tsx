@@ -1,5 +1,11 @@
 import { TextField, InputAdornment, IconButton } from "@mui/material";
 
+interface UserProps {
+    name: string;
+    email: string;
+    password: string;
+}
+
 interface InputProps {
     label: string;
     type?: string;
@@ -7,9 +13,11 @@ interface InputProps {
     endIcon?: React.ReactNode;
     className?: string;
     onEndIconCliclk?: () => void;
+    value?: string;
+    onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-export function CustomInput({ label, type, icon, endIcon, onEndIconCliclk, className }: InputProps) {
+export function CustomInput({ label, type, icon, endIcon, onEndIconCliclk, className, value, onChange }: InputProps) {
     return (
         <TextField
             fullWidth
@@ -17,6 +25,8 @@ export function CustomInput({ label, type, icon, endIcon, onEndIconCliclk, class
             className={className}
             label={label}
             type={type}
+            value={value}
+            onChange={onChange}
             InputProps={{
                 startAdornment: icon ?
                     <InputAdornment position="start">

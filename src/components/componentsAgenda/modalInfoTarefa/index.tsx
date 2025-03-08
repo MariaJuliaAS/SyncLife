@@ -18,7 +18,7 @@ interface InfosProps {
         status: string;
         priority: string;
         backgroundColor: string;
-        id: string;
+        idDocument: string;
     }
     fecharModal: () => void;
 }
@@ -50,7 +50,7 @@ export function ModalInfoTarefa({ infos, fecharModal }: InfosProps) {
     })
 
     async function salvarEdicao() {
-        const docRef = doc(db, 'tarefas', infos.id)
+        const docRef = doc(db, 'tarefas', infos.idDocument)
 
         try {
             if (tarefa.titulo === '' || tarefa.descricao === '' || tarefa.dataHoraFim === '' || tarefa.status === '' || tarefa.prioridade === '') {
@@ -75,7 +75,7 @@ export function ModalInfoTarefa({ infos, fecharModal }: InfosProps) {
     }
 
     async function excluirTarefa() {
-        await deleteDoc(doc(db, 'tarefas', infos.id))
+        await deleteDoc(doc(db, 'tarefas', infos.idDocument))
             .then(() => {
                 toast.success('Tarefa deletada com sucesso!')
                 fecharModal();

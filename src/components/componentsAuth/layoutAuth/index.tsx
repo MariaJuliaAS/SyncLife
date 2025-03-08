@@ -2,6 +2,7 @@ import styles from '../../../styles/auth.module.css';
 import { FiTarget } from "react-icons/fi";
 import { Link } from 'react-router-dom';
 import { ReactNode } from 'react';
+import { motion } from 'framer-motion'
 
 interface AuthLayoutProps {
     title: string;
@@ -15,7 +16,12 @@ interface AuthLayoutProps {
 
 export function LayoutAuth({ title, description, children, footerText, footerLink, footerLinkText, logo }: AuthLayoutProps) {
     return (
-        <main className={styles.container}>
+        <motion.main className={styles.container}
+            initial={{ opacity: 0, x: -50 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -50 }}
+            transition={{ duration: 0.5, ease: 'easeInOut' }}
+        >
             <div className={styles.areaLogin}>
 
                 <section className={styles.areaLeft}>
@@ -44,6 +50,6 @@ export function LayoutAuth({ title, description, children, footerText, footerLin
                 </section>
 
             </div>
-        </main>
+        </motion.main>
     )
 }
