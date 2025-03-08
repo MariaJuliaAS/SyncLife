@@ -26,7 +26,7 @@ interface EventosProps {
     priority: string;
     backgroundColor: string;
     borderColor: string;
-    idDocument: string;
+    id: string;
 }
 
 export function Agenda() {
@@ -43,7 +43,7 @@ export function Agenda() {
         priority: '',
         backgroundColor: '',
         borderColor: '',
-        idDocument: '',
+        id: '',
     })
     const [dataSelecionada, setDataSelecionada] = useState<string | null>(null)
 
@@ -69,10 +69,10 @@ export function Agenda() {
                             priority: doc.data().prioridade,
                             backgroundColor: doc.data().backgroundColor,
                             borderColor: doc.data().backgroundColor,
-                            idDocument: doc.id,
+                            id: doc.id,
                         })
                     })
-
+                    console.log(list)
                     setEventos(list)
 
                 })
@@ -80,31 +80,6 @@ export function Agenda() {
                 setEventos([])
             }
         })
-
-        // async function carregarEventos() {
-
-
-        //     const unsub = onSnapshot(collection(db, 'tarefas'), (snapshot) => {
-        //         let lista: EventosProps[] = [];
-
-        //         snapshot.forEach((doc) => {
-        //             lista.push({
-        //                 title: doc.data().titulo,
-        //                 start: doc.data().dataHoraInicio,
-        //                 end: doc.data().dataHoraFim,
-        //                 description: doc.data().descricao,
-        //                 status: doc.data().status,
-        //                 priority: doc.data().prioridade,
-        //                 backgroundColor: doc.data().backgroundColor,
-        //                 borderColor: doc.data().backgroundColor,
-        //                 idDocument: doc.id,
-        //             })
-        //         })
-        //         setEventos(lista)
-        //     })
-        // }
-
-        // carregarEventos();
 
     }, [])
 
@@ -131,6 +106,7 @@ export function Agenda() {
 
     function abrirModalInfo(info: EventClickArg): void {
         const event = info.event;
+        console.log(event)
         setModalObj({
             title: event.title,
             start: event.startStr,
@@ -140,9 +116,9 @@ export function Agenda() {
             priority: event.extendedProps.priority,
             backgroundColor: event.backgroundColor,
             borderColor: event.borderColor,
-            idDocument: event.id,
+            id: event.id,
         });
-
+        console.log(event)
         setModalInfo(true);
     }
 

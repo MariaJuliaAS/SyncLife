@@ -4,10 +4,11 @@ import { formatarData } from '../../../utils/dataFormatada';
 import Button from "@mui/material/Button";
 import { useState } from 'react';
 import { db } from '../../../services/firebaseConnection';
-import { doc, updateDoc, deleteDoc } from 'firebase/firestore';
+import { doc, updateDoc, deleteDoc, query, where, collection } from 'firebase/firestore';
 import { motion } from 'framer-motion';
 import { toast } from 'react-toastify';
 import { LayoutForm } from '../layoutForm';
+import { identity } from '@fullcalendar/core/internal';
 
 interface InfosProps {
     infos: {
@@ -18,7 +19,7 @@ interface InfosProps {
         status: string;
         priority: string;
         backgroundColor: string;
-        idDocument: string;
+        id: string;
     }
     fecharModal: () => void;
 }
@@ -49,13 +50,15 @@ export function ModalInfoTarefa({ infos, fecharModal }: InfosProps) {
         backgroundColor: infos.backgroundColor
     })
 
-    async function salvarEdicao() {
-        const docRef = doc(db, 'tarefas', infos.idDocument)
 
+    async function salvarEdicao() {
+        const docRef = doc(db, 'tarefas', infos.id)
+
+        if (tarefa.titulo === '' || tarefa.descricao === '' || tarefa.dataHoraFim === '' || tarefa.status === '' || tarefa.prioridade === '') {
+            return toast.warning('Preencha todos os campos!')
+        }
+        console.log('teste')
         try {
-            if (tarefa.titulo === '' || tarefa.descricao === '' || tarefa.dataHoraFim === '' || tarefa.status === '' || tarefa.prioridade === '') {
-                return toast.warning('Preencha todos os campos!')
-            }
             await updateDoc(docRef, {
                 titulo: tarefa.titulo,
                 descricao: tarefa.descricao,
@@ -63,11 +66,12 @@ export function ModalInfoTarefa({ infos, fecharModal }: InfosProps) {
                 prioridade: tarefa.prioridade,
                 dataHoraInicio: tarefa.dataHoraInicio,
                 dataHoraFim: tarefa.dataHoraFim,
-                cor: tarefa.backgroundColor
+                backgroundColor: tarefa.backgroundColor
             })
             fecharModal()
             window.location.reload()
             toast.success('Edição salva com sucesso!')
+
         }
         catch (erro) {
             console.log(erro)
@@ -75,7 +79,7 @@ export function ModalInfoTarefa({ infos, fecharModal }: InfosProps) {
     }
 
     async function excluirTarefa() {
-        await deleteDoc(doc(db, 'tarefas', infos.idDocument))
+        await deleteDoc(doc(db, 'tarefas', infos.id))
             .then(() => {
                 toast.success('Tarefa deletada com sucesso!')
                 fecharModal();
