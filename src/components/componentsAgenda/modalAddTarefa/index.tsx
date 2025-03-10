@@ -67,7 +67,7 @@ export function ModalAddTarefa({ fecharModal, dataSelecionada }: ModalAddTarefaP
     }
 
     return (
-        <main className='sobreposicao'>
+        <main className='sobreposicao' onClick={fecharModal}>
             <motion.div className='conteudo'
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
