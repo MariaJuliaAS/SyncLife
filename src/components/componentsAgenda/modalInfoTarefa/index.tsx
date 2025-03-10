@@ -112,10 +112,10 @@ export function ModalInfoTarefa({ infos, fecharModal }: InfosProps) {
                 <section className={styles.btn}>
 
                     {habilitarEdicao ?
-                        <Button variant="contained" color="primary" onClick={() => setHabilitarEdicao(!habilitarEdicao)}>Editar</Button> :
-                        <Button variant='contained' color='primary' onClick={salvarEdicao}>Salvar edição</Button>}
+                        <Button variant="contained" color="primary" onClick={() => setHabilitarEdicao(!habilitarEdicao)} style={{ backgroundColor: '#0B5ED7' }}>Editar</Button> :
+                        <Button variant='contained' color='primary' onClick={salvarEdicao} style={{ backgroundColor: '#0B5ED7' }}>Salvar edição</Button>}
 
-                    <Button variant="contained" color="primary" onClick={excluirTarefa}>
+                    <Button variant="contained" color="primary" onClick={excluirTarefa} style={{ backgroundColor: '#0B5ED7' }}>
                         Excluir
                     </Button>
                 </section>

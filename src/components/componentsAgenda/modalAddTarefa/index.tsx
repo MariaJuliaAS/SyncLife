@@ -86,7 +86,7 @@ export function ModalAddTarefa({ fecharModal, dataSelecionada }: ModalAddTarefaP
                 />
 
                 <section className={styles.btn}>
-                    <Button variant="contained" color="primary" onClick={addTarefa} className={styles.btnAdicionar}>
+                    <Button variant="contained" color="primary" onClick={addTarefa} className={styles.btnAdicionar} style={{ backgroundColor: '#0B5ED7' }}>
                         Adicionar
                     </Button>
                 </section>

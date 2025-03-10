@@ -12,7 +12,7 @@ import { LayoutAuth } from '../../components/componentsAuth/layoutAuth';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth, provider, db } from '../../services/firebaseConnection';
 import { signInWithPopup } from 'firebase/auth';
-import { addDoc, collection } from 'firebase/firestore';
+import { addDoc, collection, getDocs, query, where } from 'firebase/firestore';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
@@ -71,13 +71,20 @@ export function Login() {
                 navigate('/agenda', { replace: true })
                 toast.success(`Bem-vindo(a), ${user.displayName}!`)
 
-                await addDoc(collection(db, 'cadastro-usuarios'), {
-                    userId: user.uid,
-                    name: user.displayName,
-                    email: user.email,
-                    password: '',
-                    createAccount: new Date()
-                })
+                const q = query(
+                    collection(db, 'cadastro-usuarios'),
+                    where('userId', '==', user.uid)
+                )
+                const querySnapshot = await getDocs(q)
+                if (querySnapshot.empty) {
+                    await addDoc(collection(db, 'cadastro-usuarios'), {
+                        userId: user.uid,
+                        name: user.displayName,
+                        email: user.email,
+                        password: '',
+                        createAccount: new Date()
+                    })
+                }
 
             }
         } catch (error) {
@@ -125,7 +132,11 @@ export function Login() {
                     onEndIconCliclk={() => setViewPassword(!viewPassword)}
                 />
 
-                <Button variant="contained" color="primary" fullWidth className={styles.btnEntrar} onClick={signAccount}>
+                <div className={styles.forgotPassword}>
+                    <button>Esqueceu a senha?</button>
+                </div>
+
+                <Button variant="contained" color="primary" fullWidth className={styles.btnEntrar} onClick={signAccount} style={{ backgroundColor: '#0B5ED7' }}>
                     Entrar
                 </Button>
 

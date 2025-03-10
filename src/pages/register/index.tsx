@@ -37,7 +37,7 @@ export function Register() {
                 sendEmailVerification(user)
 
                     .then(() => {
-                        toast.success('Email de verificação enviado!')
+                        toast.success(`Olá ${user.displayName}! Verifique seu email antes de acessar.`)
                         setUserRegister({
                             name: '',
                             email: '',
