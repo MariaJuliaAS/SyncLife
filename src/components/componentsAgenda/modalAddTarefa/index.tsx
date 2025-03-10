@@ -37,7 +37,7 @@ export function ModalAddTarefa({ fecharModal, dataSelecionada }: ModalAddTarefaP
         dataHoraFim: '',
         status: '',
         prioridade: '',
-        backgroundColor: '#0B5ED7',
+        backgroundColor: '',
         userId: auth.currentUser?.uid
     })
 
@@ -48,7 +48,13 @@ export function ModalAddTarefa({ fecharModal, dataSelecionada }: ModalAddTarefaP
                 return toast.warning('Preencha todos os campos')
             }
 
-            await addDoc(collection(db, 'tarefas'), tarefa)
+            const backgroundColor =
+                tarefa.prioridade === 'Alta prioridade' ? '#ff4d4d' :
+                    tarefa.prioridade === 'Média prioridade' ? '#d4a000  ' :
+                        '#85e085'
+
+
+            await addDoc(collection(db, 'tarefas'), { ...tarefa, backgroundColor: backgroundColor })
             setTarefa({
                 titulo: '',
                 descricao: '',
@@ -67,7 +73,7 @@ export function ModalAddTarefa({ fecharModal, dataSelecionada }: ModalAddTarefaP
     }
 
     return (
-        <main className='sobreposicao' onClick={fecharModal}>
+        <main className='sobreposicao'>
             <motion.div className='conteudo'
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}

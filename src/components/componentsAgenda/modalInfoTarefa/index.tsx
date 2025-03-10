@@ -4,11 +4,10 @@ import { formatarData } from '../../../utils/dataFormatada';
 import Button from "@mui/material/Button";
 import { useState } from 'react';
 import { db } from '../../../services/firebaseConnection';
-import { doc, updateDoc, deleteDoc, query, where, collection } from 'firebase/firestore';
+import { doc, updateDoc, deleteDoc } from 'firebase/firestore';
 import { motion } from 'framer-motion';
 import { toast } from 'react-toastify';
 import { LayoutForm } from '../layoutForm';
-import { identity } from '@fullcalendar/core/internal';
 
 interface InfosProps {
     infos: {
@@ -60,6 +59,11 @@ export function ModalInfoTarefa({ infos, fecharModal }: InfosProps) {
                 return toast.warning('Preencha todos os campos!')
             }
 
+            const backgroundColor =
+                tarefa.prioridade === 'Alta prioridade' ? '#ff4d4d' :
+                    tarefa.prioridade === 'Média prioridade' ? '#d4a000  ' :
+                        '#85e085'
+
             await updateDoc(docRef, {
                 titulo: tarefa.titulo,
                 descricao: tarefa.descricao,
@@ -67,7 +71,7 @@ export function ModalInfoTarefa({ infos, fecharModal }: InfosProps) {
                 prioridade: tarefa.prioridade,
                 dataHoraInicio: tarefa.dataHoraInicio,
                 dataHoraFim: tarefa.dataHoraFim,
-                backgroundColor: tarefa.backgroundColor
+                backgroundColor: backgroundColor
             })
             fecharModal()
             window.location.reload()
@@ -91,7 +95,7 @@ export function ModalInfoTarefa({ infos, fecharModal }: InfosProps) {
     }
 
     return (
-        <main className='sobreposicao' onClick={fecharModal}>
+        <main className='sobreposicao'>
             <motion.div className='conteudo'
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}

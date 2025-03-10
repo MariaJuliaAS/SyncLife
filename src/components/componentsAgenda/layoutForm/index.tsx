@@ -50,8 +50,8 @@ export function LayoutForm({ tarefa, setTarefa, habilitarEdicao }: FormProps) {
                         onChange={(e) => setTarefa(prev => ({ ...prev, prioridade: e.target.value }))}
                     >
                         <MenuItem value='Alta prioridade'>Alta prioridade</MenuItem>
-                        <MenuItem value='Baixa prioridade'>Média prioridade</MenuItem>
-                        <MenuItem value='Média prioridade'>Baixa prioridade</MenuItem>
+                        <MenuItem value='Média prioridade'>Média prioridade</MenuItem>
+                        <MenuItem value='Baixa prioridade'>Baixa prioridade</MenuItem>
                     </Select>
                 </FormControl>
                 <FormControl fullWidth>
@@ -69,7 +69,7 @@ export function LayoutForm({ tarefa, setTarefa, habilitarEdicao }: FormProps) {
                         <MenuItem value='Pendente'>🟠 Pendente</MenuItem>
                     </Select>
                 </FormControl>
-                <input type='color' value={tarefa.backgroundColor} disabled={habilitarEdicao} className={styles.inputCor} onChange={(e) => setTarefa(prev => ({ ...prev, backgroundColor: e.target.value }))} />
+
             </div>
         </section>
     )
