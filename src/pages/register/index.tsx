@@ -48,7 +48,8 @@ export function Register() {
                             name: userRegister.name,
                             email: userRegister.email,
                             password: userRegister.password,
-                            userId: auth.currentUser?.uid
+                            userId: auth.currentUser?.uid,
+                            createAccount: new Date()
                         })
                     })
 

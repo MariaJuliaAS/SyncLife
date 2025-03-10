@@ -103,3 +103,31 @@
     max-width: 90%;
     font-size: 15px;
 }
+
+.signGoogle{
+    border: 1px solid #c4c4c4;
+    border-radius: 50px;
+    padding: 10px;
+    width: 9%;
+    margin: 10px auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.continueWithEmail {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.continueWithEmail hr{
+    flex-grow: 1;
+    border: none;
+    border-top: 1px solid #000;
+}
+
+.continueWithEmail span{
+    margin: 0 15px;
+    color: #778899;
+}

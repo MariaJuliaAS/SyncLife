@@ -4,12 +4,15 @@ import { MdOutlineEmail } from "react-icons/md";
 import { TbLockPassword } from "react-icons/tb";
 import { LuEyeOff } from "react-icons/lu";
 import { LuEye } from "react-icons/lu";
+import { FcGoogle } from "react-icons/fc";
 import { useState } from 'react';
 import logoCalendar from '../../assets/undraw_calendar_76t8_2.svg';
 import { CustomInput } from '../../components/customInput';
 import { LayoutAuth } from '../../components/componentsAuth/layoutAuth';
 import { signInWithEmailAndPassword } from 'firebase/auth';
-import { auth } from '../../services/firebaseConnection';
+import { auth, provider, db } from '../../services/firebaseConnection';
+import { signInWithPopup } from 'firebase/auth';
+import { addDoc, collection } from 'firebase/firestore';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
@@ -58,15 +61,49 @@ export function Login() {
             })
     }
 
+    async function loginWithGoogle() {
+        try {
+
+            const result = await signInWithPopup(auth, provider)
+            const user = result.user
+
+            if (user) {
+                navigate('/agenda', { replace: true })
+                toast.success(`Bem-vindo(a), ${user.displayName}!`)
+
+                await addDoc(collection(db, 'cadastro-usuarios'), {
+                    userId: user.uid,
+                    name: user.displayName,
+                    email: user.email,
+                    password: '',
+                    createAccount: new Date()
+                })
+
+            }
+        } catch (error) {
+            console.log('Erro ao fazer login com google, ' + error)
+            toast.error('Erro ao fazer login com Google!')
+        }
+    }
+
     return (
         <LayoutAuth
             title='Login'
-            description='Bem-vindo(a) de volta! Faça seu login e aproveite.'
+            description='Bem-vindo(a) de volta! Escolha seu método de login:'
             footerText='Não possui uma conta?'
             footerLink='/cadastro'
             footerLinkText='Crie uma conta!'
             logo={logoCalendar}
         >
+            <div className={styles.signGoogle}>
+                <button onClick={loginWithGoogle}> <FcGoogle size={30} /> </button>
+            </div>
+
+            <div className={styles.continueWithEmail}>
+                <hr />
+                <span>ou continue com email</span>
+                <hr />
+            </div>
 
             <form className={styles.form}>
                 <CustomInput
