@@ -37,7 +37,7 @@ export function Register() {
                 sendEmailVerification(user)
 
                     .then(() => {
-                        toast.success(`Olá ${user.displayName}! Verifique seu email antes de acessar.`)
+                        toast.success(`Olá ${userRegister.name}! Verifique seu email antes de acessar.`)
                         setUserRegister({
                             name: '',
                             email: '',
@@ -47,7 +47,6 @@ export function Register() {
                         addDoc(collection(db, 'cadastro-usuarios'), {
                             name: userRegister.name,
                             email: userRegister.email,
-                            password: userRegister.password,
                             userId: auth.currentUser?.uid,
                             createAccount: new Date()
                         })

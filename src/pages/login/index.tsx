@@ -9,7 +9,7 @@ import { useState } from 'react';
 import logoCalendar from '../../assets/undraw_calendar_76t8_2.svg';
 import { CustomInput } from '../../components/customInput';
 import { LayoutAuth } from '../../components/componentsAuth/layoutAuth';
-import { signInWithEmailAndPassword } from 'firebase/auth';
+import { sendPasswordResetEmail, signInWithEmailAndPassword } from 'firebase/auth';
 import { auth, provider, db } from '../../services/firebaseConnection';
 import { signInWithPopup } from 'firebase/auth';
 import { addDoc, collection, getDocs, query, where } from 'firebase/firestore';
@@ -81,8 +81,8 @@ export function Login() {
                         userId: user.uid,
                         name: user.displayName,
                         email: user.email,
-                        password: '',
-                        createAccount: new Date()
+                        createAccount: new Date(),
+                        photoUrl: user.photoURL
                     })
                 }
 
@@ -92,6 +92,23 @@ export function Login() {
             toast.error('Erro ao fazer login com Google!')
         }
     }
+
+    async function forgotPassword() {
+        if (userLogin.email === '') {
+            toast.warning('Digite seu email para enviarmos o link de redefinição de senha.')
+            return
+        }
+
+        await sendPasswordResetEmail(auth, userLogin.email)
+            .then(() => {
+                toast.info('Email de redefinição de senha enviado!')
+            })
+            .catch((error) => {
+                console.log('Erro ao enviar o email de redefinição de senha, ' + error)
+                toast.error('Ocorreu um erro ao enviar o email de redefinição de senha.')
+            })
+    }
+
 
     return (
         <LayoutAuth
@@ -133,7 +150,7 @@ export function Login() {
                 />
 
                 <div className={styles.forgotPassword}>
-                    <button>Esqueceu a senha?</button>
+                    <button type='button' onClick={forgotPassword}>Esqueceu a senha?</button>
                 </div>
 
                 <Button variant="contained" color="primary" fullWidth className={styles.btnEntrar} onClick={signAccount} style={{ backgroundColor: '#0B5ED7' }}>
