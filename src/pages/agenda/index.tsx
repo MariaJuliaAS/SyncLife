@@ -8,13 +8,14 @@ import ptLocale from '@fullcalendar/core/locales/pt'
 import '../../styles/agenda.css';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { auth, db } from '../../services/firebaseConnection';
 import { collection, doc, onSnapshot, query, updateDoc, where } from 'firebase/firestore';
 import { ModalAddTarefa } from '../../components/componentsAgenda/modalAddTarefa';
 import { ModalInfoTarefa } from '../../components/componentsAgenda/modalInfoTarefa';
 import { EventClickArg } from '@fullcalendar/core/index.js';
 import { AnimatePresence } from 'framer-motion';
+import { CircularProgress } from '@mui/material';
 import { toast } from 'react-toastify';
 
 interface EventosProps {
@@ -32,6 +33,7 @@ interface EventosProps {
 export function Agenda() {
 
     const [eventos, setEventos] = useState<EventosProps[]>()
+    const [loading, setLoading] = useState(true)
     const [modalAdd, setModalAdd] = useState(false)
     const [modalInfo, setModalInfo] = useState(false)
     const [modlaObj, setModalObj] = useState<EventosProps>({
@@ -72,8 +74,9 @@ export function Agenda() {
                             id: doc.id,
                         })
                     })
-                    console.log(list)
+
                     setEventos(list)
+                    setLoading(false)
 
                 })
             } else {
@@ -120,6 +123,14 @@ export function Agenda() {
         });
         console.log(event)
         setModalInfo(true);
+    }
+
+    if (loading) {
+        return (
+            <div className='loading'>
+                <CircularProgress size={50} color='primary' thickness={5} style={{ color: '#0B5ED7' }} />
+            </div>
+        )
     }
 
 

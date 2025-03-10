@@ -54,11 +54,12 @@ export function ModalInfoTarefa({ infos, fecharModal }: InfosProps) {
     async function salvarEdicao() {
         const docRef = doc(db, 'tarefas', infos.id)
 
-        if (tarefa.titulo === '' || tarefa.descricao === '' || tarefa.dataHoraFim === '' || tarefa.status === '' || tarefa.prioridade === '') {
-            return toast.warning('Preencha todos os campos!')
-        }
-        console.log('teste')
         try {
+
+            if (tarefa.titulo === '' || tarefa.descricao === '' || tarefa.dataHoraFim === '' || tarefa.status === '' || tarefa.prioridade === '') {
+                return toast.warning('Preencha todos os campos!')
+            }
+
             await updateDoc(docRef, {
                 titulo: tarefa.titulo,
                 descricao: tarefa.descricao,
