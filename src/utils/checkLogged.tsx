@@ -3,7 +3,7 @@ import { auth } from "../services/firebaseConnection";
 import { useNavigate } from "react-router-dom";
 import { onAuthStateChanged } from "firebase/auth";
 
-const CheckLogged = ({ children }: any) => {
+const CheckLogged = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -17,7 +17,7 @@ const CheckLogged = ({ children }: any) => {
 
     }, [])
 
-    return <>{children}</>
+
 
 }
 

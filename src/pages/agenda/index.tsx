@@ -8,7 +8,7 @@ import ptLocale from '@fullcalendar/core/locales/pt'
 import '../../styles/agenda.css';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import { auth, db } from '../../services/firebaseConnection';
 import { collection, doc, onSnapshot, query, updateDoc, where } from 'firebase/firestore';
 import { ModalAddTarefa } from '../../components/componentsAgenda/modalAddTarefa';
@@ -17,6 +17,7 @@ import { EventClickArg } from '@fullcalendar/core/index.js';
 import { AnimatePresence } from 'framer-motion';
 import { CircularProgress } from '@mui/material';
 import { toast } from 'react-toastify';
+import CheckLogged from '../../utils/checkLogged';
 
 interface EventosProps {
     title: string;
@@ -31,6 +32,7 @@ interface EventosProps {
 }
 
 export function Agenda() {
+    CheckLogged()
 
     const [eventos, setEventos] = useState<EventosProps[]>()
     const [loading, setLoading] = useState(true)

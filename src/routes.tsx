@@ -12,11 +12,7 @@ const router = createBrowserRouter([
         children: [
             {
                 path: '/',
-                element: (
-                    <CheckLogged>
-                        <Login />
-                    </CheckLogged>
-                )
+                element: <Login />
             },
             {
                 path: '/cadastro',
@@ -24,19 +20,11 @@ const router = createBrowserRouter([
             },
             {
                 path: '/agenda',
-                element: (
-                    <CheckLogged>
-                        <Agenda />
-                    </CheckLogged>
-                )
+                element: <Agenda />
             },
             {
                 path: '/financas',
-                element: (
-                    <CheckLogged>
-                        <Financas />
-                    </CheckLogged>
-                )
+                element: <Financas />
             }
         ]
     }

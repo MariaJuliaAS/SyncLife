@@ -65,8 +65,8 @@ export function LayoutForm({ tarefa, setTarefa, habilitarEdicao }: FormProps) {
                         className={styles.prioridade}
                         onChange={(e) => setTarefa(prev => ({ ...prev, status: e.target.value }))}
                     >
-                        <MenuItem value='Concluido'>🟢 Concluido</MenuItem>
-                        <MenuItem value='Pendente'>🟠 Pendente</MenuItem>
+                        <MenuItem value='Concluido'>Concluido</MenuItem>
+                        <MenuItem value='Pendente'>Pendente</MenuItem>
                     </Select>
                 </FormControl>
 

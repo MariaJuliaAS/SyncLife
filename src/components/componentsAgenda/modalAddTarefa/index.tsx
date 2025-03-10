@@ -65,6 +65,7 @@ export function ModalAddTarefa({ fecharModal, dataSelecionada }: ModalAddTarefaP
                 backgroundColor: '',
                 userId: ''
             })
+            fecharModal()
             toast.success('Tarefa adicionada com sucesso!')
         }
         catch (err) {

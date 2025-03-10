@@ -15,6 +15,7 @@ import { signInWithPopup } from 'firebase/auth';
 import { addDoc, collection, getDocs, query, where } from 'firebase/firestore';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import CheckLogged from '../../utils/checkLogged';
 
 interface UserLoginProps {
     email: string;
@@ -22,6 +23,7 @@ interface UserLoginProps {
 }
 
 export function Login() {
+    CheckLogged()
     const navigate = useNavigate()
     const [userLogin, setUserLogin] = useState<UserLoginProps>({
         email: '',
