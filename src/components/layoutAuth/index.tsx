@@ -1,4 +1,4 @@
-import styles from '../../../styles/auth.module.css';
+import styles from '../../styles/auth.module.css';
 import { FiTarget } from "react-icons/fi";
 import { Link } from 'react-router-dom';
 import { ReactNode } from 'react';

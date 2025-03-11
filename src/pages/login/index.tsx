@@ -8,7 +8,7 @@ import { FcGoogle } from "react-icons/fc";
 import { useState } from 'react';
 import logoCalendar from '../../assets/undraw_calendar_76t8_2.svg';
 import { CustomInput } from '../../components/customInput';
-import { LayoutAuth } from '../../components/componentsAuth/layoutAuth';
+import { LayoutAuth } from '../../components/layoutAuth';
 import { sendPasswordResetEmail, signInWithEmailAndPassword } from 'firebase/auth';
 import { auth, provider, db } from '../../services/firebaseConnection';
 import { signInWithPopup } from 'firebase/auth';
@@ -42,6 +42,7 @@ export function Login() {
                 } else {
                     toast.warning('Por favor, verifique seu email antes de acessar!')
                 }
+
             })
 
             .catch((error) => {

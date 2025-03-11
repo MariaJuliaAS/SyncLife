@@ -111,7 +111,7 @@ export function Agenda() {
 
     function abrirModalInfo(info: EventClickArg): void {
         const event = info.event;
-        console.log(event)
+
         setModalObj({
             title: event.title,
             start: event.startStr,
@@ -123,7 +123,7 @@ export function Agenda() {
             borderColor: event.borderColor,
             id: event.id,
         });
-        console.log(event)
+
         setModalInfo(true);
     }
 

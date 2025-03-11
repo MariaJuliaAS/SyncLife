@@ -48,7 +48,7 @@ export function ModalInfoTarefa({ infos, fecharModal }: InfosProps) {
         prioridade: infos.priority,
         backgroundColor: infos.backgroundColor
     })
-
+    console.log(infos.end)
 
     async function salvarEdicao() {
         const docRef = doc(db, 'tarefas', infos.id)

@@ -31,6 +31,7 @@ export function LayoutForm({ tarefa, setTarefa, habilitarEdicao }: FormProps) {
                 fullWidth
                 value={tarefa.dataHoraFim}
                 disabled={habilitarEdicao}
+                inputProps={{ min: tarefa.dataHoraInicio }}
                 InputLabelProps={{
                     shrink: true
                 }}

@@ -1,10 +1,9 @@
 import { createBrowserRouter } from "react-router-dom";
 import { Agenda } from './pages/agenda';
-import { Financas } from './pages/financas';
+import { Finances } from './pages/finances';
 import { Login } from "./pages/login";
 import { Register } from "./pages/register";
 import { Layout } from "./components/layout";
-import CheckLogged from "./utils/checkLogged";
 
 const router = createBrowserRouter([
     {
@@ -24,7 +23,7 @@ const router = createBrowserRouter([
             },
             {
                 path: '/financas',
-                element: <Financas />
+                element: <Finances />
             }
         ]
     }

@@ -7,7 +7,7 @@ import { LuEye } from "react-icons/lu";
 import { IoPersonOutline } from "react-icons/io5";
 import { useState } from 'react';
 import { CustomInput } from '../../components/customInput';
-import { LayoutAuth } from '../../components/componentsAuth/layoutAuth';
+import { LayoutAuth } from '../../components/layoutAuth';
 import logoFinance from '../../assets/undraw_savings_uwjn.svg';
 import { auth, db } from '../../services/firebaseConnection';
 import { createUserWithEmailAndPassword, sendEmailVerification } from 'firebase/auth';
