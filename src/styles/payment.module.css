@@ -1,0 +1,77 @@
+.payments{
+    background-color: #fff;
+    width: 100%;
+    max-width: 1200px;
+    height: 63%;
+    padding: 20px;
+}
+
+.title{
+    font-size: 26px;
+}
+
+.payments .headerPayments{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+.payments .headerPayments button{
+    font-size: 26px;
+    font-weight: bold;
+    background-color: #0B5ED7;
+    border-radius: 50px;
+    color: #fff;
+    width: 40px;
+    transition: 0.3s all ease-in-out;
+}
+
+.payments .headerPayments button:hover{
+    padding: 3px;
+    width: 45px;
+}
+
+.payments .tableAreaPayments{
+    max-height: 440px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.payments .tablePayments{
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 10px;
+}
+
+.payments .tablePayments thead{
+    font-size: 20px;
+    background-color: #fff;
+}
+
+.payments .tablePayments tbody {
+    background-color: #dcdcdc;
+}
+
+.payments .tablePayments th, .tablePayments td{
+    padding: 12px;
+    text-align: center;
+}
+
+.payments .tablePayments td{
+    font-size: 18px;
+}
+
+.payments .tablePayments td:first-child{
+    border-radius: 8px 0 0 8px;
+}
+
+.payments .tablePayments td:last-child{
+    border-radius: 0 8px 8px 0;
+}
+
+.payments .statusPayment{
+    background-color: rgba(255, 130, 0, 0.5);
+    padding: 4px 10px;
+    border-radius: 22px;
+}

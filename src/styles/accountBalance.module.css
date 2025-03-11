@@ -1,0 +1,60 @@
+.accountBalance{
+    background-color: #fff;
+    width: 100%;
+    max-width: 700px;
+    height: 40%;
+    padding: 20px;
+}
+
+.headerPayment{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.headerPayment span{
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.title{
+    font-size: 26px;
+}
+
+.tableAreaAccountBalance{
+    max-height: 260px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.tableAccountBalance{
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 10px;
+}
+
+.tableAccountBalance thead{
+    font-size: 20px;
+    background-color: #fff;
+}
+
+.tableAccountBalance tbody{
+    background-color: #dcdcdc;
+}
+
+.tableAccountBalance th, .tableAccountBalance td{
+    text-align: center;
+}
+
+.tableAccountBalance td{
+    padding: 8px;
+    font-size: 18px;
+}
+
+.tableAccountBalance td:first-child{
+    border-radius: 8px 0 0 8px;
+}
+
+.tableAccountBalance td:last-child{
+    border-radius: 0 8px 8px 0;
+}

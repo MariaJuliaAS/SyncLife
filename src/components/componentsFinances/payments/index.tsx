@@ -1,4 +1,4 @@
-import styles from '../../../styles/finances.module.css';
+import styles from '../../../styles/payment.module.css';
 
 export function Payments() {
     return (

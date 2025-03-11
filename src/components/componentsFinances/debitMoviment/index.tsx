@@ -1,4 +1,4 @@
-import styles from '../../../styles/finances.module.css';
+import styles from '../../../styles/debitMoviment.module.css';
 import { FaArrowAltCircleDown, FaArrowAltCircleUp } from "react-icons/fa";
 
 export function DebitMoviment() {
@@ -32,7 +32,7 @@ export function DebitMoviment() {
                 <div className={styles.entries}>
 
                     <div className={styles.inputsAreaDebitMoviment}>
-                        <span>Adicionar saídas</span>
+                        <span>Adicionar entrada</span>
                         <input
                             type='number'
                             placeholder='R$ 450'
