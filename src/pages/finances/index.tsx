@@ -12,7 +12,6 @@ export function Finances() {
             <section className={styles.areaLeft}>
 
                 <DebitMoviment />
-
                 <Payments />
 
             </section>
@@ -20,7 +19,6 @@ export function Finances() {
             <section className={styles.areaRight}>
 
                 <AccountBalance />
-
                 <Graphics />
 
             </section>

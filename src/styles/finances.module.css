@@ -5,7 +5,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    
+    flex-direction: row;
 }
 
 .areaLeft, .areaRight{
@@ -13,7 +13,7 @@
     flex-direction: column;
     height: 100%;
     display: flex;
-    padding: 30px 40px;
+    padding: 10px 40px 30px 40px;
     gap: 30px;
 }
 
@@ -25,14 +25,161 @@
     width: 45%;
 }
 
-.debitMoviment, .accountBalance{
+.debitMoviment {
     background-color: #fff;
     width: 100%;
-    height: 25%;
+    height: 32%;
+    padding: 20px;
 }
 
-.payments, .graphics{
+.accountBalance{
     background-color: #fff;
     width: 100%;
-    height: 72.66%;
+    height: 40%;
+    padding: 20px;
+}
+
+.payments{
+    background-color: #fff;
+    width: 100%;
+    height: 63%;
+    padding: 20px;
+}
+
+.graphics{
+    background-color: #fff;
+    width: 100%;
+    height: 55%;
+    padding: 20px;
+}
+
+.title{
+    font-size: 26px;
+}
+
+.debitMoviment .areaMoviment{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    gap: 30px;
+    margin-top: 20px;
+}
+
+.debitMoviment .exits, .entries{
+    display: flex;
+    flex-direction: row;
+    width: 45%;
+    height: 180px;
+    padding: 15px;
+}
+
+.debitMoviment .exits{
+    background-color: #FF0000;
+}
+
+.debitMoviment .entries{
+    background-color: #32CD32;
+}
+
+.debitMoviment .inputsAreaDebitMoviment{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 80%;
+}
+
+.debitMoviment .inputsAreaDebitMoviment span{
+    color: #fff;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.debitMoviment .inputDebitMoviment{
+    width: 100%;
+    border: none;
+    outline: none;
+    background: transparent;
+    border-bottom: 1px solid #fff;
+    padding: 10px;
+    color: #fff;
+}
+
+.debitMoviment .inputDebitMoviment::placeholder{
+    color: #fff;
+}
+
+.debitMoviment .inputDebitMoviment:focus{
+    border-bottom: 1px solid #dcdcdc;
+}
+
+.debitMoviment .btnDebitMoviment{
+    margin: 0 auto;
+}
+
+
+.payments .headerPayments{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+.payments .headerPayments button{
+    font-size: 26px;
+    font-weight: bold;
+    background-color: #0B5ED7;
+    border-radius: 50px;
+    color: #fff;
+    width: 40px;
+    transition: 0.3s all ease-in-out;
+}
+
+.payments .headerPayments button:hover{
+    padding: 3px;
+    width: 45px;
+}
+
+.payments .tableAreaPayments{
+    max-height: 450px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.payments .tablePayments{
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 10px;
+}
+
+.payments .tablePayments thead{
+    font-size: 20px;
+    background-color: #fff;
+}
+
+.payments .tablePayments tbody {
+    background-color: #dcdcdc;
+}
+
+.payments .tablePayments th, td{
+    padding: 12px;
+    text-align: center;
+}
+
+.payments .tablePayments td{
+    font-size: 18px;
+}
+
+.payments .tablePayments td:first-child{
+    border-radius: 8px 0 0 8px;
+}
+
+.payments .tablePayments td:last-child{
+    border-radius: 0 8px 8px 0;
+}
+
+.payments .statusPayment{
+    background-color: rgba(255, 130, 0, 0.5);
+    padding: 4px 10px;
+    border-radius: 22px;
 }

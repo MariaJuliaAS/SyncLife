@@ -19,6 +19,14 @@
     cursor: pointer;
 }
 
+.fc-daygrid-day-frame{
+    transition: 0.3s all ease-in-out;
+}
+
+.fc-daygrid-day-frame:hover{
+    background-color: #dcdcdc;
+}
+
 .loading{
     display: flex;
     justify-content: center;
