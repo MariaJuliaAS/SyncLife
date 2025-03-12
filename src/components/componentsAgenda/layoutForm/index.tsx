@@ -22,9 +22,28 @@ interface FormProps {
 export function LayoutForm({ tarefa, setTarefa, habilitarEdicao }: FormProps) {
     return (
         <section className={styles.form}>
-            <TextField label="Título da tarefa" variant="outlined" fullWidth value={tarefa.titulo} disabled={habilitarEdicao} onChange={(e) => setTarefa(prev => ({ ...prev, titulo: e.target.value }))} />
-            <TextField label="Descrição da tarefa" variant="outlined" fullWidth multiline value={tarefa.descricao} disabled={habilitarEdicao} onChange={(e) => setTarefa(prev => ({ ...prev, descricao: e.target.value }))} />
-            <TextField type='datetime-local' label='Inicio' fullWidth value={tarefa.dataHoraInicio} disabled={habilitarEdicao} onChange={(e) => setTarefa(prev => ({ ...prev, dataHoraInicio: e.target.value }))} />
+            <TextField
+                label="Título da tarefa"
+                variant="outlined"
+                fullWidth
+                value={tarefa.titulo}
+                disabled={habilitarEdicao}
+                onChange={(e) => setTarefa(prev => ({ ...prev, titulo: e.target.value }))} />
+            <TextField
+                label="Descrição da tarefa"
+                variant="outlined"
+                fullWidth
+                multiline
+                value={tarefa.descricao}
+                disabled={habilitarEdicao}
+                onChange={(e) => setTarefa(prev => ({ ...prev, descricao: e.target.value }))} />
+            <TextField
+                type='datetime-local'
+                label='Inicio'
+                fullWidth
+                value={tarefa.dataHoraInicio}
+                disabled={habilitarEdicao}
+                onChange={(e) => setTarefa(prev => ({ ...prev, dataHoraInicio: e.target.value }))} />
             <TextField
                 type='datetime-local'
                 label='Fim'

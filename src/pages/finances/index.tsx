@@ -1,6 +1,6 @@
 import CheckLogged from "../../utils/checkLogged";
 import styles from '../../styles/finances.module.css';
-import { DebitMoviment } from "../../components/componentsFinances/debitMoviment";
+import { Transactions } from "../../components/componentsFinances/transactions";
 import { Payments } from "../../components/componentsFinances/payments";
 import { AccountBalance } from "../../components/componentsFinances/accountBalance";
 import { Graphics } from "../../components/componentsFinances/graphics";
@@ -11,7 +11,7 @@ export function Finances() {
         <main className={styles.container}>
             <section className={styles.areaLeft}>
 
-                <DebitMoviment />
+                <Transactions />
                 <Payments />
 
             </section>

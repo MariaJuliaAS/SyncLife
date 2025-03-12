@@ -13,7 +13,7 @@ interface TransactionsProps {
     exitValue: string
 }
 
-export function DebitMoviment() {
+export function Transactions() {
     const [inputValue, setInputValue] = useState<TransactionsProps>({
         entryDescription: '',
         entryValue: '',
@@ -43,6 +43,7 @@ export function DebitMoviment() {
             exitDescription: '',
             exitValue: ''
         })
+        toast.success('Nova transação feita!')
     }
 
     async function handleAddExit() {
@@ -57,7 +58,7 @@ export function DebitMoviment() {
             description: inputValue.exitDescription,
             type: 'exit',
             date: date,
-            userId: auth.currentUser?.uid
+            userId: auth.currentUser?.uid,
         })
 
         setInputValue({
@@ -66,6 +67,7 @@ export function DebitMoviment() {
             exitDescription: '',
             exitValue: ''
         })
+        toast.success('Nova transação feita!')
     }
 
 
@@ -81,7 +83,7 @@ export function DebitMoviment() {
                         <span>Adicionar saídas</span>
                         <input
                             type='number'
-                            placeholder='R$ -450'
+                            placeholder='R$ 450'
                             className={styles.inputTransactions}
                             value={inputValue.exitValue}
                             onChange={(e) => setInputValue(prev => ({ ...prev, exitValue: e.target.value }))}

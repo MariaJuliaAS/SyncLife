@@ -13,7 +13,7 @@ interface InputProps {
     endIcon?: React.ReactNode;
     className?: string;
     onEndIconCliclk?: () => void;
-    value?: string;
+    value?: string | number;
     onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
@@ -26,6 +26,7 @@ export function CustomInput({ label, type, icon, endIcon, onEndIconCliclk, class
             label={label}
             type={type}
             value={value}
+            InputLabelProps={value ? { shrink: true } : { shrink: false }}
             onChange={onChange}
             InputProps={{
                 startAdornment: icon ?

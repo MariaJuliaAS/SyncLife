@@ -1,43 +1,78 @@
-import { collection, onSnapshot } from 'firebase/firestore';
+import { collection, onSnapshot, query, where } from 'firebase/firestore';
 import styles from '../../../styles/accountBalance.module.css';
 import { useState, useEffect } from 'react';
-import { db } from '../../../services/firebaseConnection';
+import { auth, db } from '../../../services/firebaseConnection';
+import { ModalAccountBalance } from '../modalAccountBalance';
+import { CircularProgress } from '@mui/material';
+import { AnimatePresence } from 'framer-motion';
 
 interface TransactionsProps {
     value: number;
-    type: 'exit' | 'entry';
+    type?: 'exit' | 'entry';
     date: string;
     description: string;
+    id: string
 }
+
 
 export function AccountBalance() {
     const [transactions, setTransactions] = useState<TransactionsProps[]>()
+    const [statusModal, setStatusModal] = useState(false)
+    const [modalInfos, setModalInfos] = useState<TransactionsProps>()
+    const [loading, setLoading] = useState(true)
 
     useEffect(() => {
 
-        async function getTransactions() {
+        auth.onAuthStateChanged((user) => {
+            if (user) {
 
-            onSnapshot(collection(db, 'finances-transactions'), (snapshot) => {
-                let list: TransactionsProps[] = [];
+                const q = query(
+                    collection(db, 'finances-transactions'),
+                    where('userId', '==', auth.currentUser?.uid)
+                )
 
-                snapshot.forEach((doc) => {
-                    list.push({
-                        value: doc.data().value,
-                        type: doc.data().type,
-                        date: doc.data().date,
-                        description: doc.data().description
-                    });
-                });
+                onSnapshot(q, (snapshot) => {
+                    let list: TransactionsProps[] = [];
 
-                setTransactions(list);
-            })
+                    snapshot.forEach((doc) => {
+                        list.push({
+                            value: doc.data().value,
+                            type: doc.data().type,
+                            date: doc.data().date,
+                            description: doc.data().description,
+                            id: doc.id
+                        })
+                    })
 
-        }
-        getTransactions()
+                    setTransactions(list);
+                    setLoading(false)
+
+                })
+
+            }
+        })
 
     }, [])
 
+    function openModal(id: string, description: string, date: string, value: number) {
+        setModalInfos({
+            id,
+            description,
+            date,
+            value
+        })
+        setStatusModal(true)
+    }
+
     const total = transactions?.reduce((acc, item) => acc + item.value, 0)
+
+    if (loading) {
+        return (
+            <div className={styles.accountBalanceLoading}>
+                <CircularProgress size={50} color='primary' thickness={5} style={{ color: '#0B5ED7' }} />
+            </div>
+        )
+    }
 
     return (
         <div className={styles.accountBalance}>
@@ -54,8 +89,8 @@ export function AccountBalance() {
 
 
                 {transactions?.length === 0 ? (
-                    <div>
-                        <h1>teste</h1>
+                    <div className={styles.noTransactions}>
+                        <h1>Novas transações apareceram aqui!</h1>
                     </div>
                 ) :
                     <table className={styles.tableAccountBalance}>
@@ -69,7 +104,7 @@ export function AccountBalance() {
 
                         <tbody>
                             {transactions?.map((item, index) => (
-                                <tr key={index}>
+                                <tr key={index} onClick={() => openModal(item.id, item.description, item.date, item.value)}>
                                     <td>
                                         <span className={item.type === 'entry' ? `${styles.valueEntry}` : `${styles.valueExit}`}>
                                             {(item.value).toLocaleString('pt-BR', {
@@ -86,6 +121,9 @@ export function AccountBalance() {
                     </table>
                 }
 
+                <AnimatePresence>
+                    {statusModal && modalInfos && <ModalAccountBalance infos={modalInfos} closeModal={() => setStatusModal(false)} />}
+                </AnimatePresence>
 
             </div>
         </div >

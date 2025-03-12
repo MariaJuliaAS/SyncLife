@@ -1,9 +1,15 @@
-.accountBalance{
+.accountBalance, .accountBalanceLoading{
     background-color: #fff;
     width: 100%;
     max-width: 700px;
     height: 40%;
     padding: 20px;
+}
+
+.accountBalanceLoading{
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .headerPayment{
@@ -42,6 +48,15 @@
     background-color: #dcdcdc;
 }
 
+.tableAccountBalance tbody tr{
+    cursor: pointer;
+    transition: 0.3s all ease-in-out;
+}
+
+.tableAccountBalance tbody tr:hover{
+    background-color: #c0c0c0;
+}
+
 .tableAccountBalance th, .tableAccountBalance td{
     text-align: center;
 }
@@ -70,4 +85,14 @@
 
 .valueExit{
     background-color: rgba(255, 0, 0, 0.5);
+}
+
+.noTransactions{
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.noTransactions h1{
+    font-size: 26px;
 }
