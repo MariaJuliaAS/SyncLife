@@ -5,6 +5,7 @@ import { AnimatePresence } from 'framer-motion';
 import { auth, db } from '../../../services/firebaseConnection';
 import { collection, onSnapshot, query, where } from 'firebase/firestore';
 import { formatarData } from '../../../utils/dataFormatada';
+import { CircularProgress } from '@mui/material';
 
 interface PaymentsProps {
     description: string;
@@ -20,6 +21,7 @@ interface PaymentsProps {
 export function Payments() {
     const [statusModal, setStatusModal] = useState(false)
     const [listPayments, setListPayments] = useState<PaymentsProps[]>()
+    const [loading, setLoading] = useState(true)
 
     useEffect(() => {
 
@@ -48,6 +50,7 @@ export function Payments() {
                     })
 
                     setListPayments(list)
+                    setLoading(false)
 
                 })
 
@@ -58,6 +61,14 @@ export function Payments() {
     function openModal() {
         setStatusModal(true)
         console.log(listPayments)
+    }
+
+    if (loading) {
+        return (
+            <div className={styles.paymentsLoading}>
+                <CircularProgress size={50} color='primary' thickness={5} style={{ color: '#0B5ED7' }} />
+            </div>
+        )
     }
 
     return (

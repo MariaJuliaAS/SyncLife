@@ -1,4 +1,4 @@
-.payments{
+.payments, .paymentsLoading{
     background-color: #fff;
     width: 100%;
     max-width: 1200px;
@@ -6,6 +6,12 @@
     padding: 20px;
     border: 1px solid #dcdcdc;
     border-radius: 4px;
+}
+
+.paymentsLoading{
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .title{
