@@ -62,7 +62,7 @@ export function ModalAccountBalance({ infos, closeModal }: InfosProps) {
             >
 
                 <div className='header'>
-                    <h1>Editar ou Excluir transação</h1>
+                    <h1>Editar sua transação</h1>
                     <button onClick={closeModal}>X</button>
                 </div>
 

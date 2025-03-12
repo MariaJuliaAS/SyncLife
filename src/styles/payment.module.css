@@ -26,17 +26,14 @@
 }
 
 .headerPayments button{
-    font-size: 26px;
-    font-weight: bold;
     background-color: #0B5ED7;
     border-radius: 50px;
-    color: #fff;
-    width: 40px;
     transition: 0.3s all ease-in-out;
+    padding: 10px;
 }
 
 .headerPayments button:hover{
-    transform: scale(1.15);
+    transform: scale(1.12);
 }
 
 .tableAreaPayments{
@@ -97,14 +94,15 @@
     background-color: rgba(255, 0, 0, 0.5);
 }
 
-.btnDelet{
+.btnFunctions{
     background-color: #0B5ED7;
     border-radius: 50px;
     padding: 5px 8px;
     transition: 0.3s all ease-in-out;
+    margin: 5px;
 }
 
-.btnDelet:hover{
+.btnFunctions:hover{
     transform: scale(1.15);
 }
 

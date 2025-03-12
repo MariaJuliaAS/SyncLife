@@ -1,12 +1,14 @@
 import styles from '../../../styles/payment.module.css';
 import { useState, useEffect } from 'react';
 import { ModalPaymnentAdd } from '../modalPaymentAdd';
+import { ModalPaymentEdit } from '../modalPaymentEdit';
 import { AnimatePresence } from 'framer-motion';
 import { auth, db } from '../../../services/firebaseConnection';
 import { collection, deleteDoc, doc, onSnapshot, query, where } from 'firebase/firestore';
 import { formatarData } from '../../../utils/dataFormatada';
 import { CircularProgress } from '@mui/material';
-import { FaRegTrashAlt } from "react-icons/fa";
+import { FaRegTrashAlt, FaPen } from "react-icons/fa";
+import { FaPlus } from "react-icons/fa6";
 import { toast } from 'react-toastify';
 
 interface PaymentsProps {
@@ -21,9 +23,11 @@ interface PaymentsProps {
 }
 
 export function Payments() {
-    const [statusModal, setStatusModal] = useState(false)
+    const [statusModalAdd, setStatusModalAdd] = useState(false)
+    const [statusModalEdit, setStatusModalEdit] = useState(false)
     const [listPayments, setListPayments] = useState<PaymentsProps[]>()
     const [loading, setLoading] = useState(true)
+    const [editInfos, setEditInfos] = useState<PaymentsProps>()
 
     useEffect(() => {
 
@@ -60,10 +64,6 @@ export function Payments() {
         })
     }, [])
 
-    function openModal() {
-        setStatusModal(true)
-        console.log(listPayments)
-    }
 
     async function deletPayment(id: string) {
         try {
@@ -72,6 +72,20 @@ export function Payments() {
         } catch (error) {
             console.log('Erro ao deletar pagamento: ' + error)
         }
+    }
+
+    function openModalEdit(id: string, description: string, value: number | null, method: string, installments: string, payday: string, status: string, responsible: string) {
+        setStatusModalEdit(true)
+        setEditInfos({
+            id,
+            description,
+            value,
+            method,
+            installments,
+            payday,
+            status,
+            responsible,
+        })
     }
 
     if (loading) {
@@ -87,8 +101,8 @@ export function Payments() {
 
             <div className={styles.headerPayments}>
                 <h1 className={styles.title}>Pagamentos</h1>
-                <button onClick={openModal}>
-                    +
+                <button onClick={() => setStatusModalAdd(true)}>
+                    <FaPlus size={25} color='#fff' />
                 </button>
             </div>
 
@@ -137,8 +151,11 @@ export function Payments() {
                                         </td>
                                         <td>{item.responsible}</td>
                                         <td>
-                                            <button className={styles.btnDelet} onClick={() => deletPayment(item.id)}>
+                                            <button className={styles.btnFunctions} onClick={() => deletPayment(item.id)}>
                                                 <FaRegTrashAlt size={22} color='#fff' />
+                                            </button>
+                                            <button className={styles.btnFunctions} onClick={() => openModalEdit(item.id, item.description, item.value, item.method, item.installments, item.payday, item.status, item.responsible)}>
+                                                <FaPen size={22} color='#fff' />
                                             </button>
                                         </td>
                                     </tr>
@@ -152,7 +169,8 @@ export function Payments() {
             </div>
 
             <AnimatePresence>
-                {statusModal && <ModalPaymnentAdd closeModal={() => setStatusModal(false)} />}
+                {statusModalAdd && <ModalPaymnentAdd closeModal={() => setStatusModalAdd(false)} />}
+                {editInfos && statusModalEdit && <ModalPaymentEdit infos={editInfos} closeModal={() => setStatusModalEdit(false)} />}
             </AnimatePresence>
 
         </div>

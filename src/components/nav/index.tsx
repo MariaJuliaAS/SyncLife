@@ -56,10 +56,6 @@ export function NavMenu() {
                         <a href="#" className={styles.links} onClick={alternarMenu}>Conta</a>
                     </div>
 
-                    <div className={styles.buttonNavLink}>
-                        <GoGear size={30} color="#000" />
-                        <a href="#" className={styles.links} onClick={alternarMenu}>Configurações</a>
-                    </div>
                 </div>
 
                 <footer className={styles.footer}>
