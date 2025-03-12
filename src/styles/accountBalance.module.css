@@ -50,15 +50,6 @@
     background-color: #dcdcdc;
 }
 
-.tableAccountBalance tbody tr{
-    cursor: pointer;
-    transition: 0.3s all ease-in-out;
-}
-
-.tableAccountBalance tbody tr:hover{
-    background-color: #c0c0c0;
-}
-
 .tableAccountBalance th, .tableAccountBalance td{
     text-align: center;
 }
@@ -97,4 +88,16 @@
 
 .noTransactions h1{
     font-size: 26px;
+}
+
+.btnFunctions{
+    background-color: #0B5ED7;
+    border-radius: 50px;
+    padding: 5px 8px;
+    transition: 0.3s all ease-in-out;
+    margin: 5px;
+}
+
+.btnFunctions:hover{
+    transform: scale(1.15);
 }

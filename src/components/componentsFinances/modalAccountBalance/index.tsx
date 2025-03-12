@@ -51,15 +51,6 @@ export function ModalAccountBalance({ infos, closeModal }: InfosProps) {
 
     }
 
-    async function deletTransaction() {
-        try {
-            await deleteDoc(doc(db, 'finances-transactions', infos.id))
-            toast.success('Transação deletada com sucesso!')
-            closeModal()
-        } catch (error) {
-            console.log('Erro ao deletar transação: ' + error)
-        }
-    }
 
     return (
         <main className="sobreposicao">
@@ -96,7 +87,6 @@ export function ModalAccountBalance({ infos, closeModal }: InfosProps) {
 
                 <div className={styles.btn}>
                     <Button variant="contained" color="primary" style={{ backgroundColor: '#0B5ED7' }} onClick={editTransaction}>Editar</Button>
-                    <Button variant="contained" color="primary" style={{ backgroundColor: '#0B5ED7' }} onClick={deletTransaction}>Excluir</Button>
                 </div>
 
             </motion.div>

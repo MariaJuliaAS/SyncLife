@@ -2,9 +2,12 @@ import { collection, onSnapshot, query, where } from 'firebase/firestore';
 import styles from '../../../styles/accountBalance.module.css';
 import { useState, useEffect } from 'react';
 import { auth, db } from '../../../services/firebaseConnection';
+import { deleteDoc, doc } from 'firebase/firestore';
+import { toast } from 'react-toastify';
 import { ModalAccountBalance } from '../modalAccountBalance';
 import { CircularProgress } from '@mui/material';
 import { AnimatePresence } from 'framer-motion';
+import { FaRegTrashAlt, FaPen } from 'react-icons/fa';
 
 interface TransactionsProps {
     value: number;
@@ -64,6 +67,15 @@ export function AccountBalance() {
         setStatusModal(true)
     }
 
+    async function deletTransaction(id: string) {
+        try {
+            await deleteDoc(doc(db, 'finances-transactions', id))
+            toast.success('Transação deletada com sucesso!')
+        } catch (error) {
+            console.log('Erro ao deletar transação: ' + error)
+        }
+    }
+
     const total = transactions?.reduce((acc, item) => acc + item.value, 0)
 
     if (loading) {
@@ -104,7 +116,7 @@ export function AccountBalance() {
 
                         <tbody>
                             {transactions?.map((item, index) => (
-                                <tr key={index} onClick={() => openModal(item.id, item.description, item.date, item.value)}>
+                                <tr key={index}>
                                     <td>
                                         <span className={item.type === 'entry' ? `${styles.valueEntry}` : `${styles.valueExit}`}>
                                             {(item.value).toLocaleString('pt-BR', {
@@ -115,6 +127,14 @@ export function AccountBalance() {
                                     </td>
                                     <td>{item.description}</td>
                                     <td>{item.date}</td>
+                                    <td>
+                                        <button className={styles.btnFunctions} onClick={() => deletTransaction(item.id)}>
+                                            <FaRegTrashAlt size={22} color='#fff' />
+                                        </button>
+                                        <button className={styles.btnFunctions} onClick={() => openModal(item.id, item.description, item.date, item.value)}>
+                                            <FaPen size={22} color='#fff' />
+                                        </button>
+                                    </td>
                                 </tr>
                             ))}
                         </tbody>
