@@ -4,6 +4,8 @@
     max-width: 1200px;
     height: 32%;
     padding: 20px;
+    border: 1px solid #dcdcdc;
+    border-radius: 4px;
 }
 
 .title{
@@ -25,6 +27,7 @@
     width: 45%;
     height: 180px;
     padding: 15px;
+    border-radius: 4px;
 }
 
 .exits{

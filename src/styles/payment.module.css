@@ -4,6 +4,8 @@
     max-width: 1200px;
     height: 63%;
     padding: 20px;
+    border: 1px solid #dcdcdc;
+    border-radius: 4px;
 }
 
 .title{
