@@ -79,6 +79,7 @@ export function ModalAccountBalance({ infos, closeModal }: InfosProps) {
                     <TextField
                         fullWidth
                         label='Valor'
+                        type='number'
                         InputLabelProps={{ shrink: true }}
                         value={infosEdit.value}
                         onChange={(e) => setInfosEdit(prev => ({ ...prev, value: Number(e.target.value) }))}

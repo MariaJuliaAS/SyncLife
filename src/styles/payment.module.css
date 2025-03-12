@@ -30,8 +30,7 @@
 }
 
 .payments .headerPayments button:hover{
-    padding: 3px;
-    width: 45px;
+    transform: scale(1.15);
 }
 
 .payments .tableAreaPayments{
@@ -76,4 +75,17 @@
     background-color: rgba(255, 130, 0, 0.5);
     padding: 4px 10px;
     border-radius: 22px;
+}
+
+.paidStatus, .pendingStatus{
+    padding: 5px 20px;
+    border-radius: 20px;
+}
+
+.paidStatus{
+    background-color: rgba(50, 205, 50, 0.5);
+}
+
+.pendingStatus{
+    background-color: rgba(255, 0, 0, 0.5);
 }

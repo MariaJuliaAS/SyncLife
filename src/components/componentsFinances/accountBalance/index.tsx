@@ -90,7 +90,7 @@ export function AccountBalance() {
 
                 {transactions?.length === 0 ? (
                     <div className={styles.noTransactions}>
-                        <h1>Novas transações apareceram aqui!</h1>
+                        <h1>Novas transações aparecerão aqui!</h1>
                     </div>
                 ) :
                     <table className={styles.tableAccountBalance}>
