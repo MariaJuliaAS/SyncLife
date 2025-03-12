@@ -1,4 +1,4 @@
-.debitMoviment {
+.transactions {
     background-color: #fff;
     width: 100%;
     max-width: 1200px;
@@ -10,7 +10,7 @@
     font-size: 26px;
 }
 
-.debitMoviment .areaMoviment{
+.areaTransactions{
     display: flex;
     justify-content: center;
     align-items: center;
@@ -19,7 +19,7 @@
     margin-top: 20px;
 }
 
-.debitMoviment .exits, .entries{
+.exits, .entries{
     display: flex;
     flex-direction: row;
     width: 45%;
@@ -27,28 +27,28 @@
     padding: 15px;
 }
 
-.debitMoviment .exits{
+.exits{
     background-color: #FF0000;
 }
 
-.debitMoviment .entries{
+.entries{
     background-color: #32CD32;
 }
 
-.debitMoviment .inputsAreaDebitMoviment{
+.inputsAreaTransactions{
     display: flex;
     flex-direction: column;
     gap: 10px;
     width: 80%;
 }
 
-.debitMoviment .inputsAreaDebitMoviment span{
+.inputsAreaTransactions span{
     color: #fff;
     font-weight: bold;
     font-size: 18px;
 }
 
-.debitMoviment .inputDebitMoviment{
+.inputTransactions{
     width: 100%;
     border: none;
     outline: none;
@@ -58,14 +58,19 @@
     color: #fff;
 }
 
-.debitMoviment .inputDebitMoviment::placeholder{
+.inputTransactions::placeholder{
     color: #fff;
 }
 
-.debitMoviment .inputDebitMoviment:focus{
+.inputTransactions:focus{
     border-bottom: 1px solid #dcdcdc;
 }
 
-.debitMoviment .btnDebitMoviment{
+.btnTransactions{
     margin: 0 auto;
+    transition: 0.3s all ease-in-out;
+}
+
+.btnTransactions:hover{
+    transform: scale(1.1);
 }

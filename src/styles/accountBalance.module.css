@@ -58,3 +58,16 @@
 .tableAccountBalance td:last-child{
     border-radius: 0 8px 8px 0;
 }
+
+.valueEntry, .valueExit{
+    padding: 5px 20px;
+    border-radius: 20px;
+}
+
+.valueEntry{
+    background-color: rgba(50, 205, 50, 0.5);
+}
+
+.valueExit{
+    background-color: rgba(255, 0, 0, 0.5);
+}
