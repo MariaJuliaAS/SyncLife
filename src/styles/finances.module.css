@@ -13,16 +13,17 @@
     flex-direction: column;
     height: 100%;
     display: flex;
-    padding: 10px 40px 30px 40px;
     gap: 30px;
 }
 
 .areaLeft{
     width: 80%;
+    padding: 10px 20px 30px 40px;
 }
 
 .areaRight{
     width: 45%;
+    padding: 10px 40px 30px 20px;
 }
 
 .graphics{
