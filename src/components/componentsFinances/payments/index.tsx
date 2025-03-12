@@ -3,9 +3,11 @@ import { useState, useEffect } from 'react';
 import { ModalPaymnentAdd } from '../modalPaymentAdd';
 import { AnimatePresence } from 'framer-motion';
 import { auth, db } from '../../../services/firebaseConnection';
-import { collection, onSnapshot, query, where } from 'firebase/firestore';
+import { collection, deleteDoc, doc, onSnapshot, query, where } from 'firebase/firestore';
 import { formatarData } from '../../../utils/dataFormatada';
 import { CircularProgress } from '@mui/material';
+import { FaRegTrashAlt } from "react-icons/fa";
+import { toast } from 'react-toastify';
 
 interface PaymentsProps {
     description: string;
@@ -63,6 +65,15 @@ export function Payments() {
         console.log(listPayments)
     }
 
+    async function deletPayment(id: string) {
+        try {
+            await deleteDoc(doc(db, 'finances-payments', id))
+            toast.success('Pagamento deletado com sucesso!')
+        } catch (error) {
+            console.log('Erro ao deletar pagamento: ' + error)
+        }
+    }
+
     if (loading) {
         return (
             <div className={styles.paymentsLoading}>
@@ -104,26 +115,34 @@ export function Payments() {
 
                         <tbody>
                             {listPayments?.map((item, index) => (
-                                <tr key={index}>
-                                    <td>{item.description}</td>
-                                    <td>
-                                        {(item.value)?.toLocaleString('pt-BR', {
-                                            style: 'currency',
-                                            currency: 'BRL'
-                                        })}
-                                    </td>
-                                    <td>{item.method}</td>
-                                    <td>{item.installments}</td>
-                                    <td>
-                                        {formatarData(item.payday).dataFormatada}
-                                    </td>
-                                    <td>
-                                        <span className={item.status === 'Pago' ? `${styles.paidStatus}` : `${styles.pendingStatus}`}>
-                                            {item.status}
-                                        </span>
-                                    </td>
-                                    <td>{item.responsible}</td>
-                                </tr>
+                                <>
+
+                                    <tr key={index}>
+                                        <td>{item.description}</td>
+                                        <td>
+                                            {(item.value)?.toLocaleString('pt-BR', {
+                                                style: 'currency',
+                                                currency: 'BRL'
+                                            })}
+                                        </td>
+                                        <td>{item.method}</td>
+                                        <td>{item.installments}</td>
+                                        <td>
+                                            {formatarData(item.payday).dataFormatada}
+                                        </td>
+                                        <td>
+                                            <span className={item.status === 'Pago' ? `${styles.paidStatus}` : `${styles.pendingStatus}`}>
+                                                {item.status}
+                                            </span>
+                                        </td>
+                                        <td>{item.responsible}</td>
+                                        <td>
+                                            <button className={styles.btnDelet} onClick={() => deletPayment(item.id)}>
+                                                <FaRegTrashAlt size={22} color='#fff' />
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </>
                             ))}
                         </tbody>
 
