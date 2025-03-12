@@ -26,7 +26,7 @@ export function CustomInput({ label, type, icon, endIcon, onEndIconCliclk, class
             label={label}
             type={type}
             value={value}
-            InputLabelProps={value ? { shrink: true } : { shrink: false }}
+            InputLabelProps={{ shrink: true }}
             onChange={onChange}
             InputProps={{
                 startAdornment: icon ?

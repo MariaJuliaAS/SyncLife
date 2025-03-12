@@ -72,7 +72,6 @@ export function Login() {
 
             if (user) {
                 navigate('/agenda', { replace: true })
-                toast.success(`Bem-vindo(a), ${user.displayName}!`)
 
                 const q = query(
                     collection(db, 'cadastro-usuarios'),

@@ -3,6 +3,7 @@ import { Agenda } from './pages/agenda';
 import { Finances } from './pages/finances';
 import { Login } from "./pages/login";
 import { Register } from "./pages/register";
+import { Account } from "./pages/account";
 import { Layout } from "./components/layout";
 
 const router = createBrowserRouter([
@@ -24,6 +25,10 @@ const router = createBrowserRouter([
             {
                 path: '/financas',
                 element: <Finances />
+            },
+            {
+                path: '/conta',
+                element: <Account />
             }
         ]
     }
