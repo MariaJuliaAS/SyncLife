@@ -52,7 +52,6 @@ export function ModalPaymnentAdd({ closeModal }: ModalPaymentProps) {
             })
             closeModal()
 
-
         } catch (error) {
             console.log('Erro ao adicionar pagamento: ' + error)
         }
