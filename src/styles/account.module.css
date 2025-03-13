@@ -1,0 +1,74 @@
+.container{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    height: calc(100vh - 70px);
+}
+
+.accountArea{
+    width: 45%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.areaHello{
+    margin-bottom: 40px;
+}
+
+.areaHello h1{
+    margin-bottom: 20px;
+}
+.areaHello span{
+    color: #778899;
+    font-size: 15px;
+}
+
+.form{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+}
+.areaAddImg{
+    margin-bottom: 30px;
+}
+
+.addImg{
+    margin-left: 20px;
+    font-weight: 500;
+    color: #0B5ED7;
+}
+
+.inputArea span{
+    font-weight: 500;
+    color: #0B5ED7;
+    position: relative;
+    left: 30px;
+}
+
+.input{
+    width: 85%;
+}
+
+.areaDelet{
+    position: relative;
+    top: 250px;
+}
+
+.areaDelet p{
+    font-weight: bold;
+    color: #FF0000;
+    font-size: 20px;
+    margin-left: 20px;
+}
+
+.areaDelet button{
+    background-color: #FF0000;
+    padding: 5px 10px;
+    color: #fff;
+    border-radius: 4px;
+    font-size: 18px;
+    margin-left: 20px;
+}

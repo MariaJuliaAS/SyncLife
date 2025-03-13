@@ -16,7 +16,6 @@ import { FaCircleUser } from "react-icons/fa6";
 export function NavMenu() {
     const navigate = useNavigate();
     const [statusNav, setStatusNav] = useState(false)
-    const [name, setName] = useState('')
     const [photoUrl, setPhotoUrl] = useState('')
 
     useEffect(() => {
@@ -33,7 +32,6 @@ export function NavMenu() {
                     .then((snapshot) => {
 
                         snapshot.forEach((doc) => {
-                            setName(doc.data().name)
                             setPhotoUrl(doc.data().photoUrl)
                         })
 
@@ -71,15 +69,12 @@ export function NavMenu() {
                             <FaCircleUser size={40} color="#808080" className={styles.iconUser} />
                         }
                     </Link>
-                    <Link to='/conta'>
-                        Olá, {name} 👋
-                    </Link>
                 </div>
             </header>
 
             <nav className={`${styles.navMenu} ${statusNav ? styles.aberto : ''}`}>
                 <div className={styles.navHeader}>
-                    <h1 className={styles.titulo}>SyncLife <FiTarget size={30} color="#0B5ED7" /> </h1>
+                    <Link to='/agenda' className={styles.titulo} onClick={alternarMenu}>SyncLife <FiTarget size={30} color="#0B5ED7" /> </Link>
                     <button onClick={alternarMenu} className={styles.fecharBtn}>X</button>
                 </div>
 
@@ -97,7 +92,7 @@ export function NavMenu() {
 
                     <div className={styles.buttonNavLink}>
                         <IoPersonOutline size={30} color="#000" />
-                        <a href="#" className={styles.links} onClick={alternarMenu}>Conta</a>
+                        <Link to='/conta' className={styles.links} onClick={alternarMenu}>Conta</Link>
                     </div>
 
                 </div>

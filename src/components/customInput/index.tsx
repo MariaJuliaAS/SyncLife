@@ -20,7 +20,6 @@ interface InputProps {
 export function CustomInput({ label, type, icon, endIcon, onEndIconCliclk, className, value, onChange }: InputProps) {
     return (
         <TextField
-            fullWidth
             variant="outlined"
             className={className}
             label={label}
