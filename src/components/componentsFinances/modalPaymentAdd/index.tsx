@@ -100,6 +100,7 @@ export function ModalPaymnentAdd({ closeModal }: ModalPaymentProps) {
                                 <MenuItem value='Cartão (will)'>Cartão (will)</MenuItem>
                                 <MenuItem value='Boleto'>Boleto</MenuItem>
                                 <MenuItem value='Pix'>Pix</MenuItem>
+                                <MenuItem value='Dinheiro'>Dinheiro</MenuItem>
                             </Select>
                         </FormControl>
                         <FormControl fullWidth>
