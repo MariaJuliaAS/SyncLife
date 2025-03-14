@@ -1,11 +1,5 @@
 import { TextField, InputAdornment, IconButton } from "@mui/material";
 
-interface UserProps {
-    name: string;
-    email: string;
-    password: string;
-}
-
 interface InputProps {
     label: string;
     type?: string;

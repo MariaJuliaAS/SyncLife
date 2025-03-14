@@ -8,7 +8,7 @@ const CheckLogged = () => {
 
     useEffect(() => {
 
-        const unsub = onAuthStateChanged(auth, (user) => {
+        onAuthStateChanged(auth, (user) => {
             if (!user || !user.emailVerified) {
                 navigate('/', { replace: true })
             }
@@ -16,8 +16,6 @@ const CheckLogged = () => {
         })
 
     }, [])
-
-
 
 }
 

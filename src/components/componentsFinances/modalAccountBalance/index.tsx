@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { Button, TextField } from '@mui/material';
 import { useState } from 'react';
 import styles from '../../../styles/modalAgenda.module.css'
-import { doc, updateDoc, deleteDoc } from 'firebase/firestore';
+import { doc, updateDoc } from 'firebase/firestore';
 import { db } from '../../../services/firebaseConnection';
 import { toast } from 'react-toastify';
 
