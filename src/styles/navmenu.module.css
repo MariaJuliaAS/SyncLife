@@ -24,17 +24,6 @@
     margin-top: 5px;
 }
 
-.userArea img{
-    border-radius: 50px;
-    margin-right: 10px;
-    border: 2px solid #4f4f4f;
-}
-
-.iconUser{
-    border-radius: 50px;
-    margin-right: 10px;
-}
-
 .navMenu {
     background-color: #c0c0c0;
     position: fixed;
@@ -122,4 +111,17 @@
     color: #fff;
     font-weight: bold;
     font-size: 20px;
+}
+
+@media (max-width: 500px){
+    .navMenu {
+        width: 250px;
+        left: -250px;
+    }
+    .links{
+        font-size: 18px;
+    }
+    .titulo{
+        font-size: 34px;
+    }
 }
