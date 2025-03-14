@@ -117,7 +117,7 @@ export function AccountBalance() {
                         <tbody>
                             {transactions?.map((item, index) => (
                                 <tr key={index}>
-                                    <td>
+                                    <td data-label='Valor'>
                                         <span className={item.type === 'entry' ? `${styles.valueEntry}` : `${styles.valueExit}`}>
                                             {(item.value).toLocaleString('pt-BR', {
                                                 style: 'currency',
@@ -125,8 +125,8 @@ export function AccountBalance() {
                                             })}
                                         </span>
                                     </td>
-                                    <td>{item.description}</td>
-                                    <td>{item.date}</td>
+                                    <td data-label='Descrição'>{item.description}</td>
+                                    <td data-label='Data'>{item.date}</td>
                                     <td>
                                         <button className={styles.btnFunctions} onClick={() => deletTransaction(item.id)}>
                                             <FaRegTrashAlt size={22} color='#fff' />

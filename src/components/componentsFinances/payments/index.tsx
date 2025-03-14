@@ -129,37 +129,37 @@ export function Payments() {
 
                         <tbody>
                             {listPayments?.map((item, index) => (
-                                <>
 
-                                    <tr key={index}>
-                                        <td>{item.description}</td>
-                                        <td>
-                                            {(item.value)?.toLocaleString('pt-BR', {
-                                                style: 'currency',
-                                                currency: 'BRL'
-                                            })}
-                                        </td>
-                                        <td>{item.method}</td>
-                                        <td>{item.installments}</td>
-                                        <td>
-                                            {formatarData(item.payday).dataFormatada}
-                                        </td>
-                                        <td>
-                                            <span className={item.status === 'Pago' ? `${styles.paidStatus}` : `${styles.pendingStatus}`}>
-                                                {item.status}
-                                            </span>
-                                        </td>
-                                        <td>{item.responsible}</td>
-                                        <td>
-                                            <button className={styles.btnFunctions} onClick={() => deletPayment(item.id)}>
-                                                <FaRegTrashAlt size={22} color='#fff' />
-                                            </button>
-                                            <button className={styles.btnFunctions} onClick={() => openModalEdit(item.id, item.description, item.value, item.method, item.installments, item.payday, item.status, item.responsible)}>
-                                                <FaPen size={22} color='#fff' />
-                                            </button>
-                                        </td>
-                                    </tr>
-                                </>
+
+                                <tr key={index} className={styles.tr}>
+                                    <td data-label='Descrição'>{item.description}</td>
+                                    <td data-label='Valor'>
+                                        {(item.value)?.toLocaleString('pt-BR', {
+                                            style: 'currency',
+                                            currency: 'BRL'
+                                        })}
+                                    </td>
+                                    <td data-label='Método'>{item.method}</td>
+                                    <td data-label='Parcelas'>{item.installments}</td>
+                                    <td data-label='Vencimento'>
+                                        {formatarData(item.payday).dataFormatada}
+                                    </td>
+                                    <td data-label='Status'>
+                                        <span className={item.status === 'Pago' ? `${styles.paidStatus}` : `${styles.pendingStatus}`}>
+                                            {item.status}
+                                        </span>
+                                    </td>
+                                    <td data-label='Responsável'>{item.responsible}</td>
+                                    <td>
+                                        <button className={styles.btnFunctions} onClick={() => deletPayment(item.id)}>
+                                            <FaRegTrashAlt size={22} color='#fff' />
+                                        </button>
+                                        <button className={styles.btnFunctions} onClick={() => openModalEdit(item.id, item.description, item.value, item.method, item.installments, item.payday, item.status, item.responsible)}>
+                                            <FaPen size={22} color='#fff' />
+                                        </button>
+                                    </td>
+                                </tr>
+
                             ))}
                         </tbody>
 

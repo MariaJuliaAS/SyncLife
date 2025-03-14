@@ -1,6 +1,7 @@
 .graphics{
     background-color: #fff;
     width: 100%;
+    max-width: 700px;
     height: 55%;
     padding: 20px;
     border: 1px solid #dcdcdc;
@@ -13,8 +14,25 @@
 
 .areaGraphic{
     width: 100%;
-    height: 95%;
+    height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+@media (max-width: 1550px){
+    .graphics{
+        max-width: none;
+        height: 285px;
+        width: 35%;
+    }
+}
+
+@media (max-width: 1050px){
+    .graphics{
+        width: 100%;
+    }
+    .title{
+        font-size: 24px;
+    }
 }

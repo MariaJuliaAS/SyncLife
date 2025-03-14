@@ -59,7 +59,7 @@ export function Agenda() {
                     where('userId', '==', user.uid)
                 )
 
-                const unsbutFirestore = onSnapshot(q, (snapshot) => {
+                onSnapshot(q, (snapshot) => {
                     let list: EventosProps[] = [];
 
                     snapshot.forEach((doc) => {
@@ -83,7 +83,7 @@ export function Agenda() {
                 setEventos([])
             }
         })
-
+        return () => unsubeAuth();
     }, [])
 
     async function moverEvento(info: EventClickArg | EventResizeDoneArg) {

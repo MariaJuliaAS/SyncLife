@@ -18,6 +18,7 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    align-items: center;
 }
 
 .headerPayment span{
@@ -100,4 +101,78 @@
 
 .btnFunctions:hover{
     transform: scale(1.15);
+}
+
+@media (max-width: 1550px){
+    .accountBalance, .accountBalanceLoading{
+        max-width: none;
+        height: 100%;
+        width: 65%;
+    }
+}
+
+@media (max-width: 1050px){
+    .accountBalance, .accountBalanceLoading{
+        width: 100%;
+    }
+    
+    .title{
+        font-size: 24px;
+    }
+
+    .headerPayment span{
+        font-size: 18px;
+    }
+}
+
+@media (max-width: 650px){
+    .title{
+        font-size: 20px;
+        max-width: 150px;
+    }
+
+    .headerPayment {
+        margin-bottom: 10px;
+    }
+
+    .headerPayment span{
+        font-size: 16px;
+    }
+
+    .tableAccountBalance{
+        border: 0;
+    }
+
+    .tableAccountBalance thead{
+        border: none;
+        clip: rect(0 0 0 0);
+        height: 1px;
+        margin: -1px;
+        overflow: hidden;
+        position: absolute;
+        width: 1px;
+        padding: 0;
+    }
+    
+    .tableAccountBalance td{
+        border-bottom: 1px solid #Fff;
+        display: block;
+        text-align: right;
+        font-size: 16px;
+    }
+
+    .tableAccountBalance td::before{
+        content: attr(data-label);
+        float: left;
+        font-weight: bold;
+        text-transform: capitalize;
+        font-size: 18px;
+    }
+
+    .tableAccountBalance td:first-child, .tableAccountBalance td:last-child{
+        border-radius: 0;
+    }
+    .btnFunctions{
+        padding: 7px 8px;
+    }
 }
