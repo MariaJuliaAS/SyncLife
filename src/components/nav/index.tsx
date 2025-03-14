@@ -5,7 +5,6 @@ import { Link } from "react-router-dom";
 import { FiTarget } from "react-icons/fi";
 import { CiCalendar } from "react-icons/ci";
 import { TbChartInfographic } from "react-icons/tb";
-import { IoPersonOutline } from "react-icons/io5";
 import { TbLogout2 } from "react-icons/tb";
 import { signOut } from "firebase/auth";
 import { auth, db } from "../../services/firebaseConnection";
@@ -94,11 +93,6 @@ export function NavMenu() {
                     <div className={styles.buttonNavLink}>
                         <TbChartInfographic size={30} color="#000" />
                         <Link to='/financas' className={styles.links} onClick={alternarMenu}>Finanças</Link>
-                    </div>
-
-                    <div className={styles.buttonNavLink}>
-                        <IoPersonOutline size={30} color="#000" />
-                        <Link to='/conta' className={styles.links} onClick={alternarMenu}>Conta</Link>
                     </div>
 
                 </div>
