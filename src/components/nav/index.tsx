@@ -73,7 +73,7 @@ export function NavMenu() {
 
                 <div className={styles.userArea}>
                     <Link to='/conta'>
-                        {isLoggedIn ? `Olá, ${name} 👋` : 'Faça seu login ou crie sua conta agora mesmo!'}
+                        {isLoggedIn ? `Olá, ${name} 👋` : ''}
                     </Link>
                 </div>
             </header>

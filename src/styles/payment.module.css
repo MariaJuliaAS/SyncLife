@@ -174,8 +174,8 @@
 }
 
 @media (max-width: 650px){
-    .tableAreaPayments{
-        max-height: 400px;
+    .tableAreaPayments table{
+        max-height: 200px;
     }
     .btnFunctions{
         padding: 7px 8px;

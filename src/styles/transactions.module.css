@@ -93,7 +93,7 @@
 
 @media (max-width: 650px){
     .transactions{
-        height: 60%;
+        height: 100%;
     }
     .areaTransactions{
         flex-direction: column;
