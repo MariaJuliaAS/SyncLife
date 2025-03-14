@@ -50,7 +50,12 @@ export function NavMenu() {
 
     function logOut() {
         signOut(auth)
-        navigate('/', { replace: true })
+            .then(() => {
+                navigate('/', { replace: true })
+            })
+            .catch((error) => {
+                console.log('Erro ao deslogar: ' + error)
+            })
     }
 
     return (
