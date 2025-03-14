@@ -48,9 +48,6 @@ export function NavMenu() {
         return () => unsubscribe();
     }, [])
 
-    function alternarMenu() {
-        setStatusNav(!statusNav)
-    }
 
     function logOut() {
         signOut(auth)
@@ -66,7 +63,7 @@ export function NavMenu() {
     return (
         <main>
             <header className={styles.header}>
-                <button onClick={alternarMenu}>
+                <button onClick={() => setStatusNav(true)}>
                     <TbMenu2 size={45} color="#000" className={styles.iconMenu} />
                 </button>
 
@@ -79,20 +76,20 @@ export function NavMenu() {
 
             <nav className={`${styles.navMenu} ${statusNav ? styles.aberto : ''}`}>
                 <div className={styles.navHeader}>
-                    <Link to='/agenda' className={styles.titulo} onClick={alternarMenu}>SyncLife <FiTarget size={30} color="#0B5ED7" /> </Link>
-                    <button onClick={alternarMenu} className={styles.fecharBtn}>X</button>
+                    <Link to='/agenda' className={styles.titulo} onClick={() => setStatusNav(false)}>SyncLife <FiTarget size={30} color="#0B5ED7" /> </Link>
+                    <button onClick={() => setStatusNav(false)} className={styles.fecharBtn}>X</button>
                 </div>
 
                 <div className={styles.navLinks}>
 
                     <div className={styles.buttonNavLink}>
                         <CiCalendar size={30} color="#000" />
-                        <Link to='/agenda' className={styles.links} onClick={alternarMenu}>Agenda</Link>
+                        <Link to='/agenda' className={styles.links} onClick={() => setStatusNav(false)}>Agenda</Link>
                     </div>
 
                     <div className={styles.buttonNavLink}>
                         <TbChartInfographic size={30} color="#000" />
-                        <Link to='/financas' className={styles.links} onClick={alternarMenu}>Finanças</Link>
+                        <Link to='/financas' className={styles.links} onClick={() => setStatusNav(false)}>Finanças</Link>
                     </div>
 
                 </div>
