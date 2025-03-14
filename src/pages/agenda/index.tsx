@@ -5,7 +5,7 @@ import listPlugin from '@fullcalendar/list';
 import interactionPlugin, { DateClickArg, EventResizeDoneArg } from '@fullcalendar/interaction';
 import bootstrap5Plugin from '@fullcalendar/bootstrap5';
 import ptLocale from '@fullcalendar/core/locales/pt'
-import '../../styles/agenda.css';
+import '../../styles/agenda.css'
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import { useState, useEffect } from 'react';
@@ -18,6 +18,7 @@ import { AnimatePresence } from 'framer-motion';
 import { CircularProgress } from '@mui/material';
 import { toast } from 'react-toastify';
 import CheckLogged from '../../utils/checkLogged';
+
 
 interface EventosProps {
     title: string;
@@ -131,12 +132,11 @@ export function Agenda() {
         )
     }
 
-
     return (
-        <div className='container'>
+        <div className='calendarDiv'>
             <FullCalendar
                 plugins={[dayGridPlugin, interactionPlugin, timeGridPlugin, listPlugin, bootstrap5Plugin]}
-                initialView='timeGridWeek'
+                initialView={window.innerWidth <= 850 ? 'timeGridDay' : 'timeGridWeek'}
                 weekends={true}
                 themeSystem='bootstrap5'
                 headerToolbar={{
@@ -165,7 +165,14 @@ export function Agenda() {
                     minute: '2-digit',
                     meridiem: 'short'
                 }}
+                titleFormat={{
+                    year: 'numeric',
+                    month: 'short',
+                    day: '2-digit'
+                }}
+                nowIndicator={true}
             />
+
             <AnimatePresence>
                 {modalAdd && <ModalAddTarefa fecharModal={() => setModalAdd(false)} dataSelecionada={dataSelecionada} />}
                 {modalInfo && <ModalInfoTarefa infos={modlaObj} fecharModal={() => { setModalInfo(false) }} />}

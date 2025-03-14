@@ -122,7 +122,7 @@ export function Login() {
             logo={logoCalendar}
         >
             <div className={styles.signGoogle}>
-                <button onClick={loginWithGoogle}> <FcGoogle size={30} /> </button>
+                <button onClick={loginWithGoogle}> <FcGoogle size={30} /> Entrar com Google </button>
             </div>
 
             <div className={styles.continueWithEmail}>

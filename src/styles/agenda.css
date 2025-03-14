@@ -1,8 +1,7 @@
-.container {
+.calendarDiv {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 100%;
     height: calc(100vh - 70px);
 }
 
@@ -30,4 +29,22 @@
 
 .fc-toolbar-title{
     text-transform: capitalize;
+}
+
+@media (max-width: 1000px){
+    .fc-toolbar-chunk{
+        width: 100%;
+    }
+
+    .fc-toolbar-chunk, .fc-toolbar-title{
+        font-size: 13px;
+    }
+    
+}
+
+@media (max-width: 750px){
+    .fc-header-toolbar{
+        flex-direction: column;
+        gap: 10px;
+    }
 }

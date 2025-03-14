@@ -106,13 +106,16 @@
 
 .signGoogle{
     border: 1px solid #c4c4c4;
-    border-radius: 50px;
+    border-radius: 12px;
     padding: 10px;
-    width: 9%;
-    margin: 10px auto;
+    margin: 15px auto;
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.signGoogle button{
+    color: #778899;
 }
 
 .continueWithEmail {
@@ -135,4 +138,39 @@
 .forgotPassword button{
     color: #0B5ED7;
     font-weight: bold;
+}
+
+@media (max-width: 1360px){
+    .areaLogin{
+        width: 90%;
+    }
+    .areaLeft, .areaRight{
+        padding: 50px;
+    }
+}
+
+@media (max-width: 1040px){
+    .areaLogin{
+        flex-direction: column;
+        height: 100%;
+        width: 100%;
+    }
+}
+
+@media (max-width: 425px){
+    .title{
+        font-size: 24px;
+    }
+    .titleAuth{
+        font-size: 34px;
+    }
+    .descriptionAuth{
+        font-size: 13px;
+    }
+    .motivational p{
+        font-size: 14px;
+    }
+    .areaRight, .areaLeft{
+        padding: 20px;
+    }
 }
