@@ -16,7 +16,6 @@ interface InfosProps {
         end: string;
         description: string;
         status: string;
-        priority: string;
         backgroundColor: string;
         id: string;
     }
@@ -29,7 +28,6 @@ interface TarefaProps {
     dataHoraInicio: string | undefined;
     dataHoraFim: string;
     status: string;
-    prioridade: string,
     backgroundColor: string;
 }
 
@@ -45,7 +43,6 @@ export function ModalInfoTarefa({ infos, fecharModal }: InfosProps) {
         dataHoraInicio: infos.start.slice(0, 16),
         dataHoraFim: infos.end.slice(0, 16),
         status: infos.status,
-        prioridade: infos.priority,
         backgroundColor: infos.backgroundColor
     })
     console.log(infos.end)
@@ -55,23 +52,17 @@ export function ModalInfoTarefa({ infos, fecharModal }: InfosProps) {
 
         try {
 
-            if (tarefa.titulo === '' || tarefa.descricao === '' || tarefa.dataHoraFim === '' || tarefa.status === '' || tarefa.prioridade === '') {
+            if (tarefa.titulo === '' || tarefa.descricao === '' || tarefa.dataHoraFim === '' || tarefa.status === '') {
                 return toast.warning('Preencha todos os campos!')
             }
-
-            const backgroundColor =
-                tarefa.prioridade === 'Alta prioridade' ? '#ff4d4d' :
-                    tarefa.prioridade === 'Média prioridade' ? '#d4a000  ' :
-                        '#85e085'
 
             await updateDoc(docRef, {
                 titulo: tarefa.titulo,
                 descricao: tarefa.descricao,
                 status: tarefa.status,
-                prioridade: tarefa.prioridade,
                 dataHoraInicio: tarefa.dataHoraInicio,
                 dataHoraFim: tarefa.dataHoraFim,
-                backgroundColor: backgroundColor
+                backgroundColor: tarefa.backgroundColor
             })
             fecharModal()
             window.location.reload()

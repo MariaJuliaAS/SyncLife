@@ -8,7 +8,6 @@ interface TaksProps {
     dataHoraInicio: string | undefined;
     dataHoraFim: string;
     status: string;
-    prioridade: string,
     backgroundColor: string;
     userId?: string;
 }
@@ -57,23 +56,6 @@ export function LayoutForm({ tarefa, setTarefa, habilitarEdicao }: FormProps) {
                 onChange={(e) => setTarefa(prev => ({ ...prev, dataHoraFim: e.target.value }))} />
 
             <div className={styles.selects}>
-
-                <FormControl fullWidth>
-                    <InputLabel id="select-prioridadel">Nível de prioridade</InputLabel>
-                    <Select
-                        labelId="select-label"
-                        label="Nível de prioridade"
-                        variant='outlined'
-                        value={tarefa.prioridade}
-                        disabled={habilitarEdicao}
-                        className={styles.status}
-                        onChange={(e) => setTarefa(prev => ({ ...prev, prioridade: e.target.value }))}
-                    >
-                        <MenuItem value='Alta prioridade'>Alta prioridade</MenuItem>
-                        <MenuItem value='Média prioridade'>Média prioridade</MenuItem>
-                        <MenuItem value='Baixa prioridade'>Baixa prioridade</MenuItem>
-                    </Select>
-                </FormControl>
                 <FormControl fullWidth>
                     <InputLabel id="select-status">Status</InputLabel>
                     <Select
@@ -89,7 +71,13 @@ export function LayoutForm({ tarefa, setTarefa, habilitarEdicao }: FormProps) {
                         <MenuItem value='Pendente'>Pendente</MenuItem>
                     </Select>
                 </FormControl>
-
+                <input
+                    type="color"
+                    name="backgroundColorEvents"
+                    value={tarefa.backgroundColor}
+                    disabled={habilitarEdicao}
+                    className={styles.inputCor}
+                    onChange={(e) => setTarefa(prev => ({ ...prev, backgroundColor: e.target.value }))} />
             </div>
         </section>
     )

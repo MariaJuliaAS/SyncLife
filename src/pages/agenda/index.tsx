@@ -25,7 +25,6 @@ interface EventosProps {
     end: string;
     description: string;
     status: string;
-    priority: string;
     backgroundColor: string;
     borderColor: string;
     id: string;
@@ -44,7 +43,6 @@ export function Agenda() {
         end: '',
         description: '',
         status: '',
-        priority: '',
         backgroundColor: '',
         borderColor: '',
         id: '',
@@ -70,7 +68,6 @@ export function Agenda() {
                             end: doc.data().dataHoraFim,
                             description: doc.data().descricao,
                             status: doc.data().status,
-                            priority: doc.data().prioridade,
                             backgroundColor: doc.data().backgroundColor,
                             borderColor: doc.data().backgroundColor,
                             id: doc.id,
@@ -118,7 +115,6 @@ export function Agenda() {
             end: event.endStr,
             description: event.extendedProps.description,
             status: event.extendedProps.status,
-            priority: event.extendedProps.priority,
             backgroundColor: event.backgroundColor,
             borderColor: event.borderColor,
             id: event.id,
@@ -140,7 +136,7 @@ export function Agenda() {
         <div className='container'>
             <FullCalendar
                 plugins={[dayGridPlugin, interactionPlugin, timeGridPlugin, listPlugin, bootstrap5Plugin]}
-                initialView='dayGridMonth'
+                initialView='timeGridWeek'
                 weekends={true}
                 themeSystem='bootstrap5'
                 headerToolbar={{
@@ -150,6 +146,7 @@ export function Agenda() {
                 }}
                 locale='pt'
                 locales={[ptLocale]}
+                allDaySlot={false}
                 dateClick={abrirModalAdd}
                 events={eventos}
                 eventClick={abrirModalInfo}
@@ -162,6 +159,11 @@ export function Agenda() {
                         info.el.style.textDecoration = 'line-through';
                         info.el.style.opacity = '0.6';
                     }
+                }}
+                slotLabelFormat={{
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    meridiem: 'short'
                 }}
             />
             <AnimatePresence>

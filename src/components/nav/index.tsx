@@ -11,12 +11,11 @@ import { signOut } from "firebase/auth";
 import { auth, db } from "../../services/firebaseConnection";
 import { useNavigate } from "react-router-dom";
 import { collection, query, where, getDocs } from "firebase/firestore";
-import { FaCircleUser } from "react-icons/fa6";
 
 export function NavMenu() {
     const navigate = useNavigate();
     const [statusNav, setStatusNav] = useState(false)
-    const [photoUrl, setPhotoUrl] = useState('')
+    const [name, setName] = useState('')
 
     useEffect(() => {
 
@@ -32,7 +31,7 @@ export function NavMenu() {
                     .then((snapshot) => {
 
                         snapshot.forEach((doc) => {
-                            setPhotoUrl(doc.data().photoUrl)
+                            setName(doc.data().name)
                         })
 
                     })
@@ -63,11 +62,7 @@ export function NavMenu() {
 
                 <div className={styles.userArea}>
                     <Link to='/conta'>
-                        {photoUrl ? (
-                            <img src={photoUrl} alt="Foto de perfil" width={50} height={50} />
-                        ) :
-                            <FaCircleUser size={40} color="#808080" className={styles.iconUser} />
-                        }
+                        Olá, {name} 👋
                     </Link>
                 </div>
             </header>

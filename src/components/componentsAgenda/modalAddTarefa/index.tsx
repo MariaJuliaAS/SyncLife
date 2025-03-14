@@ -21,7 +21,6 @@ interface TarefaProps {
     dataHoraInicio: string | undefined;
     dataHoraFim: string;
     status: string;
-    prioridade: string;
     backgroundColor: string;
     userId?: string;
 }
@@ -36,32 +35,25 @@ export function ModalAddTarefa({ fecharModal, dataSelecionada }: ModalAddTarefaP
         dataHoraInicio: dataAjustada,
         dataHoraFim: '',
         status: '',
-        prioridade: '',
-        backgroundColor: '',
+        backgroundColor: '#0B5ED7',
         userId: auth.currentUser?.uid
     })
 
     async function addTarefa() {
         try {
 
-            if (tarefa.titulo === '' || tarefa.descricao === '' || tarefa.dataHoraFim === '' || tarefa.status === '' || tarefa.prioridade === '') {
+            if (tarefa.titulo === '' || tarefa.descricao === '' || tarefa.dataHoraFim === '' || tarefa.status === '') {
                 return toast.warning('Preencha todos os campos')
             }
 
-            const backgroundColor =
-                tarefa.prioridade === 'Alta prioridade' ? '#ff4d4d' :
-                    tarefa.prioridade === 'Média prioridade' ? '#d4a000  ' :
-                        '#85e085'
 
-
-            await addDoc(collection(db, 'tarefas'), { ...tarefa, backgroundColor: backgroundColor })
+            await addDoc(collection(db, 'tarefas'), tarefa)
             setTarefa({
                 titulo: '',
                 descricao: '',
                 dataHoraInicio: dataAjustada,
                 dataHoraFim: '',
                 status: '',
-                prioridade: '',
                 backgroundColor: '',
                 userId: ''
             })

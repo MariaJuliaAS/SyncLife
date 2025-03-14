@@ -14,13 +14,10 @@
 
 .fc-daygrid-day-frame, .fc-timegrid-slot, .fc-list-event {
     cursor: pointer;
-}
-
-.fc-daygrid-day-frame{
     transition: 0.3s all ease-in-out;
 }
 
-.fc-daygrid-day-frame:hover{
+.fc-daygrid-day-frame:hover, .fc-timegrid-slot:hover {
     background-color: #dcdcdc;
 }
 
@@ -31,3 +28,6 @@
     height: calc(100vh - 70px);
 }
 
+.fc-toolbar-title{
+    text-transform: capitalize;
+}

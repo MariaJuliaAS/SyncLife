@@ -25,5 +25,6 @@
 
 .inputCor{
     width: 60px;
-    height: 30px;
+    height: 50px;
+    border-radius: 50px;
 }

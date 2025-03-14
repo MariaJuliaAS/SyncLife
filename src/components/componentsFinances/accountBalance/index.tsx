@@ -90,7 +90,7 @@ export function AccountBalance() {
         <div className={styles.accountBalance}>
 
             <div className={styles.headerPayment}>
-                <h1 className={styles.title}>Saldo da conta</h1>
+                <h1 className={styles.title}>Histórico de transações</h1>
                 <span>Total: {total?.toLocaleString('pt-BR', {
                     style: 'currency',
                     currency: 'BRL'
