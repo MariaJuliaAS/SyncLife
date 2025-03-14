@@ -16,11 +16,14 @@ export function NavMenu() {
     const navigate = useNavigate();
     const [statusNav, setStatusNav] = useState(false)
     const [name, setName] = useState('')
+    const [isLoggedIn, setIsLoggedIn] = useState(false)
 
     useEffect(() => {
 
-        auth.onAuthStateChanged((user) => {
+        const unsubscribe = auth.onAuthStateChanged((user) => {
             if (user) {
+
+                setIsLoggedIn(true)
 
                 const q = query(
                     collection(db, 'cadastro-usuarios'),
@@ -39,9 +42,11 @@ export function NavMenu() {
                         console.log('Erro ao buscar nome: ' + error)
                     })
 
+            } else {
+                setIsLoggedIn(false)
             }
         })
-
+        return () => unsubscribe();
     }, [])
 
     function alternarMenu() {
@@ -51,6 +56,7 @@ export function NavMenu() {
     function logOut() {
         signOut(auth)
             .then(() => {
+                setIsLoggedIn(false)
                 navigate('/', { replace: true })
             })
             .catch((error) => {
