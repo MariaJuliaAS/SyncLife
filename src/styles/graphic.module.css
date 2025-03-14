@@ -22,14 +22,14 @@
 
 @media (max-width: 1550px){
     .graphics{
-        max-width: none;
-        height: 285px;
+        height: 310px;
         width: 35%;
     }
 }
 
 @media (max-width: 1050px){
     .graphics{
+        max-width: none;
         width: 100%;
     }
     .title{
