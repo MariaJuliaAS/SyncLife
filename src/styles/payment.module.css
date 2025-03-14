@@ -127,7 +127,7 @@
 @media (max-width: 1550px){
     .payments, .paymentsLoading{
         max-width: none;
-        max-height: 900px;
+        
     }
 }
 
@@ -170,5 +170,14 @@
 
     .tablePayments td:first-child, .tablePayments td:last-child{
         border-radius: 0;
+    }
+}
+
+@media (max-width: 650px){
+    .tableAreaPayments{
+        max-height: 360px;
+    }
+    .headerPayments{
+        margin-bottom: 5px;
     }
 }
