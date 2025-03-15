@@ -14,6 +14,7 @@ import { createUserWithEmailAndPassword, sendEmailVerification } from 'firebase/
 import { toast } from 'react-toastify';
 import { addDoc, collection } from 'firebase/firestore';
 import { useNavigate } from 'react-router-dom';
+import { CircularProgress } from '@mui/material';
 
 interface UserCreateProps {
     name: string;
@@ -24,6 +25,7 @@ interface UserCreateProps {
 export function Register() {
     const navigate = useNavigate();
     const [viewPassword, setViewPassword] = useState(false);
+    const [loading, setLoading] = useState(false)
     const [userRegister, setUserRegister] = useState<UserCreateProps>({
         name: '',
         email: '',
@@ -31,6 +33,7 @@ export function Register() {
     })
 
     async function createAccount() {
+        setLoading(true)
         await createUserWithEmailAndPassword(auth, userRegister.email, userRegister.password)
             .then((infoUser) => {
                 const user = infoUser.user
@@ -48,8 +51,8 @@ export function Register() {
                             name: userRegister.name,
                             email: userRegister.email,
                             userId: auth.currentUser?.uid,
-                            createAccount: new Date()
                         })
+                        setLoading(false)
                     })
 
                     .catch((error) => {
@@ -70,6 +73,14 @@ export function Register() {
                     })
                 }
             })
+    }
+
+    if (loading) {
+        return (
+            <div className='loading'>
+                <CircularProgress size={50} color='primary' thickness={5} style={{ color: '#0B5ED7' }} />
+            </div>
+        )
     }
 
 
