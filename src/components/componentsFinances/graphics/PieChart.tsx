@@ -8,7 +8,7 @@ import {
     CategoryScale,
     LinearScale,
 } from 'chart.js';
-import styles from '../../../styles/accountBalance.module.css'
+import styles from '../../../styles/transactions.module.css'
 
 chartJS.register(Title, Tooltip, Legend, ArcElement, CategoryScale, LinearScale);
 

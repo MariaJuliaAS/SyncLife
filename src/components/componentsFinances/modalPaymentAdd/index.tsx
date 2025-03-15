@@ -9,7 +9,7 @@ import { toast } from 'react-toastify';
 
 interface PaymentsProps {
     description: string;
-    value: number | null;
+    value: number;
     method: string;
     status: string;
     installments: string;
@@ -24,7 +24,7 @@ interface ModalPaymentProps {
 export function ModalPaymnentAdd({ closeModal }: ModalPaymentProps) {
     const [infosPayment, setInfosPayment] = useState<PaymentsProps>({
         description: '',
-        value: null,
+        value: 0,
         method: '',
         status: '',
         installments: '',
@@ -43,7 +43,7 @@ export function ModalPaymnentAdd({ closeModal }: ModalPaymentProps) {
 
             setInfosPayment({
                 description: '',
-                value: null,
+                value: 0,
                 method: '',
                 status: '',
                 installments: '',
@@ -82,6 +82,7 @@ export function ModalPaymnentAdd({ closeModal }: ModalPaymentProps) {
                         fullWidth
                         label='Valor'
                         type='number'
+                        InputLabelProps={{ shrink: true }}
                         value={infosPayment?.value}
                         onChange={(e) => setInfosPayment(prev => ({ ...prev, value: Number(e.target.value) }))}
                     />

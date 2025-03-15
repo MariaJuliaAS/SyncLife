@@ -1,5 +1,5 @@
 import { collection, onSnapshot, query, where } from 'firebase/firestore';
-import styles from '../../../styles/accountBalance.module.css';
+import styles from '../../../styles/transactionsHistory.module.css';
 import { useState, useEffect } from 'react';
 import { auth, db } from '../../../services/firebaseConnection';
 import { deleteDoc, doc } from 'firebase/firestore';
@@ -18,7 +18,7 @@ interface TransactionsProps {
 }
 
 
-export function AccountBalance() {
+export function TransactionsHistory() {
     const [transactions, setTransactions] = useState<TransactionsProps[]>()
     const [statusModal, setStatusModal] = useState(false)
     const [modalInfos, setModalInfos] = useState<TransactionsProps>()

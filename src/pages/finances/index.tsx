@@ -2,7 +2,7 @@ import CheckLogged from "../../utils/checkLogged";
 import styles from '../../styles/finances.module.css';
 import { Transactions } from "../../components/componentsFinances/transactions";
 import { Payments } from "../../components/componentsFinances/payments";
-import { AccountBalance } from "../../components/componentsFinances/accountBalance";
+import { TransactionsHistory } from "../../components/componentsFinances/transactionsHistory";
 import { Graphics } from "../../components/componentsFinances/graphics";
 
 export function Finances() {
@@ -18,7 +18,7 @@ export function Finances() {
 
             <section className={styles.areaRight}>
 
-                <AccountBalance />
+                <TransactionsHistory />
                 <Graphics />
 
             </section>
