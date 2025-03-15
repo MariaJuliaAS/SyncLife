@@ -20,6 +20,16 @@
     align-items: center;
 }
 
+.noGraphic{
+    display: flex;
+    justify-content: center;
+}
+.noGraphic h1{
+    font-size: 26px;
+    text-align: center;
+    max-width: 80%;
+}
+
 @media (max-width: 1550px){
     .graphics{
         height: 310px;
@@ -34,5 +44,9 @@
     }
     .title{
         font-size: 24px;
+    }
+    .noGraphic h1{
+        font-size: 22px;
+        max-width: none;
     }
 }

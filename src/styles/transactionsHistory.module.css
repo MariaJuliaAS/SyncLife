@@ -175,4 +175,7 @@
     .btnFunctions{
         padding: 7px 8px;
     }
+    .noTransactions h1{
+        font-size: 22px;
+    }
 }

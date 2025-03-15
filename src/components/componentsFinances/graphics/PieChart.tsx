@@ -8,7 +8,7 @@ import {
     CategoryScale,
     LinearScale,
 } from 'chart.js';
-import styles from '../../../styles/transactions.module.css'
+import styles from '../../../styles/graphic.module.css'
 
 chartJS.register(Title, Tooltip, Legend, ArcElement, CategoryScale, LinearScale);
 
@@ -26,8 +26,8 @@ interface PieChartProps {
 export function PieChart({ payments, className }: PieChartProps) {
     if (payments.length === 0) {
         return (
-            <div className={styles.noTransactions}>
-                <h1 style={{ maxWidth: '80%', textAlign: 'center' }}>Seu gráfico de controle de gastos aparecerá aqui!</h1>
+            <div className={styles.noGraphic}>
+                <h1>Seu gráfico de controle de gastos aparecerá aqui!</h1>
             </div>
         )
     }
