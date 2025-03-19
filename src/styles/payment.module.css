@@ -129,6 +129,9 @@
         max-width: none;
         
     }
+    .tableAreaPayments{
+        max-height: 300px;
+    }
 }
 
 @media (max-width: 1050px){
