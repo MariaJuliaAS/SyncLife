@@ -13,7 +13,7 @@ import { toast } from 'react-toastify';
 
 interface PaymentsProps {
     description: string;
-    value: number | null;
+    value: number;
     method: string;
     status: string;
     installments: string;
@@ -74,7 +74,7 @@ export function Payments() {
         }
     }
 
-    function openModalEdit(id: string, description: string, value: number | null, method: string, installments: string, payday: string, status: string, responsible: string) {
+    function openModalEdit(id: string, description: string, value: number, method: string, installments: string, payday: string, status: string, responsible: string) {
         setStatusModalEdit(true)
         setEditInfos({
             id,
@@ -87,6 +87,8 @@ export function Payments() {
             responsible,
         })
     }
+
+    const total = listPayments?.reduce((acc, item) => acc + item.value, 0)
 
     if (loading) {
         return (
@@ -167,6 +169,14 @@ export function Payments() {
                 }
 
             </div>
+
+            <span
+                className={styles.totalArea}
+            >
+                Total: {total?.toLocaleString('pt-BR', {
+                    style: 'currency',
+                    currency: 'BRL'
+                })}</span>
 
             <AnimatePresence>
                 {statusModalAdd && <ModalPaymnentAdd closeModal={() => setStatusModalAdd(false)} />}

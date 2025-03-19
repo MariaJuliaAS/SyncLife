@@ -2,7 +2,7 @@
     background-color: #fff;
     width: 100%;
     max-width: 1200px;
-    height: 63%;
+    height: 65%;
     padding: 20px;
     border: 1px solid #dcdcdc;
     border-radius: 4px;
@@ -22,7 +22,13 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    align-items: center;
     margin-bottom: 15px;
+}
+
+.headerPayments span{
+    font-size: 20px;
+    font-weight: bold;
 }
 
 .headerPayments button{
@@ -40,6 +46,7 @@
     max-height: 440px;
     overflow-y: auto;
     overflow-x: hidden;
+    margin-bottom: 10px;
 }
 
 .tablePayments{
@@ -122,6 +129,11 @@
 
 .noPayments h1{
     font-size: 26px;
+}
+
+.totalArea{
+    font-size: 20px;
+    font-weight: bold;
 }
 
 @media (max-width: 1550px){
