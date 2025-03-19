@@ -5,6 +5,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 20px;
 }
 
 .areaLogin{
@@ -138,6 +139,15 @@
 .forgotPassword button{
     color: #0B5ED7;
     font-weight: bold;
+}
+
+@media (max-width: 1550px){
+    .areaLogin{
+        height: 100%;
+    }
+    .logo{
+        margin-bottom: 20px;
+    }
 }
 
 @media (max-width: 1360px){
