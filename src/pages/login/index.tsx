@@ -5,17 +5,16 @@ import { TbLockPassword } from "react-icons/tb";
 import { LuEyeOff } from "react-icons/lu";
 import { LuEye } from "react-icons/lu";
 import { FcGoogle } from "react-icons/fc";
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import logoCalendar from '../../assets/undraw_calendar_76t8_2.svg';
 import { CustomInput } from '../../components/customInput';
 import { LayoutAuth } from '../../components/layoutAuth';
-import { sendPasswordResetEmail, signInWithEmailAndPassword } from 'firebase/auth';
+import { sendPasswordResetEmail, signInWithEmailAndPassword, onAuthStateChanged } from 'firebase/auth';
 import { auth, provider, db } from '../../services/firebaseConnection';
 import { signInWithPopup } from 'firebase/auth';
 import { addDoc, collection, getDocs, query, where } from 'firebase/firestore';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import CheckLogged from '../../utils/checkLogged';
 
 interface UserLoginProps {
     email: string;
@@ -23,13 +22,21 @@ interface UserLoginProps {
 }
 
 export function Login() {
-    CheckLogged()
     const navigate = useNavigate()
     const [userLogin, setUserLogin] = useState<UserLoginProps>({
         email: '',
         password: ''
     })
     const [viewPassword, setViewPassword] = useState(false)
+
+    useEffect(() => {
+        onAuthStateChanged(auth, (user) => {
+            if (user && user.emailVerified) {
+                navigate('/agenda', { replace: true })
+            }
+
+        })
+    }, [])
 
     async function signAccount() {
         await signInWithEmailAndPassword(auth, userLogin.email, userLogin.password)
