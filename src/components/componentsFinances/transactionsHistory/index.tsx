@@ -20,9 +20,9 @@ interface TransactionsProps {
 
 export function TransactionsHistory() {
     const [transactions, setTransactions] = useState<TransactionsProps[]>()
-    const [statusModal, setStatusModal] = useState(false)
+    const [statusModal, setStatusModal] = useState<boolean>(false)
     const [modalInfos, setModalInfos] = useState<TransactionsProps>()
-    const [loading, setLoading] = useState(true)
+    const [loading, setLoading] = useState<boolean>(true)
 
     useEffect(() => {
 
@@ -38,22 +38,38 @@ export function TransactionsHistory() {
                     let list: TransactionsProps[] = [];
 
                     snapshot.forEach((doc) => {
+                        const data = doc.data()
+
+                        // const [day, month, year] = data.date.split('/').map(Number)
+                        // const dateFormatted = new Date(year, month - 1, day)
+
                         list.push({
-                            value: doc.data().value,
-                            type: doc.data().type,
-                            date: doc.data().date,
-                            description: doc.data().description,
+                            value: data.value,
+                            type: data.type,
+                            date: data.date,
+                            description: data.description,
                             id: doc.id
                         })
                     })
 
+                    list.sort((a, b) => {
+                        const [dayA, monthA, yearA] = a.date.split('/').map(Number);
+                        const [dayB, monthB, yearB] = b.date.split('/').map(Number);
+
+                        const dateA = new Date(yearA, monthA - 1, dayA);
+                        const dateB = new Date(yearB, monthB - 1, dayB);
+
+                        return dateB.getTime() - dateA.getTime()
+
+                    })
+
                     setTransactions(list);
                     setLoading(false)
-
                 })
 
             }
         })
+
 
     }, [])
 
