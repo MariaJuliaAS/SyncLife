@@ -1,6 +1,5 @@
 import { Input } from "../../components/input";
 import { GrTarget } from "react-icons/gr";
-import { FaCircleUser } from "react-icons/fa6";
 
 export function Register() {
     return (
