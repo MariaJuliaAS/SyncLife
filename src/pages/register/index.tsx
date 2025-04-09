@@ -6,6 +6,7 @@ import { auth, db } from "../../services/firebaseConnection";
 import { addDoc, collection } from "firebase/firestore";
 import { Link, useNavigate } from "react-router-dom";
 import { ImSpinner2 } from "react-icons/im";
+import toast from "react-hot-toast";
 
 interface UserProps {
     name: string;
@@ -44,18 +45,18 @@ export function Register() {
                             email: user.email,
                             userId: user.uid
                         })
-                        console.log('Usuário adicionado')
                     })
+                toast.success('Verifique seu e-mail para ter acesso ao SyncLife!')
                 navigate('/login')
                 setLoading(false)
             })
             .catch((error) => {
                 console.log('Erro ao cadastrar usuário: ' + error)
-
+                setLoading(false)
                 if (error.code === 'auth/email-already-in-use') {
-                    alert('Email já cadastrado')
+                    toast.error('Email já cadastrado!')
                 } else if (error.code === 'auth/weak-password') {
-                    alert('Senha muito fraca')
+                    toast.error('Senha muito fraca!')
                 }
             })
     }

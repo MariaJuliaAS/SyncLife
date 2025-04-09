@@ -5,6 +5,7 @@ import { FormEvent, useState } from "react";
 import { auth } from "../../services/firebaseConnection";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 interface UserProps {
     email: string,
@@ -29,20 +30,22 @@ export function Login() {
                 if (user.emailVerified) {
                     navigate('/', { replace: true })
                 } else {
-                    alert('Verfique seu email para acessar')
+                    toast('Verfique seu email para acessar!', {
+                        icon: 'ℹ️'
+                    })
                 }
             })
             .catch((error) => {
                 switch (error.code) {
                     case 'auth/invalid-credential':
                     case 'auth/wrong-password':
-                        alert('Email ou senha inválidos!');
+                        toast.error('Email ou senha inválidos!');
                         break;
                     case 'auth/user-not-found':
-                        alert('Usuário não encontrado!');
+                        toast.error('Usuário não encontrado!');
                         break;
                     case 'auth/too-many-requests':
-                        alert('Muitas tentativas, tente mais tarde!');
+                        toast.error('Muitas tentativas, tente mais tarde!');
                         break;
                     default:
                         console.log('Erro ao faze login: ' + error)
