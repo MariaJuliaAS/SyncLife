@@ -1,10 +1,47 @@
-.btn-primary {
-  --bs-btn-bg: #009966;
-  --bs-btn-border-color: #009966;
-  --bs-btn-hover-bg: #00875a;
-  --bs-btn-active-bg: #00875a;
-  --bs-btn-active-border-color: #00875a;
-  --bs-btn-hover-border-color: #009966;
-  --bs-btn-disabled-bg: #00875a;
-  --bs-btn-disabled-border-color: #00875a;
+.fc .fc-button-primary {
+  --fc-button-bg-color: #009966;
+  --fc-button-border-color: #009966;
+  --fc-button-active-bg-color: #00875a;
+  --fc-button-active-border-color: #00875a;
+  --fc-button-hover-bg-color: #00875a;
+  --fc-button-hover-border-color: #00875a;
+}
+
+.fc {
+  width: 100%;
+  height: calc(100vh - 30px);
+}
+
+.fc-daygrid-day-frame,
+.fc-timegrid-slot,
+.fc-list-event {
+  cursor: pointer;
+  transition: 0.3s all ease-in-out;
+}
+
+.fc-daygrid-day-frame:hover,
+.fc-timegrid-slot:hover {
+  background-color: #dcdcdc;
+}
+
+.fc-toolbar-title {
+  text-transform: capitalize;
+}
+
+@media (max-width: 1000px) {
+  .fc-toolbar-chunk {
+    width: 100%;
+  }
+
+  .fc-toolbar-chunk,
+  .fc-toolbar-title {
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 750px) {
+  .fc-header-toolbar {
+    flex-direction: column;
+    gap: 10px;
+  }
 }
