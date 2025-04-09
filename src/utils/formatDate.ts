@@ -19,5 +19,5 @@ export function FormatDate(dateSelected: string) {
         minute: '2-digit'
     })
 
-    return { dateHourFormatted, dateFormatted, hourFormatted, haveHour }
+    return { dateHourFormatted, dateFormatted, hourFormatted, haveHour, ajustedDate }
 } 
