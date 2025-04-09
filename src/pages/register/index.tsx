@@ -1,7 +1,60 @@
 import { Input } from "../../components/input";
 import { GrTarget } from "react-icons/gr";
+import { FormEvent, useState } from "react";
+import { createUserWithEmailAndPassword, sendEmailVerification } from "firebase/auth";
+import { auth, db } from "../../services/firebaseConnection";
+import { addDoc, collection } from "firebase/firestore";
+import { Link, useNavigate } from "react-router-dom";
+
+interface UserProps {
+    name: string;
+    email: string;
+    password: string;
+}
 
 export function Register() {
+    const navigate = useNavigate()
+    const [userRegister, setUserRegister] = useState<UserProps>({
+        name: '',
+        email: '',
+        password: '',
+    })
+
+    async function handlerRegisterUser(e: FormEvent) {
+        e.preventDefault()
+
+        await createUserWithEmailAndPassword(auth, userRegister.email, userRegister.password)
+            .then((infoUser) => {
+                const user = infoUser.user
+                sendEmailVerification(user)
+
+                    .then(() => {
+                        setUserRegister({
+                            name: '',
+                            email: '',
+                            password: ''
+                        })
+
+                        addDoc(collection(db, 'userRegister'), {
+                            name: userRegister.name,
+                            email: user.email,
+                            userId: user.uid
+                        })
+                        console.log('Usuário adicionado')
+                    })
+                navigate('/login')
+            })
+            .catch((error) => {
+                console.log('Erro ao cadastrar usuário: ' + error)
+
+                if (error.code === 'auth/email-already-in-use') {
+                    alert('Email já cadastrado')
+                } else if (error.code === 'auth/weak-password') {
+                    alert('Senha muito fraca')
+                }
+            })
+    }
+
     return (
         <main className="h-screen w-full flex items-center justify-center bg-gray-50">
             <section className="w-full max-w-lg px-6">
@@ -17,30 +70,36 @@ export function Register() {
                         <span className="sm:text-base text-sm mt-2 text-gray-500">Preencha os campos abaixo para começar a usar o SyncLife</span>
                     </div>
 
-                    <form className="flex flex-col">
+                    <form className="flex flex-col" onSubmit={handlerRegisterUser}>
                         <label className="sm:text-base text-sm mb-2 font-medium">Nome</label>
                         <Input
                             placeholder='João Silva'
                             type="text"
+                            value={userRegister?.name}
+                            onChange={(e) => setUserRegister(prev => ({ ...prev, name: e.target.value }))}
                         />
                         <label className="sm:text-base text-sm mb-2 font-medium">Email</label>
                         <Input
                             placeholder="nome@exemplo.com"
                             type="email"
+                            value={userRegister.email}
+                            onChange={(e) => setUserRegister(prev => ({ ...prev, email: e.target.value }))}
                         />
                         <label className="sm:text-base text-sm font-medium mb-2">Senha</label>
                         <Input
                             placeholder="••••••••"
                             type="password"
+                            value={userRegister.password}
+                            onChange={(e) => setUserRegister(prev => ({ ...prev, password: e.target.value }))}
                         />
-                        <button className="sm:text-lg text-base my-5 bg-emerald-600 rounded-md py-1 text-white font-medium">
+                        <button type="submit" className="sm:text-lg text-base my-5 bg-emerald-600 rounded-md py-1 text-white font-medium cursor-pointer transition-all duration-200 hover:scale-105">
                             Criar Conta
                         </button>
                     </form>
 
                     <p className="sm:text-base text-sm mt-2 text-gray-500 text-center">
-                        Não tem uma conta?
-                        <a className="select-none cursor-pointer text-emerald-600 font-medium"> Crie sua conta</a>
+                        Já possui uma conta?
+                        <Link to='/login' className="select-none cursor-pointer text-emerald-600 font-medium"> Entrar</Link>
                     </p>
                 </article>
             </section>
