@@ -1,6 +1,7 @@
-import { useState } from "react";
+// import { useState } from "react";
 import { Input } from "../input";
 import { IoCloseCircle } from "react-icons/io5";
+import { FormatDate } from "../../utils/formatDate";
 
 interface ModalAddProps {
     closeModal: () => void;
@@ -13,12 +14,13 @@ interface ModalAddProps {
 
 export function ModalAdd({ closeModal, dateSelected }: ModalAddProps) {
     // const [eventsInfos, setEventsInfos] = useState()
+    const { dateFormatted, dateHourFormatted, haveHour } = FormatDate(dateSelected)
 
     return (
         <div className="bg-black/40 fixed inset-0 flex items-center justify-center z-10">
             <main className="bg-white w-11/12 max-w-xl h-auto flex flex-col rounded-lg p-8">
                 <header className="flex items-center justify-between w-full mb-5 border-b border-b-gray-200">
-                    <h3 className="mb-4 font-bold text-lg">Adicionar Evento - {dateSelected}</h3>
+                    <h3 className="mb-4 font-bold text-lg">Adicionar Evento - {haveHour ? dateHourFormatted : dateFormatted}</h3>
                     <IoCloseCircle onClick={closeModal} size={25} className="cursor-pointer mb-4 text-black transition-all duration-200 hover:text-red-500" />
                 </header>
 
