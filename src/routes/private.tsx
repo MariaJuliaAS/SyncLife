@@ -1,16 +1,14 @@
 import { onAuthStateChanged } from "firebase/auth"
 import { ReactNode, useEffect, useState } from "react"
 import { auth } from "../services/firebaseConnection"
-import { useNavigate } from "react-router-dom"
 import { ImSpinner2 } from "react-icons/im"
-
+import { Navigate } from "react-router-dom"
 
 interface PrivateProps {
     children: ReactNode
 }
 
 export function Private({ children }: PrivateProps) {
-    const navigate = useNavigate()
     const [signed, setSigned] = useState(false)
     const [loading, setLoading] = useState(true)
 
@@ -47,7 +45,7 @@ export function Private({ children }: PrivateProps) {
     }
 
     if (!signed) {
-        navigate('/login', { replace: true })
+        return <Navigate to='/login' />
     }
 
     return children
