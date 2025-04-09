@@ -5,6 +5,7 @@ import { createUserWithEmailAndPassword, sendEmailVerification } from "firebase/
 import { auth, db } from "../../services/firebaseConnection";
 import { addDoc, collection } from "firebase/firestore";
 import { Link, useNavigate } from "react-router-dom";
+import { ImSpinner2 } from "react-icons/im";
 
 interface UserProps {
     name: string;
@@ -14,6 +15,8 @@ interface UserProps {
 
 export function Register() {
     const navigate = useNavigate()
+    const [showPassword, setShowPassword] = useState(false)
+    const [loading, setLoading] = useState(false)
     const [userRegister, setUserRegister] = useState<UserProps>({
         name: '',
         email: '',
@@ -22,6 +25,7 @@ export function Register() {
 
     async function handlerRegisterUser(e: FormEvent) {
         e.preventDefault()
+        setLoading(true)
 
         await createUserWithEmailAndPassword(auth, userRegister.email, userRegister.password)
             .then((infoUser) => {
@@ -43,6 +47,7 @@ export function Register() {
                         console.log('Usuário adicionado')
                     })
                 navigate('/login')
+                setLoading(false)
             })
             .catch((error) => {
                 console.log('Erro ao cadastrar usuário: ' + error)
@@ -53,6 +58,14 @@ export function Register() {
                     alert('Senha muito fraca')
                 }
             })
+    }
+
+    if (loading) {
+        return (
+            <div className="w-full h-screen flex items-center justify-center">
+                <ImSpinner2 size={50} className="text-emerald-600 animate-spin" />
+            </div>
+        )
     }
 
     return (
@@ -88,10 +101,19 @@ export function Register() {
                         <label className="sm:text-base text-sm font-medium mb-2">Senha</label>
                         <Input
                             placeholder="••••••••"
-                            type="password"
+                            type={showPassword ? 'text' : 'password'}
                             value={userRegister.password}
                             onChange={(e) => setUserRegister(prev => ({ ...prev, password: e.target.value }))}
                         />
+                        <div className="flex items-center">
+                            <input
+                                type='checkbox'
+                                className="accent-emerald-600"
+                                onClick={() => setShowPassword(!showPassword)}
+                            />
+                            <label className="sm:text-base text-sm ml-3">{showPassword ? 'Ocultar senha' : 'Mostrar Senha'}</label>
+                        </div>
+
                         <button type="submit" className="sm:text-lg text-base my-5 bg-emerald-600 rounded-md py-1 text-white font-medium cursor-pointer transition-all duration-200 hover:scale-105">
                             Criar Conta
                         </button>
