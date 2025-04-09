@@ -1,5 +1,6 @@
 import { GrTarget } from "react-icons/gr";
 import { Input } from "../../components/input";
+import { Link } from "react-router-dom";
 
 export function Login() {
     return (
@@ -37,7 +38,7 @@ export function Login() {
 
                     <p className="sm:text-base text-sm mt-2 text-gray-500 text-center">
                         Não tem uma conta?
-                        <a className="select-none cursor-pointer text-emerald-600 font-medium"> Crie sua conta</a>
+                        <Link to='/register' className="select-none cursor-pointer text-emerald-600 font-medium"> Crie sua conta</Link>
                     </p>
                 </article>
             </section>
