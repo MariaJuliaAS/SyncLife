@@ -1,8 +1,56 @@
 import { GrTarget } from "react-icons/gr";
 import { Input } from "../../components/input";
 import { Link } from "react-router-dom";
+import { FormEvent, useState } from "react";
+import { auth } from "../../services/firebaseConnection";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
+
+interface UserProps {
+    email: string,
+    password: string
+}
 
 export function Login() {
+    const navigate = useNavigate()
+    const [userLogin, setUserLogin] = useState<UserProps>({
+        email: '',
+        password: ''
+    })
+    const [showPassword, setShowPassword] = useState(false)
+
+    async function handleLoginUser(e: FormEvent) {
+        e.preventDefault()
+
+        await signInWithEmailAndPassword(auth, userLogin.email, userLogin.password)
+            .then((infoUser) => {
+                const user = infoUser.user
+
+                if (user.emailVerified) {
+                    navigate('/', { replace: true })
+                } else {
+                    alert('Verfique seu email para acessar')
+                }
+            })
+            .catch((error) => {
+                switch (error.code) {
+                    case 'auth/invalid-credential':
+                    case 'auth/wrong-password':
+                        alert('Email ou senha inválidos!');
+                        break;
+                    case 'auth/user-not-found':
+                        alert('Usuário não encontrado!');
+                        break;
+                    case 'auth/too-many-requests':
+                        alert('Muitas tentativas, tente mais tarde!');
+                        break;
+                    default:
+                        console.log('Erro ao faze login: ' + error)
+                }
+            })
+    }
+
+
     return (
         <main className="h-screen w-full flex items-center justify-center bg-gray-50">
             <section className="w-full max-w-lg px-6">
@@ -18,11 +66,14 @@ export function Login() {
                         <span className="sm:text-base text-sm mt-2 text-gray-500">Entre com suas credenciais para acessar sua conta</span>
                     </div>
 
-                    <form className="flex flex-col">
+                    <form className="flex flex-col" onSubmit={handleLoginUser}>
                         <label className="sm:text-base text-sm mb-2 font-medium">Email</label>
                         <Input
                             placeholder="nome@exemplo.com"
                             type="email"
+                            value={userLogin.email}
+                            onChange={(e) => setUserLogin(prev => ({ ...prev, email: e.target.value }))}
+                            required
                         />
                         <div className="flex justify-between mb-2">
                             <label className="sm:text-base text-sm font-medium">Senha</label>
@@ -30,8 +81,21 @@ export function Login() {
                         </div>
                         <Input
                             placeholder="••••••••"
+                            type={showPassword ? 'text' : 'password'}
+                            value={userLogin.password}
+                            onChange={(e) => setUserLogin(prev => ({ ...prev, password: e.target.value }))}
+                            required
                         />
-                        <button className="sm:text-lg text-base my-5 bg-emerald-600 rounded-md py-1 text-white font-medium">
+                        <div className="flex items-center">
+                            <input
+                                type='checkbox'
+                                className="accent-emerald-600"
+                                onClick={() => setShowPassword(!showPassword)}
+                            />
+                            <label className="sm:text-base text-sm ml-3">{showPassword ? 'Ocultar senha' : 'Mostrar Senha'}</label>
+                        </div>
+
+                        <button className="sm:text-lg text-base my-5 bg-emerald-600 rounded-md py-1 text-white font-medium cursor-pointer transition-all duration-200 hover:scale-105" type="submit">
                             Entrar
                         </button>
                     </form>
