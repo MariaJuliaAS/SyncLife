@@ -65,7 +65,6 @@ export function Home() {
 
     async function moveEvent(info: EventClickArg | EventResizeDoneArg) {
         const event = info.event
-        console.log(event)
         const eventRef = doc(db, 'events', event.id)
 
         await updateDoc(eventRef, {
