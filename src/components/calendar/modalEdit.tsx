@@ -1,7 +1,7 @@
 import { IoCloseCircle } from "react-icons/io5";
 import { LayoutFormModal } from "./layoutModalForm";
 import { FormEvent, useEffect, useState } from "react";
-import { doc, getDoc, updateDoc } from "firebase/firestore";
+import { deleteDoc, doc, getDoc, updateDoc } from "firebase/firestore";
 import { auth, db } from "../../services/firebaseConnection";
 import { EventsProps } from "./modalAdd";
 import { FormatDate } from "../../utils/formatDate";
@@ -77,6 +77,19 @@ export function ModalEdit({ closeModal, docEventId }: ModalEditProps) {
             })
     }
 
+    async function handleDeletEvent() {
+        const eventRef = doc(db, 'events', docEventId)
+
+        await deleteDoc(eventRef)
+            .then(() => {
+                toast.success('Evento excluido com sucesso!')
+                closeModal()
+            })
+            .catch((error) => {
+                console.log('Erro ao excluir evento: ' + error)
+            })
+    }
+
     return (
         <div className="bg-black/40 fixed inset-0 flex items-center justify-center z-10">
             <main className="bg-white w-11/12 max-w-xl h-auto flex flex-col rounded-lg p-8">
@@ -90,7 +103,7 @@ export function ModalEdit({ closeModal, docEventId }: ModalEditProps) {
                     <LayoutFormModal eventsInfos={eventsInfos} setEventsInfos={setEventsInfos} disableEditing={disableEditing} />
 
                     <div className="gap-4 flex">
-                        <button className="sm:text-base text-sm w-full border border-gray-200 px-4 py-2 rounded-lg font-medium cursor-pointer transition-all duration-200 hover:bg-red-500 hover:text-white">
+                        <button type="button" onClick={handleDeletEvent} className="sm:text-base text-sm w-full border border-gray-200 px-4 py-2 rounded-lg font-medium cursor-pointer transition-all duration-200 hover:bg-red-500 hover:text-white">
                             Excluir
                         </button>
 
@@ -107,7 +120,6 @@ export function ModalEdit({ closeModal, docEventId }: ModalEditProps) {
                         }
                     </div>
                 </form>
-
             </main>
         </div>
     )
