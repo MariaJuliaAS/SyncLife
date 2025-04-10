@@ -58,7 +58,7 @@ export function Home() {
 
     function openModalEdit(info: EventClickArg): void {
         setStatusModalEdit(true)
-        setDocEventId(info.event.extendedProps.docId)
+        setDocEventId(info.event.id)
     }
 
     return (
