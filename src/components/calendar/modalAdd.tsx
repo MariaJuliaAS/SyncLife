@@ -1,10 +1,10 @@
 import { FormEvent, useState } from "react";
-import { IoCloseCircle } from "react-icons/io5";
 import { FormatDate } from "../../utils/formatDate";
 import { addDoc, collection } from "firebase/firestore";
 import { auth, db } from "../../services/firebaseConnection";
 import toast from "react-hot-toast";
 import { LayoutFormModal } from "./layoutModalForm";
+import { MdOutlineClose } from "react-icons/md";
 
 interface ModalAddProps {
     closeModal: () => void;
@@ -67,7 +67,7 @@ export function ModalAdd({ closeModal, dateSelected }: ModalAddProps) {
             <main className="bg-white w-11/12 max-w-xl h-auto flex flex-col rounded-lg p-8">
                 <header className="flex items-center justify-between w-full mb-5 border-b border-b-gray-200">
                     <h3 className="mb-4 font-bold text-lg">Adicionar Evento - {haveHour ? dateHourFormatted : dateFormatted}</h3>
-                    <IoCloseCircle onClick={closeModal} size={25} className="cursor-pointer mb-4 text-black transition-all duration-200 hover:text-red-500" />
+                    <MdOutlineClose onClick={closeModal} size={25} className="cursor-pointer mb-4 text-black transition-all duration-200 hover:text-red-500" />
                 </header>
 
 

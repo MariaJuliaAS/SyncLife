@@ -1,4 +1,4 @@
-import { IoCloseCircle } from "react-icons/io5";
+import { MdOutlineClose } from "react-icons/md";
 import { LayoutFormModal } from "./layoutModalForm";
 import { FormEvent, useEffect, useState } from "react";
 import { deleteDoc, doc, getDoc, updateDoc } from "firebase/firestore";
@@ -95,7 +95,7 @@ export function ModalEdit({ closeModal, docEventId }: ModalEditProps) {
             <main className="bg-white w-11/12 max-w-xl h-auto flex flex-col rounded-lg p-8">
                 <header className="flex items-center justify-between w-full mb-5 border-b border-b-gray-200">
                     <h3 className="mb-4 font-bold text-lg">{`${dateFormatted}, ${eventsInfos.startHour} - ${eventsInfos.endHour}`}</h3>
-                    <IoCloseCircle onClick={closeModal} size={25} className="cursor-pointer mb-4 text-black transition-all duration-200 hover:text-red-500" />
+                    <MdOutlineClose onClick={closeModal} size={25} className="cursor-pointer mb-4 text-black transition-all duration-200 hover:text-red-500" />
                 </header>
 
 
