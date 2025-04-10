@@ -55,20 +55,7 @@ export function ModalAdd({ closeModal, dateSelected }: ModalAddProps) {
         })
             .then(() => {
                 toast.success('Nova tarefa adicionada a sua agenda!')
-                setEventsInfos({
-                    title: '',
-                    startDate: '',
-                    startHour: '',
-                    endDate: '',
-                    endHour: '',
-                    description: '',
-                    status: false,
-                    backgroundColor: '#000000',
-                    borderColor: '#000000',
-                    userId: auth.currentUser?.uid,
-                    start: '',
-                    end: ''
-                })
+                closeModal()
             })
             .catch((error) => {
                 console.log('Erro ao adicionar tarefa: ' + error)
