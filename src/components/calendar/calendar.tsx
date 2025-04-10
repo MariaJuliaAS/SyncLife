@@ -6,13 +6,15 @@ import interactionPlugin, { DateClickArg, EventResizeDoneArg } from '@fullcalend
 import ptLocale from '@fullcalendar/core/locales/pt'
 import './calendar.css'
 import { EventsCalendarProps } from '../../pages/home';
+import { EventClickArg } from '@fullcalendar/core/index.js';
 
 interface CalendarProps {
     openModalAdd: (info: DateClickArg) => void;
+    openModalEdit: (info: EventClickArg) => void;
     events: EventsCalendarProps[]
 }
 
-export function Calendar({ openModalAdd, events }: CalendarProps) {
+export function Calendar({ openModalAdd, openModalEdit, events }: CalendarProps) {
     return (
         <FullCalendar
             plugins={[dayGridPlugin, interactionPlugin, timeGridPlugin, listPlugin]}
@@ -29,7 +31,7 @@ export function Calendar({ openModalAdd, events }: CalendarProps) {
             events={events}
             nowIndicator={true}
             dateClick={openModalAdd}
-
+            eventClick={openModalEdit}
         />
     )
 }

@@ -44,7 +44,6 @@ export function ModalAdd({ closeModal, dateSelected }: ModalAddProps) {
 
         await addDoc(collection(db, 'events'), {
             ...eventsInfos,
-            status: eventsInfos.status ? 'Completed' : 'Pending',
             borderColor: eventsInfos.backgroundColor,
 
         })

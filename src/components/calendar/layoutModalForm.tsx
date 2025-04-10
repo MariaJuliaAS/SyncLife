@@ -4,9 +4,10 @@ import { Input } from "../input"
 interface FormProps {
     eventsInfos: EventsProps;
     setEventsInfos: React.Dispatch<React.SetStateAction<EventsProps>>;
+    disableEditing?: boolean;
 }
 
-export function LayoutFormModal({ eventsInfos, setEventsInfos }: FormProps) {
+export function LayoutFormModal({ eventsInfos, setEventsInfos, disableEditing }: FormProps) {
     return (
         <>
             <label className="sm:text-base text-sm mb-2 font-medium">Título</label>
@@ -15,6 +16,7 @@ export function LayoutFormModal({ eventsInfos, setEventsInfos }: FormProps) {
                 value={eventsInfos?.title}
                 onChange={(e) => setEventsInfos(prev => ({ ...prev, title: e.target.value }))}
                 required
+                disabled={disableEditing}
             />
 
             <label className="sm:text-base text-sm mb-2 font-medium">Descrição</label>
@@ -24,6 +26,7 @@ export function LayoutFormModal({ eventsInfos, setEventsInfos }: FormProps) {
                 rows={3}
                 value={eventsInfos?.description}
                 onChange={(e) => setEventsInfos(prev => ({ ...prev, description: e.target.value }))}
+                disabled={disableEditing}
             />
 
             <section>
@@ -35,6 +38,7 @@ export function LayoutFormModal({ eventsInfos, setEventsInfos }: FormProps) {
                             value={eventsInfos?.startDate}
                             onChange={(e) => setEventsInfos(prev => ({ ...prev, startDate: e.target.value }))}
                             required
+                            disabled={disableEditing}
                         />
                     </div>
 
@@ -45,6 +49,7 @@ export function LayoutFormModal({ eventsInfos, setEventsInfos }: FormProps) {
                             value={eventsInfos?.startHour}
                             onChange={(e) => setEventsInfos(prev => ({ ...prev, startHour: e.target.value }))}
                             required
+                            disabled={disableEditing}
                         />
                     </div>
                 </div>
@@ -56,6 +61,7 @@ export function LayoutFormModal({ eventsInfos, setEventsInfos }: FormProps) {
                             value={eventsInfos?.endDate}
                             onChange={(e) => setEventsInfos(prev => ({ ...prev, endDate: e.target.value }))}
                             required
+                            disabled={disableEditing}
                         />
                     </div>
 
@@ -66,6 +72,7 @@ export function LayoutFormModal({ eventsInfos, setEventsInfos }: FormProps) {
                             value={eventsInfos?.endHour}
                             onChange={(e) => setEventsInfos(prev => ({ ...prev, endHour: e.target.value }))}
                             required
+                            disabled={disableEditing}
                         />
                     </div>
                 </div>
@@ -80,6 +87,7 @@ export function LayoutFormModal({ eventsInfos, setEventsInfos }: FormProps) {
                             className="accent-emerald-600 mr-3"
                             checked={eventsInfos.status}
                             onChange={(e) => setEventsInfos(prev => ({ ...prev, status: e.target.checked }))}
+                            disabled={disableEditing}
                         />
                         <label>{eventsInfos.status ? 'Concluído' : 'Pendente'}</label>
                     </div>
@@ -90,6 +98,7 @@ export function LayoutFormModal({ eventsInfos, setEventsInfos }: FormProps) {
                         type="color"
                         value={eventsInfos.backgroundColor}
                         onChange={(e) => setEventsInfos(prev => ({ ...prev, backgroundColor: e.target.value }))}
+                        disabled={disableEditing}
                     />
                 </div>
             </section>

@@ -1,0 +1,112 @@
+import { IoCloseCircle } from "react-icons/io5";
+import { LayoutFormModal } from "./layoutModalForm";
+import { FormEvent, useEffect, useState } from "react";
+import { doc, getDoc, updateDoc } from "firebase/firestore";
+import { auth, db } from "../../services/firebaseConnection";
+import { EventsProps } from "./modalAdd";
+import { FormatDate } from "../../utils/formatDate";
+import toast from "react-hot-toast";
+
+interface ModalEditProps {
+    closeModal: () => void;
+    docEventId: string;
+}
+
+export function ModalEdit({ closeModal, docEventId }: ModalEditProps) {
+    const [disableEditing, setDisableEditing] = useState(true)
+    const [eventsInfos, setEventsInfos] = useState<EventsProps>({
+        title: '',
+        startDate: '',
+        startHour: '',
+        endDate: '',
+        endHour: '',
+        description: '',
+        status: false,
+        backgroundColor: '#000000',
+        borderColor: '#000000',
+        userId: auth.currentUser?.uid,
+    })
+    const { dateFormatted } = FormatDate(eventsInfos.startDate)
+
+    useEffect(() => {
+
+        async function getEvent() {
+            const eventRef = doc(db, 'events', docEventId)
+
+            await getDoc(eventRef)
+                .then((snapshot) => {
+                    setEventsInfos({
+                        title: snapshot.data()?.title,
+                        startDate: snapshot.data()?.startDate,
+                        startHour: snapshot.data()?.startHour,
+                        endDate: snapshot.data()?.endDate,
+                        endHour: snapshot.data()?.endHour,
+                        description: snapshot.data()?.description,
+                        status: snapshot.data()?.status,
+                        backgroundColor: snapshot.data()?.backgroundColor,
+                        borderColor: snapshot.data()?.backgroundColor,
+                        userId: snapshot.data()?.userId,
+                    })
+                })
+                .catch((error) => {
+                    console.log('Erro ao carregar evento: ' + error)
+                })
+        }
+
+        getEvent()
+
+    }, [])
+
+    async function handleEditEvent(e: FormEvent) {
+        e.preventDefault()
+
+        const eventRef = doc(db, 'events', docEventId)
+
+        await updateDoc(eventRef, {
+            ...eventsInfos,
+            borderColor: eventsInfos.backgroundColor
+        })
+            .then(() => {
+                toast.success('Evento editado com sucesso!')
+                closeModal()
+            })
+            .catch((error) => {
+                console.log('Erro ao editar evento' + error)
+            })
+    }
+
+    return (
+        <div className="bg-black/40 fixed inset-0 flex items-center justify-center z-10">
+            <main className="bg-white w-11/12 max-w-xl h-auto flex flex-col rounded-lg p-8">
+                <header className="flex items-center justify-between w-full mb-5 border-b border-b-gray-200">
+                    <h3 className="mb-4 font-bold text-lg">{`${dateFormatted}, ${eventsInfos.startHour} - ${eventsInfos.endHour}`}</h3>
+                    <IoCloseCircle onClick={closeModal} size={25} className="cursor-pointer mb-4 text-black transition-all duration-200 hover:text-red-500" />
+                </header>
+
+
+                <form onSubmit={handleEditEvent} className="flex flex-col">
+                    <LayoutFormModal eventsInfos={eventsInfos} setEventsInfos={setEventsInfos} disableEditing={disableEditing} />
+
+                    <div className="gap-4 flex">
+                        <button className="sm:text-base text-sm w-full border border-gray-200 px-4 py-2 rounded-lg font-medium cursor-pointer transition-all duration-200 hover:bg-red-500 hover:text-white">
+                            Excluir
+                        </button>
+
+                        {disableEditing ?
+                            <button onClick={(e: FormEvent) => {
+                                e.preventDefault()
+                                setDisableEditing(!disableEditing)
+                            }} type="button" className="sm:text-base text-sm w-full bg-gray-700 text-white px-4 py-2 rounded-lg font-medium cursor-pointer transition-all duration-200 hover:bg-gray-800">
+                                Habilitar Edição
+                            </button> :
+                            <button type="submit" className="sm:text-base text-sm w-full bg-gray-700 text-white px-4 py-2 rounded-lg font-medium cursor-pointer transition-all duration-200 hover:bg-gray-800">
+                                Salvar Edição
+                            </button>
+                        }
+                    </div>
+                </form>
+
+            </main>
+        </div>
+    )
+}

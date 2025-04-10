@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react"
 import { Calendar } from "../../components/calendar/calendar"
 import { ModalAdd } from "../../components/calendar/modalAdd"
+import { ModalEdit } from "../../components/calendar/modalEdit"
 import { DateClickArg } from "@fullcalendar/interaction/index.js"
 import { collection, onSnapshot, query, where } from "firebase/firestore"
 import { auth, db } from "../../services/firebaseConnection"
+import { EventClickArg } from "@fullcalendar/core/index.js"
 
 export interface EventsCalendarProps {
     title: string;
@@ -15,14 +17,11 @@ export interface EventsCalendarProps {
 }
 
 export function Home() {
-    const [statusnModalAdd, setStatusModalAdd] = useState(false)
+    const [statusModalAdd, setStatusModalAdd] = useState(false)
+    const [statusModalEdit, setStatusModalEdit] = useState(false)
+    const [docEventId, setDocEventId] = useState('')
     const [dateSelected, setDateSelected] = useState('')
     const [events, setEvents] = useState<EventsCalendarProps[]>([])
-
-    function openModalAdd(info: DateClickArg): void {
-        setStatusModalAdd(true)
-        setDateSelected(info.dateStr)
-    }
 
     useEffect(() => {
         const q = query(
@@ -44,7 +43,6 @@ export function Home() {
                 })
             })
             setEvents(list)
-            console.log(list)
         })
 
         return () => {
@@ -53,13 +51,28 @@ export function Home() {
 
     }, [])
 
+    function openModalAdd(info: DateClickArg): void {
+        setStatusModalAdd(true)
+        setDateSelected(info.dateStr)
+    }
+
+    function openModalEdit(info: EventClickArg): void {
+        setStatusModalEdit(true)
+        setDocEventId(info.event.extendedProps.docId)
+    }
+
     return (
         <main className='sm:px-12 w-full max-h-screen py-6 px-4 flex justify-center '>
-            <Calendar events={events} openModalAdd={openModalAdd} />
+            <Calendar events={events} openModalAdd={openModalAdd} openModalEdit={openModalEdit} />
 
-            {statusnModalAdd && <ModalAdd
+            {statusModalAdd && <ModalAdd
                 closeModal={() => setStatusModalAdd(false)}
                 dateSelected={dateSelected}
+            />}
+
+            {statusModalEdit && <ModalEdit
+                closeModal={() => setStatusModalEdit(false)}
+                docEventId={docEventId}
             />}
         </main>
 
