@@ -13,7 +13,7 @@ export interface EventsCalendarProps {
     end: string;
     backgroundColor: string;
     borderColor: string;
-    docId: string
+    id: string
 }
 
 export function Home() {
@@ -39,7 +39,7 @@ export function Home() {
                     end: item.data().endDate + 'T' + item.data().endHour,
                     backgroundColor: item.data().backgroundColor,
                     borderColor: item.data().borderColor,
-                    docId: item.id
+                    id: item.id
                 })
             })
             setEvents(list)
