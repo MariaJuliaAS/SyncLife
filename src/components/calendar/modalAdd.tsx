@@ -22,6 +22,8 @@ export interface EventsProps {
     backgroundColor: string;
     borderColor: string;
     userId: string | undefined;
+    start?: string;
+    end?: string;
 }
 
 export function ModalAdd({ closeModal, dateSelected }: ModalAddProps) {
@@ -37,6 +39,8 @@ export function ModalAdd({ closeModal, dateSelected }: ModalAddProps) {
         backgroundColor: '#000000',
         borderColor: '#000000',
         userId: auth.currentUser?.uid,
+        start: '',
+        end: ''
     })
 
     async function handleAddEvent(e: FormEvent) {
@@ -45,6 +49,8 @@ export function ModalAdd({ closeModal, dateSelected }: ModalAddProps) {
         await addDoc(collection(db, 'events'), {
             ...eventsInfos,
             borderColor: eventsInfos.backgroundColor,
+            start: eventsInfos.startDate + 'T' + eventsInfos.startHour,
+            end: eventsInfos.endDate + 'T' + eventsInfos.endHour
 
         })
             .then(() => {
@@ -60,6 +66,8 @@ export function ModalAdd({ closeModal, dateSelected }: ModalAddProps) {
                     backgroundColor: '#000000',
                     borderColor: '#000000',
                     userId: auth.currentUser?.uid,
+                    start: '',
+                    end: ''
                 })
             })
             .catch((error) => {

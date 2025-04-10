@@ -37,10 +37,10 @@ export function ModalEdit({ closeModal, docEventId }: ModalEditProps) {
                 .then((snapshot) => {
                     setEventsInfos({
                         title: snapshot.data()?.title,
-                        startDate: snapshot.data()?.startDate,
-                        startHour: snapshot.data()?.startHour,
-                        endDate: snapshot.data()?.endDate,
-                        endHour: snapshot.data()?.endHour,
+                        startDate: (snapshot.data()?.start).slice(0, 10),
+                        startHour: (snapshot.data()?.start).slice(11, 16),
+                        endDate: (snapshot.data()?.end).slice(0, 10),
+                        endHour: (snapshot.data()?.end).slice(11, 16),
                         description: snapshot.data()?.description,
                         status: snapshot.data()?.status,
                         backgroundColor: snapshot.data()?.backgroundColor,
@@ -64,7 +64,9 @@ export function ModalEdit({ closeModal, docEventId }: ModalEditProps) {
 
         await updateDoc(eventRef, {
             ...eventsInfos,
-            borderColor: eventsInfos.backgroundColor
+            borderColor: eventsInfos.backgroundColor,
+            start: eventsInfos.startDate + 'T' + eventsInfos.startHour,
+            end: eventsInfos.endDate + 'T' + eventsInfos.endHour
         })
             .then(() => {
                 toast.success('Evento editado com sucesso!')

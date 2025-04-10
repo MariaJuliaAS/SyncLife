@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import { Calendar } from "../../components/calendar/calendar"
 import { ModalAdd } from "../../components/calendar/modalAdd"
 import { ModalEdit } from "../../components/calendar/modalEdit"
-import { DateClickArg } from "@fullcalendar/interaction/index.js"
+import { DateClickArg, EventResizeDoneArg } from "@fullcalendar/interaction/index.js"
 import { collection, onSnapshot, query, where } from "firebase/firestore"
 import { auth, db } from "../../services/firebaseConnection"
 import { EventClickArg } from "@fullcalendar/core/index.js"
@@ -13,7 +13,7 @@ export interface EventsCalendarProps {
     end: string;
     backgroundColor: string;
     borderColor: string;
-    id: string
+    id: string;
 }
 
 export function Home() {
@@ -35,11 +35,11 @@ export function Home() {
             snapshot.forEach((item) => {
                 list.push({
                     title: item.data().title,
-                    start: item.data().startDate + 'T' + item.data().startHour,
-                    end: item.data().endDate + 'T' + item.data().endHour,
+                    start: item.data().start,
+                    end: item.data().end,
                     backgroundColor: item.data().backgroundColor,
                     borderColor: item.data().borderColor,
-                    id: item.id
+                    id: item.id,
                 })
             })
             setEvents(list)
@@ -59,6 +59,7 @@ export function Home() {
     function openModalEdit(info: EventClickArg): void {
         setStatusModalEdit(true)
         setDocEventId(info.event.id)
+        console.log(info.event)
     }
 
     return (
