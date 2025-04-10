@@ -2,8 +2,15 @@ import { GrTarget } from "react-icons/gr";
 import { GoCalendar, GoCreditCard } from "react-icons/go";
 import { IoExitOutline } from "react-icons/io5";
 import { Link } from "react-router-dom";
+import { signOut } from "firebase/auth";
+import { auth } from "../../services/firebaseConnection";
 
 export function Siderbar() {
+
+    async function handleLogout() {
+        await signOut(auth)
+    }
+
     return (
         <div className="flex flex-col justify-between min-h-screen w-64 border-r border-gray-200 px-4">
             <div>
@@ -25,10 +32,10 @@ export function Siderbar() {
             </div>
 
             <footer className="border-t border-gray-300 mb-4">
-                <a className="mt-4 select-none cursor-pointer flex items-center text-lg rounded-md py-1 transition-all duration-200 hover:bg-red-500/10 hover:px-4 hover:text-red-500">
+                <button onClick={handleLogout} className="w-full mt-4 select-none cursor-pointer flex items-center text-lg rounded-md py-1 transition-all duration-200 hover:bg-red-500/10 hover:px-4 hover:text-red-500">
                     <IoExitOutline size={25} className=" mr-3 " />
                     Sair
-                </a>
+                </button>
             </footer>
         </div>
     )
