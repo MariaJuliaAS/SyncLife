@@ -6,6 +6,7 @@ import { auth } from "../../services/firebaseConnection";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
+import { ImSpinner2 } from "react-icons/im";
 
 interface UserProps {
     email: string,
@@ -14,14 +15,16 @@ interface UserProps {
 
 export function Login() {
     const navigate = useNavigate()
+    const [loading, setLoading] = useState(false)
+    const [showPassword, setShowPassword] = useState(false)
     const [userLogin, setUserLogin] = useState<UserProps>({
         email: '',
         password: ''
     })
-    const [showPassword, setShowPassword] = useState(false)
 
     async function handleLoginUser(e: FormEvent) {
         e.preventDefault()
+        setLoading(true)
 
         await signInWithEmailAndPassword(auth, userLogin.email, userLogin.password)
             .then((infoUser) => {
@@ -34,8 +37,10 @@ export function Login() {
                         icon: 'ℹ️'
                     })
                 }
+                setLoading(false)
             })
             .catch((error) => {
+                setLoading(false)
                 switch (error.code) {
                     case 'auth/invalid-credential':
                     case 'auth/wrong-password':
@@ -53,6 +58,13 @@ export function Login() {
             })
     }
 
+    if (loading) {
+        return (
+            <div className="w-full h-screen flex items-center justify-center">
+                <ImSpinner2 size={50} className="text-emerald-600 animate-spin" />
+            </div>
+        )
+    }
 
     return (
         <main className="h-screen w-full flex items-center justify-center bg-gray-50">
