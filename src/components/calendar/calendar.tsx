@@ -5,12 +5,14 @@ import listPlugin from '@fullcalendar/list';
 import interactionPlugin, { DateClickArg, EventResizeDoneArg } from '@fullcalendar/interaction';
 import ptLocale from '@fullcalendar/core/locales/pt'
 import './calendar.css'
+import { EventsCalendarProps } from '../../pages/home';
 
 interface CalendarProps {
     openModalAdd: (info: DateClickArg) => void;
+    events: EventsCalendarProps[]
 }
 
-export function Calendar({ openModalAdd }: CalendarProps) {
+export function Calendar({ openModalAdd, events }: CalendarProps) {
     return (
         <FullCalendar
             plugins={[dayGridPlugin, interactionPlugin, timeGridPlugin, listPlugin]}
@@ -24,22 +26,10 @@ export function Calendar({ openModalAdd }: CalendarProps) {
             locale='pt'
             locales={[ptLocale]}
             allDaySlot={false}
-            events={[
-                { title: 'Evento 1', date: '2025-04-09' },
-                { title: 'Evento 2', date: '2025-04-10' },
-            ]}
-            slotLabelFormat={{
-                hour: '2-digit',
-                minute: '2-digit',
-                meridiem: 'short'
-            }}
-            titleFormat={{
-                year: 'numeric',
-                month: 'short',
-                day: '2-digit'
-            }}
+            events={events}
             nowIndicator={true}
             dateClick={openModalAdd}
+
         />
     )
 }
