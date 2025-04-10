@@ -7,6 +7,7 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import { ImSpinner2 } from "react-icons/im";
+import { Loading } from "../../components/loading";
 
 interface UserProps {
     email: string,
@@ -59,11 +60,7 @@ export function Login() {
     }
 
     if (loading) {
-        return (
-            <div className="w-full h-screen flex items-center justify-center">
-                <ImSpinner2 size={50} className="text-emerald-600 animate-spin" />
-            </div>
-        )
+        return <Loading />
     }
 
     return (

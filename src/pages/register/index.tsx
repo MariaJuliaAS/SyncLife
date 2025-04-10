@@ -7,6 +7,7 @@ import { addDoc, collection } from "firebase/firestore";
 import { Link, useNavigate } from "react-router-dom";
 import { ImSpinner2 } from "react-icons/im";
 import toast from "react-hot-toast";
+import { Loading } from "../../components/loading";
 
 interface UserProps {
     name: string;
@@ -62,11 +63,7 @@ export function Register() {
     }
 
     if (loading) {
-        return (
-            <div className="w-full h-screen flex items-center justify-center">
-                <ImSpinner2 size={50} className="text-emerald-600 animate-spin" />
-            </div>
-        )
+        return <Loading />
     }
 
     return (
