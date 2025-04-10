@@ -2,10 +2,11 @@ import { useEffect, useState } from "react"
 import { Calendar } from "../../components/calendar/calendar"
 import { ModalAdd } from "../../components/calendar/modalAdd"
 import { ModalEdit } from "../../components/calendar/modalEdit"
-import { DateClickArg } from "@fullcalendar/interaction/index.js"
-import { collection, onSnapshot, query, where } from "firebase/firestore"
+import { DateClickArg, EventResizeDoneArg } from "@fullcalendar/interaction/index.js"
+import { collection, doc, onSnapshot, query, updateDoc, where } from "firebase/firestore"
 import { auth, db } from "../../services/firebaseConnection"
 import { EventClickArg } from "@fullcalendar/core/index.js"
+import toast from "react-hot-toast"
 
 export interface EventsCalendarProps {
     title: string;
@@ -62,9 +63,26 @@ export function Home() {
         console.log(info.event)
     }
 
+    async function moveEvent(info: EventClickArg | EventResizeDoneArg) {
+        const event = info.event
+        console.log(event)
+        const eventRef = doc(db, 'events', event.id)
+
+        await updateDoc(eventRef, {
+            start: event.startStr,
+            end: event.endStr
+        })
+            .then(() => {
+                toast.success('Evento editado com sucesso!')
+            })
+            .catch((error) => {
+                console.log('Erro ao editar evento movendo: ' + error)
+            })
+    }
+
     return (
         <main className='sm:px-12 w-full max-h-screen py-6 px-4 flex justify-center '>
-            <Calendar events={events} openModalAdd={openModalAdd} openModalEdit={openModalEdit} />
+            <Calendar events={events} openModalAdd={openModalAdd} openModalEdit={openModalEdit} moveEvent={moveEvent} />
 
             {statusModalAdd && <ModalAdd
                 closeModal={() => setStatusModalAdd(false)}

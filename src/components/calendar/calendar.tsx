@@ -7,34 +7,15 @@ import ptLocale from '@fullcalendar/core/locales/pt'
 import './calendar.css'
 import { EventsCalendarProps } from '../../pages/home';
 import { EventClickArg } from '@fullcalendar/core/index.js';
-import { db } from '../../services/firebaseConnection';
-import { doc, updateDoc } from 'firebase/firestore';
-import toast from 'react-hot-toast';
 
 interface CalendarProps {
     openModalAdd: (info: DateClickArg) => void;
     openModalEdit: (info: EventClickArg) => void;
+    moveEvent: (info: EventClickArg | EventResizeDoneArg) => void;
     events: EventsCalendarProps[]
 }
 
-export function Calendar({ openModalAdd, openModalEdit, events }: CalendarProps) {
-
-    async function moveEvent(info: EventClickArg | EventResizeDoneArg) {
-        const event = info.event
-        console.log(event)
-        const eventRef = doc(db, 'events', event.id)
-
-        await updateDoc(eventRef, {
-            start: event.startStr,
-            end: event.endStr
-        })
-            .then(() => {
-                toast.success('Evento editado com sucesso!')
-            })
-            .catch((error) => {
-                console.log('Erro ao editar evento movendo: ' + error)
-            })
-    }
+export function Calendar({ openModalAdd, openModalEdit, events, moveEvent }: CalendarProps) {
 
     return (
         <FullCalendar
