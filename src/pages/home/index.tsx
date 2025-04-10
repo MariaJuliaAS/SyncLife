@@ -7,6 +7,7 @@ import { collection, doc, onSnapshot, query, updateDoc, where } from "firebase/f
 import { auth, db } from "../../services/firebaseConnection"
 import { EventClickArg } from "@fullcalendar/core/index.js"
 import toast from "react-hot-toast"
+import { Siderbar } from "../../components/sidebar"
 
 export interface EventsCalendarProps {
     title: string;
@@ -80,19 +81,23 @@ export function Home() {
     }
 
     return (
-        <main className='sm:px-12 w-full max-h-screen py-6 px-4 flex justify-center '>
-            <Calendar events={events} openModalAdd={openModalAdd} openModalEdit={openModalEdit} moveEvent={moveEvent} />
+        <div className="flex">
+            <Siderbar />
 
-            {statusModalAdd && <ModalAdd
-                closeModal={() => setStatusModalAdd(false)}
-                dateSelected={dateSelected}
-            />}
+            <main className='sm:px-12 w-full max-h-screen py-6 px-4 flex justify-center bg-gray-50'>
+                <Calendar events={events} openModalAdd={openModalAdd} openModalEdit={openModalEdit} moveEvent={moveEvent} />
 
-            {statusModalEdit && <ModalEdit
-                closeModal={() => setStatusModalEdit(false)}
-                docEventId={docEventId}
-            />}
-        </main>
+                {statusModalAdd && <ModalAdd
+                    closeModal={() => setStatusModalAdd(false)}
+                    dateSelected={dateSelected}
+                />}
+
+                {statusModalEdit && <ModalEdit
+                    closeModal={() => setStatusModalEdit(false)}
+                    docEventId={docEventId}
+                />}
+            </main>
+        </div>
 
     )
 }
