@@ -19,7 +19,7 @@ export function Siderbar() {
                     <p className="sm:text-3xl font-bold text-2xl select-none text-gray-800">SyncLife</p>
                 </header>
 
-                <nav className="flex flex-col gap-4 pt-7 ">
+                <nav className="flex flex-col gap-4 pt-7 pl-1">
                     <Link to='/' className="select-none cursor-pointer flex items-center text-lg  rounded-md py-1 transition-all duration-200 hover:bg-emerald-600/10 hover:px-4 hover:text-emerald-600">
                         <GoCalendar size={25} className="mr-3" />
                         Agenda
@@ -31,7 +31,7 @@ export function Siderbar() {
                 </nav>
             </div>
 
-            <footer className="border-t border-gray-300 mb-4">
+            <footer className="border-t border-gray-300 mb-4 pl-1">
                 <button onClick={handleLogout} className="w-full mt-4 select-none cursor-pointer flex items-center text-lg rounded-md py-1 transition-all duration-200 hover:bg-red-500/10 hover:px-4 hover:text-red-500">
                     <IoExitOutline size={25} className=" mr-3 " />
                     Sair
