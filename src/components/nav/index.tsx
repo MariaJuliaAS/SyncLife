@@ -21,10 +21,10 @@ export function Nav() {
 
     return (
         <>
-            {!isMobile ?
-                (<Siderbar />)
-                :
+            {isMobile ?
                 (<Header />)
+                :
+                (<Siderbar />)
             }
         </>
     )
