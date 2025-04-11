@@ -1,5 +1,6 @@
 import { FaArrowTrendUp, FaArrowTrendDown } from "react-icons/fa6";
 import { FaRegEye } from "react-icons/fa";
+import { GiMoneyStack } from "react-icons/gi";
 
 export function Transaction() {
     return (
@@ -10,9 +11,9 @@ export function Transaction() {
                     <p className="sm:text-2xl flex items-center font-bold  text-white text-xl py-1">R$ 248,50 <FaRegEye color="#fff" className="ml-3 mt-1 sm:text-2xl text-xl" /></p>
                     <span className="sm:text-sm text-xs text- mt-2 text-gray-50">Atualizado há 5 minutos</span>
                 </div>
-                <button className="sm:text-base text-sm bg-white/20 px-4 py-1 rounded-lg text-white cursor-pointer transition-all duration-200 hover:bg-white/30">
-                    Ver extrato ›
-                </button>
+                <span className="sm:text-base text-sm bg-black/10 rounded-full p-3">
+                    <GiMoneyStack className="text-white sm:text-2xl text-xl" />
+                </span>
             </article>
 
             {/* xl:contents => A div desaparece e os articles voltam a ocupar as 3 colunas do grip principal */}
