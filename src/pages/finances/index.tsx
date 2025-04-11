@@ -1,4 +1,5 @@
 import { Card } from "../../components/finances/card";
+import { RecentTransactions } from "../../components/finances/recentTransactions";
 import { Transaction } from "../../components/finances/transaction";
 import { Nav } from "../../components/nav";
 
@@ -25,9 +26,14 @@ export function Finances() {
 
                     <Transaction />
 
-                    <div className="sm:flex-row flex-col flex mt-4 gap-4">
-                        <Card />
-                        <h1 className="flex-1">teste</h1>
+                    <div className="flex sm:flex-row flex-col">
+                        <div className="flex-col flex mt-4 gap-4 flex-1">
+                            <Card />
+                            <RecentTransactions />
+                        </div>
+                        <div className="flex-1">
+                            <h1>teste</h1>
+                        </div>
                     </div>
                 </main>
             </div>
