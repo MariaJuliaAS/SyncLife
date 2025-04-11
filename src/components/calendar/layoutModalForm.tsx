@@ -59,6 +59,7 @@ export function LayoutFormModal({ eventsInfos, setEventsInfos, disableEditing }:
                         <Input
                             type="date"
                             value={eventsInfos?.endDate}
+                            min={eventsInfos.startDate}
                             onChange={(e) => setEventsInfos(prev => ({ ...prev, endDate: e.target.value }))}
                             required
                             disabled={disableEditing}
@@ -70,6 +71,7 @@ export function LayoutFormModal({ eventsInfos, setEventsInfos, disableEditing }:
                         <Input
                             type="time"
                             value={eventsInfos?.endHour}
+                            min={eventsInfos.startHour}
                             onChange={(e) => setEventsInfos(prev => ({ ...prev, endHour: e.target.value }))}
                             required
                             disabled={disableEditing}
