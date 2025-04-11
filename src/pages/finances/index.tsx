@@ -1,12 +1,16 @@
+import { useState } from "react";
 import { Card } from "../../components/finances/card";
 import { Graphic } from "../../components/finances/graphic";
 import { RecentTransactions } from "../../components/finances/recentTransactions";
 import { Transaction } from "../../components/finances/transaction";
 import { Nav } from "../../components/nav";
+import { ModalAddTransaction } from "../../components/finances/modalAddTransaction";
 
 
 
 export function Finances() {
+    const [modalAddTransaction, setModalAddTransaction] = useState(false)
+
     return (
         <div className="flex">
             <Nav />
@@ -19,7 +23,7 @@ export function Finances() {
                             <span className="sm:text-base text-sm mt-2 text-gray-500">Acompanhe suas finanças em um só lugar</span>
                         </div>
                         <div className="flex items-center">
-                            <button className="sm:text-base text-sm sm:px-5 px-2 bg-emerald-600 py-1 text-white font-medium rounded-md cursor-pointer transition-all duration-200 hover:bg-emerald-700">
+                            <button onClick={() => setModalAddTransaction(true)} className="sm:text-base text-sm sm:px-5 px-2 bg-emerald-600 py-1 text-white font-medium rounded-md cursor-pointer transition-all duration-200 hover:bg-emerald-700">
                                 Nova Transação
                             </button>
                         </div>
@@ -37,6 +41,8 @@ export function Finances() {
                         </div>
                     </div>
                 </main>
+
+                {modalAddTransaction && <ModalAddTransaction closeModal={() => setModalAddTransaction(false)} />}
             </div>
         </div>
     )
