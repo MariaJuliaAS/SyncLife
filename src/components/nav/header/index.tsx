@@ -5,6 +5,7 @@ import { IoExitOutline } from "react-icons/io5";
 import { TbMenu2 } from "react-icons/tb";
 import { Link } from "react-router-dom";
 import { auth } from "../../../services/firebaseConnection";
+import { GrTarget } from "react-icons/gr";
 
 export function Header() {
     const [statusNav, setStatusNav] = useState(false)
@@ -25,6 +26,10 @@ export function Header() {
                 <section >
                     <div className="absolute top-14 right-8 w-4 h-4 bg-white transform rotate-45 shadow-lg"></div>
                     <nav className="bg-white px-5 py-7 absolute right-5 top-16 z-10 rounded-lg shadow-lg sm:w-64 w-54">
+                        <div className="flex mb-5">
+                            <GrTarget color="#fff" className="sm:text-4xl text-3xl mr-2 bg-emerald-600 rounded-xl p-1" />
+                            <p className="sm:text-3xl font-bold text-2xl select-none text-gray-800">SyncLife</p>
+                        </div>
                         <Link to='/' className="sm:text-lg text-base select-none cursor-pointer flex items-center justify-between rounded-md py-1 transition-all duration-200 hover:bg-emerald-600/10 hover:px-4 hover:text-emerald-600">
                             <div className="flex items-center">
                                 <GoCalendar className="mr-3 sm:text-[25px] text-xl" />
