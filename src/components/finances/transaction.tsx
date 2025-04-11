@@ -3,7 +3,7 @@ import { FaRegEye } from "react-icons/fa";
 
 export function Transaction() {
     return (
-        <section className="xl:grid-cols-3 grid-cols-1 mt-6 grid place-items-center gap-4">
+        <section className="xl:grid-cols-3 grid-cols-1 grid place-items-center gap-4">
             <article className="w-full flex items-center justify-between h-36 px-4 rounded-md bg-gradient-to-r from-emerald-600 to-emerald-700 shadow-lg">
                 <div>
                     <span className="sm:text-base text-sm font-medium mt-2 text-gray-50">Saldo em conta</span>

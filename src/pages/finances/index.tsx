@@ -1,3 +1,4 @@
+import { Card } from "../../components/finances/card";
 import { Transaction } from "../../components/finances/transaction";
 import { Nav } from "../../components/nav";
 
@@ -10,7 +11,7 @@ export function Finances() {
 
             <div className='sm:px-12 w-full min-h-screen py-6 px-4 flex bg-gray-50 felx justify-center'>
                 <main className="w-full max-w-7xl">
-                    <header className="sm:flex-row flex-col gap-4 w-full flex justify-between lg:pt-0 sm:pt-6 pt-0">
+                    <header className="sm:flex-row flex-col gap-4 w-full flex justify-between mb-6 lg:pt-0 sm:pt-6 pt-0">
                         <div>
                             <h1 className="font-bold sm:text-3xl text-2xl">Dashboard Financeiro</h1>
                             <span className="sm:text-base text-sm mt-2 text-gray-500">Acompanhe suas finanças em um só lugar</span>
@@ -23,6 +24,11 @@ export function Finances() {
                     </header>
 
                     <Transaction />
+
+                    <div className="sm:flex-row flex-col flex mt-4 gap-4">
+                        <Card />
+                        <h1 className="flex-1">teste</h1>
+                    </div>
                 </main>
             </div>
         </div>
