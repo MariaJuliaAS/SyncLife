@@ -5,7 +5,6 @@ import { collection, doc, onSnapshot, query, updateDoc, where } from "firebase/f
 import { auth, db } from "../../services/firebaseConnection"
 import { EventClickArg } from "@fullcalendar/core/index.js"
 import toast from "react-hot-toast"
-import { Siderbar } from "../../components/sidebar"
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
@@ -13,6 +12,7 @@ import listPlugin from '@fullcalendar/list';
 import interactionPlugin, { DateClickArg, EventResizeDoneArg } from '@fullcalendar/interaction';
 import ptLocale from '@fullcalendar/core/locales/pt'
 import './calendar.css'
+import { Nav } from "../../components/nav"
 
 interface EventsCalendarProps {
     title: string;
@@ -86,7 +86,7 @@ export function Home() {
 
     return (
         <div className="flex">
-            <Siderbar />
+            <Nav />
 
             <main className='sm:px-12 w-full max-h-screen py-6 px-4 flex justify-center bg-gray-50'>
                 <FullCalendar

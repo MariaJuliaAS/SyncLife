@@ -3,7 +3,7 @@ import { GoCalendar, GoCreditCard } from "react-icons/go";
 import { IoExitOutline } from "react-icons/io5";
 import { Link } from "react-router-dom";
 import { signOut } from "firebase/auth";
-import { auth } from "../../services/firebaseConnection";
+import { auth } from "../../../services/firebaseConnection";
 
 export function Siderbar() {
 
