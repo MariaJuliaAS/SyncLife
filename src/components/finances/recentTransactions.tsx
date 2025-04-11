@@ -4,9 +4,7 @@ export function RecentTransactions() {
     return (
         <section className="flex-1 bg-white border border-gray-200 rounded-md py-7 shadow-lg">
             <header className="px-4">
-                <div>
-                    <p className="font-bold sm:text-xl text-lg">Transações Recentes</p>
-                </div>
+                <p className="font-bold sm:text-xl text-lg">Transações Recentes</p>
             </header>
 
             <main className="flex flex-col gap-4 mt-6">

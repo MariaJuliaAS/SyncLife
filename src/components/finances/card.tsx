@@ -2,7 +2,7 @@ import { MdKeyboardArrowRight } from "react-icons/md";
 
 export function Card() {
     return (
-        <section className="flex-1 bg-white border border-gray-200 rounded-md py-7 shadow-lg max-h-64">
+        <section className="flex-1 bg-white border border-gray-200 rounded-md py-7 shadow-lg">
             <header className="border-b border-gray-200 px-4">
                 <div className="flex items-center justify-between mb-2">
                     <p className="font-bold sm:text-xl text-lg">Fatura</p>

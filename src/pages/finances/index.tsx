@@ -1,4 +1,5 @@
 import { Card } from "../../components/finances/card";
+import { Graphic } from "../../components/finances/graphic";
 import { RecentTransactions } from "../../components/finances/recentTransactions";
 import { Transaction } from "../../components/finances/transaction";
 import { Nav } from "../../components/nav";
@@ -11,7 +12,7 @@ export function Finances() {
             <Nav />
 
             <div className='sm:px-12 w-full min-h-screen py-6 px-4 flex bg-gray-50 felx justify-center'>
-                <main className="w-full max-w-7xl">
+                <main className="w-full max-w-7xl max-h-screen">
                     <header className="sm:flex-row flex-col gap-4 w-full flex justify-between mb-6 lg:pt-0 sm:pt-6 pt-0">
                         <div>
                             <h1 className="font-bold sm:text-3xl text-2xl">Dashboard Financeiro</h1>
@@ -26,13 +27,13 @@ export function Finances() {
 
                     <Transaction />
 
-                    <div className="flex sm:flex-row flex-col">
+                    <div className="flex sm:flex-row flex-col gap-4">
                         <div className="flex-col flex mt-4 gap-4 flex-1">
                             <Card />
                             <RecentTransactions />
                         </div>
-                        <div className="flex-1">
-                            <h1>teste</h1>
+                        <div className="flex-1 mt-4">
+                            <Graphic />
                         </div>
                     </div>
                 </main>
