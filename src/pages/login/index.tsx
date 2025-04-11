@@ -6,7 +6,6 @@ import { auth } from "../../services/firebaseConnection";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
-import { ImSpinner2 } from "react-icons/im";
 import { Loading } from "../../components/loading";
 
 interface UserProps {
