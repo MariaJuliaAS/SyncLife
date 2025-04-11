@@ -12,7 +12,7 @@ export function Finances() {
             <Nav />
 
             <div className='sm:px-12 w-full min-h-screen py-6 px-4 flex bg-gray-50 felx justify-center'>
-                <main className="w-full max-w-7xl max-h-screen">
+                <main className="w-full max-w-7xl">
                     <header className="sm:flex-row flex-col gap-4 w-full flex justify-between mb-6 lg:pt-0 sm:pt-6 pt-0">
                         <div>
                             <h1 className="font-bold sm:text-3xl text-2xl">Dashboard Financeiro</h1>
