@@ -1,15 +1,20 @@
 import { useEffect, useState } from "react"
-import { Calendar } from "../../components/calendar/calendar"
 import { ModalAdd } from "../../components/calendar/modalAdd"
 import { ModalEdit } from "../../components/calendar/modalEdit"
-import { DateClickArg, EventResizeDoneArg } from "@fullcalendar/interaction/index.js"
 import { collection, doc, onSnapshot, query, updateDoc, where } from "firebase/firestore"
 import { auth, db } from "../../services/firebaseConnection"
 import { EventClickArg } from "@fullcalendar/core/index.js"
 import toast from "react-hot-toast"
 import { Siderbar } from "../../components/sidebar"
+import FullCalendar from '@fullcalendar/react';
+import dayGridPlugin from '@fullcalendar/daygrid';
+import timeGridPlugin from '@fullcalendar/timegrid';
+import listPlugin from '@fullcalendar/list';
+import interactionPlugin, { DateClickArg, EventResizeDoneArg } from '@fullcalendar/interaction';
+import ptLocale from '@fullcalendar/core/locales/pt'
+import './calendar.css'
 
-export interface EventsCalendarProps {
+interface EventsCalendarProps {
     title: string;
     start: string;
     end: string;
@@ -61,7 +66,6 @@ export function Home() {
     function openModalEdit(info: EventClickArg): void {
         setStatusModalEdit(true)
         setDocEventId(info.event.id)
-        console.log(info.event)
     }
 
     async function moveEvent(info: EventClickArg | EventResizeDoneArg) {
@@ -85,7 +89,37 @@ export function Home() {
             <Siderbar />
 
             <main className='sm:px-12 w-full max-h-screen py-6 px-4 flex justify-center bg-gray-50'>
-                <Calendar events={events} openModalAdd={openModalAdd} openModalEdit={openModalEdit} moveEvent={moveEvent} />
+                <FullCalendar
+                    plugins={[dayGridPlugin, interactionPlugin, timeGridPlugin, listPlugin]}
+                    themeSystem="standard"
+                    initialView={window.innerWidth <= 850 ? 'timeGridDay' : 'timeGridWeek'}
+                    headerToolbar={{
+                        left: 'prev,next today',
+                        center: 'title',
+                        right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
+                    }}
+                    locale='pt'
+                    locales={[ptLocale]}
+                    allDaySlot={false}
+                    events={events}
+                    nowIndicator={true}
+                    dateClick={openModalAdd}
+                    eventClick={openModalEdit}
+                    editable={true}
+                    droppable={true}
+                    eventDrop={moveEvent}
+                    eventResize={moveEvent}
+                    slotLabelFormat={{
+                        hour: '2-digit',
+                        minute: '2-digit',
+                        meridiem: 'short'
+                    }}
+                    titleFormat={{
+                        year: 'numeric',
+                        month: 'short',
+                        day: '2-digit'
+                    }}
+                />
 
                 {statusModalAdd && <ModalAdd
                     closeModal={() => setStatusModalAdd(false)}
