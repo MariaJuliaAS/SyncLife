@@ -1,11 +1,48 @@
 import { MdOutlineClose } from "react-icons/md";
 import { LayoutModalAddTransaction } from "./layoutModalAddTransaction";
+import { FormEvent, useState } from "react";
+import { addDoc, collection } from "firebase/firestore";
+import { db } from "../../services/firebaseConnection";
+import toast from "react-hot-toast";
 
 interface modalAddTransactionProps {
     closeModal: () => void;
 }
 
+export interface TransactionPros {
+    type: string;
+    description: string;
+    value: string;
+    date: string;
+    category: string;
+    paymentForm: string;
+    observation: string;
+}
+
 export function ModalAddTransaction({ closeModal }: modalAddTransactionProps) {
+    const [transaction, setTransaction] = useState<TransactionPros>({
+        type: '',
+        description: '',
+        value: '',
+        date: '',
+        category: '',
+        paymentForm: '',
+        observation: ''
+    })
+
+    async function handleAddTransaction(e: FormEvent) {
+        e.preventDefault()
+
+        await addDoc(collection(db, 'transactions'), transaction)
+            .then(() => {
+                toast.success('Nova transação adicionada com sucesso!')
+                closeModal()
+            })
+            .catch((error) => {
+                console.log('Erro ao adicionar transação: ' + error)
+            })
+    }
+
     return (
         <div className="bg-black/40 fixed inset-0 flex items-center justify-center z-10">
             <main className="bg-white w-11/12 max-w-xl h-auto flex flex-col rounded-lg p-8 ">
@@ -16,8 +53,8 @@ export function ModalAddTransaction({ closeModal }: modalAddTransactionProps) {
                     </div>
                 </header>
 
-                <form className="mt-4 flex flex-col">
-                    <LayoutModalAddTransaction />
+                <form onSubmit={handleAddTransaction} className="mt-4 flex flex-col">
+                    <LayoutModalAddTransaction transaction={transaction} setTransaction={setTransaction} />
                     <div className="flex gap-4">
                         <button onClick={closeModal} type="button" className="sm:text-base text-sm border w-full border-gray-200 px-4 py-2 rounded-lg font-medium cursor-pointer transition-all duration-200 hover:bg-red-500 hover:text-white">
                             Cancelar
