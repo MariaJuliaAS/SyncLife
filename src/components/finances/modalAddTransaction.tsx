@@ -2,7 +2,7 @@ import { MdOutlineClose } from "react-icons/md";
 import { LayoutModalAddTransaction } from "./layoutModalAddTransaction";
 import { FormEvent, useState } from "react";
 import { addDoc, collection } from "firebase/firestore";
-import { db } from "../../services/firebaseConnection";
+import { auth, db } from "../../services/firebaseConnection";
 import toast from "react-hot-toast";
 
 interface modalAddTransactionProps {
@@ -17,7 +17,14 @@ export interface TransactionPros {
     category: string;
     paymentForm: string;
     observation: string;
+    userId: string | null | undefined;
 }
+
+const now = new Date()
+const hour = now.toLocaleTimeString('pt-BR', {
+    hour: '2-digit',
+    minute: '2-digit'
+})
 
 export function ModalAddTransaction({ closeModal }: modalAddTransactionProps) {
     const [transaction, setTransaction] = useState<TransactionPros>({
@@ -27,13 +34,14 @@ export function ModalAddTransaction({ closeModal }: modalAddTransactionProps) {
         date: '',
         category: '',
         paymentForm: '',
-        observation: ''
+        observation: '',
+        userId: auth.currentUser?.uid,
     })
 
     async function handleAddTransaction(e: FormEvent) {
         e.preventDefault()
 
-        await addDoc(collection(db, 'transactions'), transaction)
+        await addDoc(collection(db, 'transactions'), { ...transaction, hour: hour })
             .then(() => {
                 toast.success('Nova transação adicionada com sucesso!')
                 closeModal()
