@@ -10,6 +10,7 @@ export function RecentTransactions() {
     const { getTransactions } = GetTransactions()
     const currentDate = new Date().toISOString().slice(0, 10)
     const [modalEditTransaction, setModalEditTransaction] = useState(false)
+    const [docId, setDocId] = useState<string>("")
 
     return (
         <section className="flex-1 bg-white border border-gray-200 rounded-md py-7 shadow-lg">
@@ -19,7 +20,7 @@ export function RecentTransactions() {
 
             <main className="flex flex-col gap-4 mt-6">
                 {getTransactions.slice(0, 3).map((item) => (
-                    <article onClick={() => setModalEditTransaction(true)} key={item.docId} className="flex items-center justify-between p-2 transition-all duration-200 hover:bg-gray-600/10 px-4">
+                    <article onClick={() => { setModalEditTransaction(true), setDocId(item.docId) }} key={item.docId} className="flex items-center justify-between p-2 transition-all duration-200 hover:bg-gray-600/10 px-4">
                         <div className="flex gap-4 items-center">
                             <span className="sm:text-base text-sm bg-gray-100 rounded-full p-3 text-white">
                                 {item.paymentForm === "Dinheiro" ? <GiMoneyStack className="text-emerald-800 sm:text-2xl text-xl" />
@@ -52,7 +53,7 @@ export function RecentTransactions() {
                 </button>
             </footer>
 
-            {modalEditTransaction && <ModalEditTransaction closeModal={() => setModalEditTransaction(false)} />}
+            {modalEditTransaction && <ModalEditTransaction closeModal={() => setModalEditTransaction(false)} docId={docId} />}
         </section>
     )
 }

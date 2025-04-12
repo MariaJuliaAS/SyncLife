@@ -1,10 +1,16 @@
 import { MdOutlineClose } from "react-icons/md";
-import { modalTransactionProps, TransactionPros } from "./modalAddTransaction";
-import { useState } from "react";
+import { TransactionPros } from "./modalAddTransaction";
+import { useEffect, useState } from "react";
 import { LayoutModalAddTransaction } from "./layoutModalAddTransaction";
+import { doc, getDoc } from "firebase/firestore";
+import { db } from "../../../services/firebaseConnection";
 
+interface ModalEditeTransaction {
+    closeModal: () => void;
+    docId: string;
+}
 
-export function ModalEditTransaction({ closeModal }: modalTransactionProps) {
+export function ModalEditTransaction({ closeModal, docId }: ModalEditeTransaction) {
     const [transaction, setTransaction] = useState<TransactionPros>({
         type: '',
         description: '',
@@ -14,6 +20,32 @@ export function ModalEditTransaction({ closeModal }: modalTransactionProps) {
         paymentForm: '',
         observation: '',
     })
+
+    useEffect(() => {
+
+        async function getTransaction() {
+            const transactionRef = doc(db, "transactions", docId)
+            await getDoc(transactionRef)
+                .then((snapshot) => {
+                    const doc = snapshot.data()
+                    setTransaction({
+                        type: doc?.type,
+                        description: doc?.description,
+                        value: doc?.value,
+                        created: doc?.create,
+                        category: doc?.category,
+                        paymentForm: doc?.paymentForm,
+                        observation: doc?.observation
+                    })
+                })
+                .catch((error) => {
+                    console.log("Erro ao carregar transações no modal edit: " + error)
+                })
+        }
+
+        getTransaction()
+
+    }, [])
 
     return (
         <div onClick={closeModal} className="bg-black/40 fixed inset-0 flex items-center justify-center z-10">

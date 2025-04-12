@@ -3,8 +3,19 @@ import { useEffect, useState } from "react";
 import { auth, db } from "../services/firebaseConnection";
 import { TransactionPros } from "../components/finances/modal/modalAddTransaction";
 
+interface GetTransactionsProps {
+    type: string;
+    description: string;
+    value: number;
+    created: string;
+    category: string;
+    paymentForm: string;
+    observation: string;
+    docId: string
+}
+
 export function GetTransactions() {
-    const [getTransactions, setGetTransactions] = useState<TransactionPros[]>([])
+    const [getTransactions, setGetTransactions] = useState<GetTransactionsProps[]>([])
 
     useEffect(() => {
         const q = query(
@@ -13,7 +24,7 @@ export function GetTransactions() {
         )
 
         const unsub = onSnapshot(q, (snapshot) => {
-            let list: TransactionPros[] = []
+            let list: GetTransactionsProps[] = []
 
             snapshot.forEach((item) => {
                 const doc = item.data()
