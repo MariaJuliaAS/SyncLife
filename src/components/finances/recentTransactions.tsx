@@ -1,4 +1,6 @@
 import { GiMoneyStack } from "react-icons/gi";
+import { GoCreditCard } from "react-icons/go";
+import { PiPixLogo } from "react-icons/pi";
 import { GetTransactions } from "../../hooks/getTransactions";
 import { FormatDate } from "../../utils/formatDate";
 
@@ -17,7 +19,9 @@ export function RecentTransactions() {
                     <article key={item.docId} className="flex items-center justify-between p-2 transition-all duration-200 hover:bg-gray-600/10 px-4">
                         <div className="flex gap-4 items-center">
                             <span className="sm:text-base text-sm bg-gray-100 rounded-full p-3 text-white">
-                                <GiMoneyStack className="text-emerald-800 sm:text-2xl text-xl" />
+                                {item.paymentForm === "Dinheiro" ? <GiMoneyStack className="text-emerald-800 sm:text-2xl text-xl" />
+                                    : item.paymentForm === "Pix" ? <PiPixLogo className="text-emerald-800 sm:text-2xl text-xl" /> :
+                                        <GoCreditCard className="text-emerald-800 sm:text-2xl text-xl" />}
                             </span>
                             <p className="flex flex-col font-bold sm:text-lg text-base">
                                 {item.category}
