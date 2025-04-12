@@ -1,5 +1,5 @@
 import { MdOutlineClose } from "react-icons/md";
-import { LayoutModalAddTransaction } from "../layoutModalAddTransaction";
+import { LayoutModalAddTransaction } from "./layoutModalAddTransaction";
 import { FormEvent, useState } from "react";
 import { addDoc, collection } from "firebase/firestore";
 import { auth, db } from "../../../services/firebaseConnection";
