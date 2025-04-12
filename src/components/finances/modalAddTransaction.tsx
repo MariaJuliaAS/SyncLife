@@ -20,12 +20,6 @@ export interface TransactionPros {
     docId?: string;
 }
 
-const now = new Date()
-const hour = now.toLocaleTimeString('pt-BR', {
-    hour: '2-digit',
-    minute: '2-digit'
-})
-
 export function ModalAddTransaction({ closeModal }: modalAddTransactionProps) {
     const [transaction, setTransaction] = useState<TransactionPros>({
         type: '',
@@ -42,7 +36,6 @@ export function ModalAddTransaction({ closeModal }: modalAddTransactionProps) {
 
         await addDoc(collection(db, 'transactions'), {
             ...transaction,
-            created: transaction.created + "T" + hour,
             userId: auth.currentUser?.uid
         })
             .then(() => {

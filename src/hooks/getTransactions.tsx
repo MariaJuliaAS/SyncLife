@@ -27,9 +27,8 @@ export function GetTransactions() {
                     observation: doc.observation,
                     docId: item.id
                 })
-                setGetTransactions(list)
-                console.log(list)
             })
+            setGetTransactions(list)
         })
 
         return () => {

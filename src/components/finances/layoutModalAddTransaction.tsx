@@ -37,7 +37,7 @@ export function LayoutModalAddTransaction({ transaction, setTransaction }: Layou
                 onChange={(e) => setTransaction(prev => ({ ...prev, value: Number(e.target.value) }))} />
             <label className="sm:text-base text-sm mb-2 font-medium">Data</label>
             <Input
-                type="date"
+                type="datetime-local"
                 value={transaction.created}
                 onChange={(e) => setTransaction(prev => ({ ...prev, created: e.target.value }))} />
             <label className="sm:text-base text-sm mb-2 font-medium">Categoria</label>
