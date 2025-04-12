@@ -5,13 +5,17 @@ import { GetTransactions } from "../../hooks/getTransactions";
 export function Transaction() {
     const { getTransactions } = GetTransactions()
 
+    const total = getTransactions.reduce((acc, obj) => acc + obj.value, 0)
 
     return (
         <section className="xl:grid-cols-3 grid-cols-1 grid place-items-center gap-4">
             <article className="w-full flex items-center justify-between h-36 px-4 rounded-md bg-gradient-to-r from-emerald-600 to-emerald-700 shadow-lg">
                 <div>
                     <span className="sm:text-base text-sm font-medium mt-2 text-gray-50">Saldo em conta</span>
-                    <p className="sm:text-2xl flex items-center font-bold  text-white text-xl py-1">R$ 248,50 </p>
+                    <p className="sm:text-2xl flex items-center font-bold  text-white text-xl py-1">{total.toLocaleString("pt-BR", {
+                        style: "currency",
+                        currency: "BRL"
+                    })} </p>
                     <span className="sm:text-sm text-xs text- mt-2 text-gray-50">Atualizado há 5 minutos</span>
                 </div>
                 <span className="sm:text-base text-sm bg-black/10 rounded-full p-3">

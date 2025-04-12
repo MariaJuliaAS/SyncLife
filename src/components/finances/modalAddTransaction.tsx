@@ -12,13 +12,11 @@ interface modalAddTransactionProps {
 export interface TransactionPros {
     type: string;
     description: string;
-    value: string;
-    date: string;
-    hour?: string;
+    value: number;
+    created: string;
     category: string;
     paymentForm: string;
     observation: string;
-    userId?: string | null | undefined;
     docId?: string;
 }
 
@@ -32,18 +30,21 @@ export function ModalAddTransaction({ closeModal }: modalAddTransactionProps) {
     const [transaction, setTransaction] = useState<TransactionPros>({
         type: '',
         description: '',
-        value: '',
-        date: '',
+        value: 0,
+        created: '',
         category: '',
         paymentForm: '',
         observation: '',
-        userId: auth.currentUser?.uid,
     })
 
     async function handleAddTransaction(e: FormEvent) {
         e.preventDefault()
 
-        await addDoc(collection(db, 'transactions'), { ...transaction, hour: hour })
+        await addDoc(collection(db, 'transactions'), {
+            ...transaction,
+            created: transaction.created + "T" + hour,
+            userId: auth.currentUser?.uid
+        })
             .then(() => {
                 toast.success('Nova transação adicionada com sucesso!')
                 closeModal()

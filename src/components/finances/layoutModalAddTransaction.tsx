@@ -34,12 +34,12 @@ export function LayoutModalAddTransaction({ transaction, setTransaction }: Layou
                 placeholder="R$ 0,00"
                 type="number"
                 value={transaction.value}
-                onChange={(e) => setTransaction(prev => ({ ...prev, value: e.target.value }))} />
+                onChange={(e) => setTransaction(prev => ({ ...prev, value: Number(e.target.value) }))} />
             <label className="sm:text-base text-sm mb-2 font-medium">Data</label>
             <Input
                 type="date"
-                value={transaction.date}
-                onChange={(e) => setTransaction(prev => ({ ...prev, date: e.target.value }))} />
+                value={transaction.created}
+                onChange={(e) => setTransaction(prev => ({ ...prev, created: e.target.value }))} />
             <label className="sm:text-base text-sm mb-2 font-medium">Categoria</label>
             <select
                 className="border border-gray-200 h-10 rounded-md outline-none px-2 mb-4 bg-white"
