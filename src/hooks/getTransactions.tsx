@@ -1,7 +1,7 @@
 import { collection, onSnapshot, query, where } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { auth, db } from "../services/firebaseConnection";
-import { TransactionPros } from "../components/finances/modalAddTransaction";
+import { TransactionPros } from "../components/finances/modal/modalAddTransaction";
 
 export function GetTransactions() {
     const [getTransactions, setGetTransactions] = useState<TransactionPros[]>([])

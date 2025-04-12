@@ -4,9 +4,7 @@ import { Graphic } from "../../components/finances/graphic";
 import { RecentTransactions } from "../../components/finances/recentTransactions";
 import { Transaction } from "../../components/finances/transaction";
 import { Nav } from "../../components/nav";
-import { ModalAddTransaction } from "../../components/finances/modalAddTransaction";
-
-
+import { ModalAddTransaction } from "../../components/finances/modal/modalAddTransaction";
 
 export function Finances() {
     const [modalAddTransaction, setModalAddTransaction] = useState(false)
