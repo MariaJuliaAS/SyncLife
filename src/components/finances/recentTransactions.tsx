@@ -1,6 +1,11 @@
 import { GiMoneyStack } from "react-icons/gi";
+import { GetTransactions } from "../../hooks/getTransactions";
+import { FormatDate } from "../../utils/formatDate";
 
 export function RecentTransactions() {
+    const { getTransactions } = GetTransactions()
+    const currentDate = new Date().toISOString().slice(0, 10)
+
     return (
         <section className="flex-1 bg-white border border-gray-200 rounded-md py-7 shadow-lg">
             <header className="px-4">
@@ -8,34 +13,29 @@ export function RecentTransactions() {
             </header>
 
             <main className="flex flex-col gap-4 mt-6">
-                <article className="flex items-center justify-between p-2 transition-all duration-200 hover:bg-gray-600/10 px-4">
-                    <div className="flex gap-4 items-center">
-                        <span className="sm:text-base text-sm bg-gray-100 rounded-full p-3 text-white">
-                            <GiMoneyStack className="text-emerald-800 sm:text-2xl text-xl" />
+                {getTransactions.slice(0, 4).map((item) => (
+                    <article key={item.docId} className="flex items-center justify-between p-2 transition-all duration-200 hover:bg-gray-600/10 px-4">
+                        <div className="flex gap-4 items-center">
+                            <span className="sm:text-base text-sm bg-gray-100 rounded-full p-3 text-white">
+                                <GiMoneyStack className="text-emerald-800 sm:text-2xl text-xl" />
+                            </span>
+                            <p className="flex flex-col font-bold sm:text-lg text-base">
+                                {item.category}
+                                <span className="sm:text-base text-sm font-normal text-gray-500">
+                                    {item.created.slice(0, 10) === currentDate
+                                        ? `Hoje, ${FormatDate(item.created).hourFormatted}` :
+                                        FormatDate(item.created).dateHourFormatted}</span>
+                            </p>
+                        </div>
+                        <span className={item.type === "Despesa" ? "bg-red-500/40 px-2 py-1 rounded-lg" : "bg-green-500/40 px-2 py-1 rounded-lg"}>
+                            {item.value.toLocaleString("pt-BR", {
+                                style: "currency",
+                                currency: "BRL"
+                            })}
                         </span>
-                        <p className="flex flex-col font-bold sm:text-lg text-base">
-                            Supermercado
-                            <span className="sm:text-base text-sm font-normal text-gray-500">Hoje, 14:08</span>
-                        </p>
-                    </div>
-                    <span className="bg-red-500/40 px-2 py-1 rounded-lg">
-                        -R$ 145,80
-                    </span>
-                </article>
-                <article className="flex items-center justify-between p-2 transition-all duration-200 hover:bg-gray-600/10 px-4">
-                    <div className="flex gap-4 items-center">
-                        <span className="sm:text-base text-sm bg-gray-100 rounded-full p-3 text-white">
-                            <GiMoneyStack className="text-emerald-800 sm:text-2xl text-xl" />
-                        </span>
-                        <p className="flex flex-col font-bold sm:text-lg text-base">
-                            Salário
-                            <span className="sm:text-base text-sm font-normal text-gray-500">06/12, 17:45</span>
-                        </p>
-                    </div>
-                    <span className="bg-green-500/40 px-2 py-1 rounded-lg">
-                        -R$ 145,80
-                    </span>
-                </article>
+                    </article>
+                ))}
+
 
             </main>
 
