@@ -3,10 +3,13 @@ import { GoCreditCard } from "react-icons/go";
 import { PiPixLogo } from "react-icons/pi";
 import { GetTransactions } from "../../hooks/getTransactions";
 import { FormatDate } from "../../utils/formatDate";
+import { useState } from "react";
+import { ModalEditTransaction } from "./modal/modalEditeTransaction";
 
 export function RecentTransactions() {
     const { getTransactions } = GetTransactions()
     const currentDate = new Date().toISOString().slice(0, 10)
+    const [modalEditTransaction, setModalEditTransaction] = useState(false)
 
     return (
         <section className="flex-1 bg-white border border-gray-200 rounded-md py-7 shadow-lg">
@@ -16,7 +19,7 @@ export function RecentTransactions() {
 
             <main className="flex flex-col gap-4 mt-6">
                 {getTransactions.slice(0, 3).map((item) => (
-                    <article key={item.docId} className="flex items-center justify-between p-2 transition-all duration-200 hover:bg-gray-600/10 px-4">
+                    <article onClick={() => setModalEditTransaction(true)} key={item.docId} className="flex items-center justify-between p-2 transition-all duration-200 hover:bg-gray-600/10 px-4">
                         <div className="flex gap-4 items-center">
                             <span className="sm:text-base text-sm bg-gray-100 rounded-full p-3 text-white">
                                 {item.paymentForm === "Dinheiro" ? <GiMoneyStack className="text-emerald-800 sm:text-2xl text-xl" />
@@ -48,6 +51,8 @@ export function RecentTransactions() {
                     Ver Todas Transações
                 </button>
             </footer>
+
+            {modalEditTransaction && <ModalEditTransaction closeModal={() => setModalEditTransaction(false)} />}
         </section>
     )
 }
