@@ -31,8 +31,8 @@ export function Finances() {
 
                     <div className="flex sm:flex-row flex-col gap-4">
                         <div className="flex-col flex mt-4 gap-4 flex-1">
-                            <Card />
                             <RecentTransactions />
+                            <Card />
                         </div>
                         <div className="flex-1 mt-4">
                             <Graphic />
