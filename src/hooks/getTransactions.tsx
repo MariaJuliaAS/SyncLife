@@ -1,7 +1,6 @@
 import { collection, onSnapshot, query, where } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { auth, db } from "../services/firebaseConnection";
-import { TransactionPros } from "../components/finances/modal/modalAddTransaction";
 
 interface GetTransactionsProps {
     type: string;
