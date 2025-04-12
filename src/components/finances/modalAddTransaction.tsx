@@ -14,10 +14,12 @@ export interface TransactionPros {
     description: string;
     value: string;
     date: string;
+    hour?: string;
     category: string;
     paymentForm: string;
     observation: string;
-    userId: string | null | undefined;
+    userId?: string | null | undefined;
+    docId?: string;
 }
 
 const now = new Date()

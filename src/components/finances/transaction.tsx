@@ -1,7 +1,11 @@
 import { FaArrowTrendUp, FaArrowTrendDown } from "react-icons/fa6";
 import { FaRegEye } from "react-icons/fa";
+import { GetTransactions } from "../../hooks/getTransactions";
 
 export function Transaction() {
+    const { getTransactions } = GetTransactions()
+
+
     return (
         <section className="xl:grid-cols-3 grid-cols-1 grid place-items-center gap-4">
             <article className="w-full flex items-center justify-between h-36 px-4 rounded-md bg-gradient-to-r from-emerald-600 to-emerald-700 shadow-lg">
