@@ -9,6 +9,9 @@ export function Transaction() {
 
     const total = getTransactions.reduce((acc, obj) => acc + obj.value, 0)
 
+    const earnings = getTransactions.reduce((acc, obj) => obj.type === "Receita" ? acc + obj.value : acc, 0)
+    const expenses = getTransactions.reduce((acc, obj) => obj.type === "Despesa" ? acc + obj.value : acc, 0)
+
     return (
         <section className="xl:grid-cols-3 grid-cols-1 grid place-items-center gap-4">
             <article className="w-full flex items-center justify-between h-36 px-4 rounded-md bg-gradient-to-r from-emerald-600 to-emerald-700 shadow-lg">
@@ -30,7 +33,10 @@ export function Transaction() {
                 <article className="w-full h-36 cursor-pointer border px-4 border-gray-200 rounded-md flex justify-between items-center bg-white shadow-lg">
                     <div>
                         <span className="sm:text-base text-sm font-medium mt-2 text-gray-800">Ganhos</span>
-                        <p className="sm:text-2xl font-bold  text-black text-xl py-1">R$ 248,50</p>
+                        <p className="sm:text-2xl font-bold  text-black text-xl py-1">{earnings.toLocaleString("pt-BR", {
+                            style: "currency",
+                            currency: "BRL"
+                        })}</p>
                         <span className="sm:text-sm text-xs mt-2 text-gray-800">Clique para saber mais</span>
                     </div>
                     <span className="bg-emerald-600/20 rounded-full p-3">
@@ -40,8 +46,11 @@ export function Transaction() {
 
                 <article className="w-full h-36 cursor-pointer border px-4 border-gray-200 rounded-md flex justify-between items-center bg-white shadow-lg">
                     <div>
-                        <span className="sm:text-base text-sm font-medium mt-2 text-gray-800">Ganhos</span>
-                        <p className="sm:text-2xl font-bold  text-black text-xl py-1">R$ 248,50</p>
+                        <span className="sm:text-base text-sm font-medium mt-2 text-gray-800">Gastos</span>
+                        <p className="sm:text-2xl font-bold  text-black text-xl py-1">{expenses.toLocaleString("pt-BR", {
+                            style: "currency",
+                            currency: "BRL"
+                        })}</p>
                         <span className="sm:text-sm text-xs mt-2 text-gray-800">Clique para saber mais</span>
                     </div>
                     <span className="bg-red-500/20 rounded-full p-3">
