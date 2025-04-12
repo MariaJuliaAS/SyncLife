@@ -1,8 +1,10 @@
 import { FaArrowTrendUp, FaArrowTrendDown } from "react-icons/fa6";
-import { FaRegEye } from "react-icons/fa";
+import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import { GetTransactions } from "../../hooks/getTransactions";
+import { useState } from "react";
 
 export function Transaction() {
+    const [seeBalance, setSeeBalance] = useState(true)
     const { getTransactions } = GetTransactions()
 
     const total = getTransactions.reduce((acc, obj) => acc + obj.value, 0)
@@ -12,15 +14,15 @@ export function Transaction() {
             <article className="w-full flex items-center justify-between h-36 px-4 rounded-md bg-gradient-to-r from-emerald-600 to-emerald-700 shadow-lg">
                 <div>
                     <span className="sm:text-base text-sm font-medium mt-2 text-gray-50">Saldo em conta</span>
-                    <p className="sm:text-2xl flex items-center font-bold  text-white text-xl py-1">{total.toLocaleString("pt-BR", {
+                    <p className="sm:text-2xl flex items-center font-bold  text-white text-xl py-1">{seeBalance ? (total.toLocaleString("pt-BR", {
                         style: "currency",
                         currency: "BRL"
-                    })} </p>
-                    <span className="sm:text-sm text-xs text- mt-2 text-gray-50">Atualizado há 5 minutos</span>
+                    })) : ("R$ ***")}</p>
+                    {/*<span className="sm:text-sm text-xs text- mt-2 text-gray-50">Atualizado há 5 minutos</span>*/}
                 </div>
-                <span className="sm:text-base text-sm bg-black/10 rounded-full p-3">
-                    <FaRegEye color="#fff" className="sm:text-2xl text-xl" />
-                </span>
+                <button onClick={() => setSeeBalance(!seeBalance)} className="sm:text-base text-sm cursor-pointer bg-black/10 rounded-full p-3">
+                    {seeBalance ? <FaRegEyeSlash color="#fff" className="sm:text-2xl text-xl" /> : <FaRegEye color="#fff" className="sm:text-2xl text-xl" />}
+                </button>
             </article>
 
             {/* xl:contents => A div desaparece e os articles voltam a ocupar as 3 colunas do grip principal */}
