@@ -7,6 +7,7 @@ interface LayoutTransactionProps {
 }
 
 export function LayoutModalAddTransaction({ transaction, setTransaction }: LayoutTransactionProps) {
+    console.log(transaction)
     return (
         <>
             <label className="sm:text-base text-sm mb-2 font-medium">Tipo</label>
@@ -45,7 +46,7 @@ export function LayoutModalAddTransaction({ transaction, setTransaction }: Layou
                 className="border border-gray-200 h-10 rounded-md outline-none px-2 mb-4 bg-white"
                 value={transaction.category}
                 onChange={(e) => setTransaction(prev => ({ ...prev, category: e.target.value }))}>
-                <option value="" selected disabled>Selecione uma categoria</option>
+                <option value="" disabled>Selecione uma categoria</option>
                 <option value="Salário">Salário</option>
                 <option value="Investimentos">Investimentos</option>
                 <option value="Alimentação">Alimentação</option>
@@ -60,7 +61,7 @@ export function LayoutModalAddTransaction({ transaction, setTransaction }: Layou
                 className="border border-gray-200 h-10 rounded-md outline-none px-2 mb-4 bg-white"
                 value={transaction.paymentForm}
                 onChange={(e) => setTransaction(prev => ({ ...prev, paymentForm: e.target.value }))}>
-                <option value="" selected disabled>Selecione uma forma de pagamento</option>
+                <option value="" disabled>Selecione uma forma de pagamento</option>
                 <option value="Dinheiro">Dinheiro</option>
                 <option value="Cartão de Débito">Cartão de Débito</option>
                 <option value="Pix">Pix</option>
