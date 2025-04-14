@@ -7,7 +7,7 @@ interface LayoutTransactionProps {
     disableEditing?: boolean;
 }
 
-export function LayoutModalAddTransaction({ transaction, setTransaction, disableEditing }: LayoutTransactionProps) {
+export function LayoutModalTransactions({ transaction, setTransaction, disableEditing }: LayoutTransactionProps) {
     return (
         <>
             <label className="sm:text-base text-sm mb-2 font-medium">Tipo</label>

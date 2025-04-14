@@ -1,5 +1,5 @@
 import { MdOutlineClose } from "react-icons/md";
-import { LayoutModalAddTransaction } from "./layoutModalAddTransaction";
+import { LayoutModalTransactions } from "./layoutModalAddTransaction";
 import { FormEvent, useState } from "react";
 import { addDoc, collection } from "firebase/firestore";
 import { auth, db } from "../../../services/firebaseConnection";
@@ -57,7 +57,7 @@ export function ModalAddTransaction({ closeModal }: modalAddTransactionProps) {
                 </header>
 
                 <form onSubmit={handleAddTransaction} className="mt-4 flex flex-col">
-                    <LayoutModalAddTransaction transaction={transaction} setTransaction={setTransaction} />
+                    <LayoutModalTransactions transaction={transaction} setTransaction={setTransaction} />
                     <div className="flex gap-4">
                         <button onClick={closeModal} type="button" className="sm:text-base text-sm border w-full border-gray-200 px-4 py-2 rounded-lg font-medium cursor-pointer transition-all duration-200 hover:bg-red-500 hover:text-white">
                             Cancelar

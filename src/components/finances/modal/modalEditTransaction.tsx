@@ -1,7 +1,7 @@
 import { MdOutlineClose } from "react-icons/md";
 import { TransactionPros } from "./modalAddTransaction";
 import { FormEvent, useEffect, useState } from "react";
-import { LayoutModalAddTransaction } from "./layoutModalAddTransaction";
+import { LayoutModalTransactions } from "./layoutModalAddTransaction";
 import { deleteDoc, doc, getDoc, updateDoc } from "firebase/firestore";
 import { db } from "../../../services/firebaseConnection";
 import toast from "react-hot-toast";
@@ -87,7 +87,7 @@ export function ModalEditTransaction({ closeModal, docId }: ModalEditeTransactio
                 </header>
 
                 <form onSubmit={handleEditTransaction} className="mt-4 flex flex-col">
-                    <LayoutModalAddTransaction disableEditing={disableEditing} transaction={transaction} setTransaction={setTransaction} />
+                    <LayoutModalTransactions disableEditing={disableEditing} transaction={transaction} setTransaction={setTransaction} />
                     <div className="flex gap-4">
                         <button onClick={handleDeleteTransaction} type="button" className="sm:text-base text-sm border w-full border-gray-200 px-4 py-2 rounded-lg font-medium cursor-pointer transition-all duration-200 hover:bg-red-500 hover:text-white">
                             Excluir
