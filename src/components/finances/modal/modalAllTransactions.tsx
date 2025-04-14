@@ -17,8 +17,13 @@ export function ModalAllTransactions({ closeModal }: ModalAllTransactionsProps) 
     const [modalEditTransaction, setModalEditTransaction] = useState(false)
     const [docId, setDocId] = useState<string>("")
     const [categorySelected, setCategorySelected] = useState('Todas categorias')
+    const [typeSelected, setTypeSelected] = useState('Todos')
 
-    const filterCategory = categorySelected === 'Todas categorias' ? getTransactions : getTransactions.filter(item => item.category === categorySelected)
+    const transactionsFilter = getTransactions.filter(item => {
+        const filterCategory = categorySelected === 'Todas categorias' || item.category === categorySelected;
+        const filterType = typeSelected === 'Todos' || item.type === (typeSelected === 'Receita' ? 'Receita' : 'Despesa');
+        return filterCategory && filterType;
+    });
 
     return (
         <div onClick={closeModal} className="bg-black/40 fixed inset-0 flex items-center justify-center z-10">
@@ -30,18 +35,26 @@ export function ModalAllTransactions({ closeModal }: ModalAllTransactionsProps) 
                     </div>
                 </header>
 
-                <div className="flex mt-4">
-                    <span className="sm:text-base text-sm font-normal text-gray-500">Filtrar por:</span>
-                    <select value={categorySelected} onChange={(e) => setCategorySelected(e.target.value)} className="border border-gray-200 h-6 ml-2 rounded-md outline-none px-2 mb-4 bg-white">
-                        <option value='Todas categorias'>
-                            Todas categorias
-                        </option>
-                        {getTransactions.map((item) => (
-                            <option value={item.category} key={item.docId}>
-                                {item.category}
+                <div className="flex flex-col gap-4 mt-4">
+                    <div className="flex gap-4">
+                        <button onClick={() => setTypeSelected('Todos')}
+                            className={`border-2 border-emerald-600 px-2 rounded-lg cursor-pointer transition-all duration-200 ${typeSelected === 'Todos' ? 'bg-emerald-600 text-white' : 'text-black'}`}>Todos</button>
+                        <button onClick={() => setTypeSelected('Receita')} className={`border-2 border-emerald-600 px-2 rounded-lg cursor-pointer transition-all duration-200 ${typeSelected === 'Receita' ? 'bg-emerald-600 text-white' : 'text-black'}`}>Receitas</button>
+                        <button onClick={() => setTypeSelected('Despesa')} className={`border-2 border-emerald-600 px-2 rounded-lg cursor-pointer transition-all duration-200 ${typeSelected === 'Despesa' ? 'bg-emerald-600 text-white' : 'text-black'}`}>Despesas</button>
+                    </div>
+                    <div>
+                        <span className="sm:text-base text-sm font-normal text-gray-500">Filtrar por:</span>
+                        <select value={categorySelected} onChange={(e) => setCategorySelected(e.target.value)} className="border border-gray-200 h-6 ml-2 rounded-md outline-none px-2 mb-4 bg-white">
+                            <option value='Todas categorias'>
+                                Todas categorias
                             </option>
-                        ))}
-                    </select>
+                            {getTransactions.map((item) => (
+                                <option value={item.category} key={item.docId}>
+                                    {item.category}
+                                </option>
+                            ))}
+                        </select>
+                    </div>
                 </div>
 
                 {getTransactions.length === 0 &&
@@ -49,7 +62,7 @@ export function ModalAllTransactions({ closeModal }: ModalAllTransactionsProps) 
                         <p>Suas transações aparecerão aqui!</p>
                     </div>}
 
-                {filterCategory.map((item) => (
+                {transactionsFilter.map((item) => (
                     <article onClick={() => { setModalEditTransaction(true), setDocId(item.docId) }} key={item.docId} className="cursor-pointer flex items-center justify-between my-3 p-2 transition-all duration-200 hover:bg-gray-600/10 px-4">
                         <div className="flex gap-4 items-center">
                             <span className="sm:text-base text-sm bg-gray-100 rounded-full p-3 text-white">
