@@ -5,11 +5,13 @@ import { GetTransactions } from "../../hooks/getTransactions";
 import { FormatDate } from "../../utils/formatDate";
 import { useState } from "react";
 import { ModalEditTransaction } from "./modal/modalEditeTransaction";
+import { ModalAllTransactions } from "./modal/modalAllTransactions";
 
 export function RecentTransactions() {
     const { getTransactions } = GetTransactions()
     const currentDate = new Date().toISOString().slice(0, 10)
     const [modalEditTransaction, setModalEditTransaction] = useState(false)
+    const [modalAllTransactions, setModalAllTransactions] = useState(false)
     const [docId, setDocId] = useState<string>("")
 
     return (
@@ -48,12 +50,13 @@ export function RecentTransactions() {
             </main>
 
             <footer className="border-t border-gray-200 mt-4 flex items-center justify-center px-4">
-                <button className="mt-4 border border-gray-200 rounded-lg w-full py-1 cursor-pointer transition-all duration-200 hover:bg-gray-300/30">
+                <button onClick={() => setModalAllTransactions(true)} className="mt-4 border border-gray-200 rounded-lg w-full py-1 cursor-pointer transition-all duration-200 hover:bg-gray-300/30">
                     Ver Todas Transações
                 </button>
             </footer>
 
             {modalEditTransaction && <ModalEditTransaction closeModal={() => setModalEditTransaction(false)} docId={docId} />}
+            {modalAllTransactions && <ModalAllTransactions closeModal={() => setModalAllTransactions(false)} />}
         </section>
     )
 }
