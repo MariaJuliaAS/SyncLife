@@ -21,6 +21,12 @@ export function RecentTransactions() {
             </header>
 
             <main className="flex flex-col gap-4 mt-6">
+
+                {getTransactions.length === 0 &&
+                    <div className="flex items-center justify-center min-h-24 text-lg">
+                        <p>Suas transações aparecerão aqui!</p>
+                    </div>}
+
                 {getTransactions.slice(0, 3).map((item) => (
                     <article onClick={() => { setModalEditTransaction(true), setDocId(item.docId) }} key={item.docId} className=" cursor-pointer flex items-center justify-between p-2 transition-all duration-200 hover:bg-gray-600/10 px-4">
                         <div className="flex gap-4 items-center">

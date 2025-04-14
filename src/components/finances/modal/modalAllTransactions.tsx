@@ -27,6 +27,11 @@ export function ModalAllTransactions({ closeModal }: ModalAllTransactionsProps) 
                     </div>
                 </header>
 
+                {getTransactions.length === 0 &&
+                    <div className="flex items-center justify-center min-h-36 text-lg">
+                        <p>Suas transações aparecerão aqui!</p>
+                    </div>}
+
                 {getTransactions.map((item) => (
                     <article onClick={() => { setModalEditTransaction(true), setDocId(item.docId) }} key={item.docId} className="cursor-pointer flex items-center justify-between my-3 p-2 transition-all duration-200 hover:bg-gray-600/10 px-4">
                         <div className="flex gap-4 items-center">
