@@ -4,6 +4,8 @@ import { GoCreditCard } from "react-icons/go";
 import { PiPixLogo } from "react-icons/pi";
 import { GiMoneyStack } from "react-icons/gi";
 import { FormatDate } from "../../../utils/formatDate";
+import { useState } from "react";
+import { ModalEditTransaction } from "./modalEditeTransaction";
 
 interface ModalAllTransactionsProps {
     closeModal: () => void;
@@ -12,6 +14,8 @@ interface ModalAllTransactionsProps {
 export function ModalAllTransactions({ closeModal }: ModalAllTransactionsProps) {
     const { getTransactions } = GetTransactions();
     const currentDate = new Date().toISOString().slice(0, 10);
+    const [modalEditTransaction, setModalEditTransaction] = useState(false)
+    const [docId, setDocId] = useState<string>("")
 
     return (
         <div onClick={closeModal} className="bg-black/40 fixed inset-0 flex items-center justify-center z-10">
@@ -24,7 +28,7 @@ export function ModalAllTransactions({ closeModal }: ModalAllTransactionsProps) 
                 </header>
 
                 {getTransactions.map((item) => (
-                    <article key={item.docId} className="flex items-center justify-between my-3 p-2 transition-all duration-200 hover:bg-gray-600/10 px-4">
+                    <article onClick={() => { setModalEditTransaction(true), setDocId(item.docId) }} key={item.docId} className="flex items-center justify-between my-3 p-2 transition-all duration-200 hover:bg-gray-600/10 px-4">
                         <div className="flex gap-4 items-center">
                             <span className="sm:text-base text-sm bg-gray-100 rounded-full p-3 text-white">
                                 {item.paymentForm === "Dinheiro" ? <GiMoneyStack className="text-emerald-800 sm:text-2xl text-xl" />
@@ -47,6 +51,8 @@ export function ModalAllTransactions({ closeModal }: ModalAllTransactionsProps) 
                         </span>
                     </article>
                 ))}
+
+                {modalEditTransaction && <ModalEditTransaction closeModal={() => setModalEditTransaction(false)} docId={docId} />}
             </main>
         </div>
     )
