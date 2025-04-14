@@ -5,7 +5,6 @@ import { createUserWithEmailAndPassword, sendEmailVerification } from "firebase/
 import { auth, db } from "../../services/firebaseConnection";
 import { addDoc, collection } from "firebase/firestore";
 import { Link, useNavigate } from "react-router-dom";
-import { ImSpinner2 } from "react-icons/im";
 import toast from "react-hot-toast";
 import { Loading } from "../../components/loading";
 

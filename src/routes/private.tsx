@@ -1,7 +1,6 @@
 import { onAuthStateChanged } from "firebase/auth"
 import { ReactNode, useEffect, useState } from "react"
 import { auth } from "../services/firebaseConnection"
-import { ImSpinner2 } from "react-icons/im"
 import { Navigate } from "react-router-dom"
 import { Loading } from "../components/loading"
 
