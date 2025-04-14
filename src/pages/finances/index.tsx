@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { Card } from "../../components/finances/card";
-import { Graphic } from "../../components/finances/graphic";
 import { RecentTransactions } from "../../components/finances/recentTransactions";
 import { Transaction } from "../../components/finances/transaction";
 import { Nav } from "../../components/nav";
@@ -29,14 +28,9 @@ export function Finances() {
 
                     <Transaction />
 
-                    <div className="flex sm:flex-row flex-col gap-4">
-                        <div className="flex-col flex mt-4 gap-4 flex-1">
-                            <RecentTransactions />
-                            <Card />
-                        </div>
-                        <div className="flex-1 mt-4">
-                            <Graphic />
-                        </div>
+                    <div className="flex sm:flex-row flex-col gap-4 mt-4">
+                        <RecentTransactions />
+                        <Card />
                     </div>
                 </main>
 
