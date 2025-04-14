@@ -5,7 +5,6 @@ import { LayoutModalAddTransaction } from "./layoutModalAddTransaction";
 import { deleteDoc, doc, getDoc, updateDoc } from "firebase/firestore";
 import { db } from "../../../services/firebaseConnection";
 import toast from "react-hot-toast";
-import { deleteApp } from "firebase/app";
 
 interface ModalEditeTransaction {
     closeModal: () => void;
