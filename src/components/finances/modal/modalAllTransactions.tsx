@@ -5,7 +5,7 @@ import { PiPixLogo } from "react-icons/pi";
 import { GiMoneyStack } from "react-icons/gi";
 import { FormatDate } from "../../../utils/formatDate";
 import { useState } from "react";
-import { ModalEditTransaction } from "./modalEditeTransaction";
+import { ModalEditTransaction } from "./modalEditTransaction";
 
 interface ModalAllTransactionsProps {
     closeModal: () => void;

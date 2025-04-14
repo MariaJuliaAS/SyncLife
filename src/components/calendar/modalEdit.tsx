@@ -77,7 +77,7 @@ export function ModalEdit({ closeModal, docEventId }: ModalEditProps) {
             })
     }
 
-    async function handleDeletEvent() {
+    async function handleDeleteEvent() {
         const eventRef = doc(db, 'events', docEventId)
 
         await deleteDoc(eventRef)
@@ -103,7 +103,7 @@ export function ModalEdit({ closeModal, docEventId }: ModalEditProps) {
                     <LayoutFormModal eventsInfos={eventsInfos} setEventsInfos={setEventsInfos} disableEditing={disableEditing} />
 
                     <div className="gap-4 flex">
-                        <button type="button" onClick={handleDeletEvent} className="sm:text-base text-sm w-full border border-gray-200 px-4 py-2 rounded-lg font-medium cursor-pointer transition-all duration-200 hover:bg-red-500 hover:text-white">
+                        <button type="button" onClick={handleDeleteEvent} className="sm:text-base text-sm w-full border border-gray-200 px-4 py-2 rounded-lg font-medium cursor-pointer transition-all duration-200 hover:bg-red-500 hover:text-white">
                             Excluir
                         </button>
 

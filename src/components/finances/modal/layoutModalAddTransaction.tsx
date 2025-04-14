@@ -4,9 +4,10 @@ import { TransactionPros } from "./modalAddTransaction";
 interface LayoutTransactionProps {
     transaction: TransactionPros;
     setTransaction: React.Dispatch<React.SetStateAction<TransactionPros>>;
+    disableEditing?: boolean;
 }
 
-export function LayoutModalAddTransaction({ transaction, setTransaction }: LayoutTransactionProps) {
+export function LayoutModalAddTransaction({ transaction, setTransaction, disableEditing }: LayoutTransactionProps) {
     console.log(transaction)
     return (
         <>
@@ -17,6 +18,7 @@ export function LayoutModalAddTransaction({ transaction, setTransaction }: Layou
                     name="type"
                     value='Receita'
                     checked={transaction.type === 'Receita'}
+                    disabled={disableEditing}
                     onChange={(e) => setTransaction(prev => ({ ...prev, type: e.target.value }))} />
                 <label className="mr-3">Receita</label>
                 <input className="accent-emerald-600 mr-3"
@@ -24,28 +26,33 @@ export function LayoutModalAddTransaction({ transaction, setTransaction }: Layou
                     name="type"
                     value='Despesa'
                     checked={transaction.type === 'Despesa'}
+                    disabled={disableEditing}
                     onChange={(e) => setTransaction(prev => ({ ...prev, type: e.target.value }))} />
                 <label>Despesa</label>
             </div>
             <label className="sm:text-base text-sm mb-2 font-medium">Descrição</label>
             <Input
                 placeholder="Ex: Salário, Supermercado, ect."
+                disabled={disableEditing}
                 value={transaction.description}
                 onChange={(e) => setTransaction(prev => ({ ...prev, description: e.target.value }))} />
             <label className="sm:text-base text-sm mb-2 font-medium">Valor (R$)</label>
             <Input
                 placeholder="R$ 0,00"
                 type="number"
+                disabled={disableEditing}
                 value={transaction.value}
                 onChange={(e) => setTransaction(prev => ({ ...prev, value: Number(e.target.value) }))} />
             <label className="sm:text-base text-sm mb-2 font-medium">Data</label>
             <Input
                 type="datetime-local"
+                disabled={disableEditing}
                 value={transaction.created}
                 onChange={(e) => setTransaction(prev => ({ ...prev, created: e.target.value }))} />
             <label className="sm:text-base text-sm mb-2 font-medium">Categoria</label>
             <select
                 className="border border-gray-200 h-10 rounded-md outline-none px-2 mb-4 bg-white"
+                disabled={disableEditing}
                 value={transaction.category}
                 onChange={(e) => setTransaction(prev => ({ ...prev, category: e.target.value }))}>
                 <option value="" disabled>Selecione uma categoria</option>
@@ -61,6 +68,7 @@ export function LayoutModalAddTransaction({ transaction, setTransaction }: Layou
             <label className="sm:text-base text-sm mb-2 font-medium">Forma de Pagamento</label>
             <select
                 className="border border-gray-200 h-10 rounded-md outline-none px-2 mb-4 bg-white"
+                disabled={disableEditing}
                 value={transaction.paymentForm}
                 onChange={(e) => setTransaction(prev => ({ ...prev, paymentForm: e.target.value }))}>
                 <option value="" disabled>Selecione uma forma de pagamento</option>
@@ -71,6 +79,7 @@ export function LayoutModalAddTransaction({ transaction, setTransaction }: Layou
             <label className="sm:text-base text-sm mb-2 font-medium">Observações (opcional)</label>
             <textarea
                 placeholder="Adicione detalhes sobre a transação"
+                disabled={disableEditing}
                 rows={3} className="border border-gray-200 rounded-md outline-none px-2 mb-4 bg-white"
                 value={transaction.observation}
                 onChange={(e) => setTransaction(prev => ({ ...prev, observation: e.target.value }))} />

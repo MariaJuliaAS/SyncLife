@@ -4,7 +4,7 @@ import { PiPixLogo } from "react-icons/pi";
 import { GetTransactions } from "../../hooks/getTransactions";
 import { FormatDate } from "../../utils/formatDate";
 import { useState } from "react";
-import { ModalEditTransaction } from "./modal/modalEditeTransaction";
+import { ModalEditTransaction } from "./modal/modalEditTransaction";
 import { ModalAllTransactions } from "./modal/modalAllTransactions";
 
 export function RecentTransactions() {
