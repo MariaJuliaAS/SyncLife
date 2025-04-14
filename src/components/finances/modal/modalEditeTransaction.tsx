@@ -32,7 +32,7 @@ export function ModalEditTransaction({ closeModal, docId }: ModalEditeTransactio
                         type: doc?.type,
                         description: doc?.description,
                         value: doc?.value,
-                        created: doc?.create,
+                        created: doc?.created,
                         category: doc?.category,
                         paymentForm: doc?.paymentForm,
                         observation: doc?.observation

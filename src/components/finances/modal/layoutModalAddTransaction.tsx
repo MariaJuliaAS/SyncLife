@@ -16,12 +16,14 @@ export function LayoutModalAddTransaction({ transaction, setTransaction }: Layou
                     type="radio"
                     name="type"
                     value='Receita'
+                    checked={transaction.type === 'Receita'}
                     onChange={(e) => setTransaction(prev => ({ ...prev, type: e.target.value }))} />
                 <label className="mr-3">Receita</label>
                 <input className="accent-emerald-600 mr-3"
                     type="radio"
                     name="type"
                     value='Despesa'
+                    checked={transaction.type === 'Despesa'}
                     onChange={(e) => setTransaction(prev => ({ ...prev, type: e.target.value }))} />
                 <label>Despesa</label>
             </div>
