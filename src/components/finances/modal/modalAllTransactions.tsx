@@ -16,6 +16,9 @@ export function ModalAllTransactions({ closeModal }: ModalAllTransactionsProps) 
     const currentDate = new Date().toISOString().slice(0, 10);
     const [modalEditTransaction, setModalEditTransaction] = useState(false)
     const [docId, setDocId] = useState<string>("")
+    const [categorySelected, setCategorySelected] = useState('Todas categorias')
+
+    const filterCategory = categorySelected === 'Todas categorias' ? getTransactions : getTransactions.filter(item => item.category === categorySelected)
 
     return (
         <div onClick={closeModal} className="bg-black/40 fixed inset-0 flex items-center justify-center z-10">
@@ -27,12 +30,26 @@ export function ModalAllTransactions({ closeModal }: ModalAllTransactionsProps) 
                     </div>
                 </header>
 
+                <div className="flex mt-4">
+                    <span className="sm:text-base text-sm font-normal text-gray-500">Filtrar por:</span>
+                    <select value={categorySelected} onChange={(e) => setCategorySelected(e.target.value)} className="border border-gray-200 h-6 ml-2 rounded-md outline-none px-2 mb-4 bg-white">
+                        <option value='Todas categorias'>
+                            Todas categorias
+                        </option>
+                        {getTransactions.map((item) => (
+                            <option value={item.category} key={item.docId}>
+                                {item.category}
+                            </option>
+                        ))}
+                    </select>
+                </div>
+
                 {getTransactions.length === 0 &&
                     <div className="flex items-center justify-center min-h-36 text-lg">
                         <p>Suas transações aparecerão aqui!</p>
                     </div>}
 
-                {getTransactions.map((item) => (
+                {filterCategory.map((item) => (
                     <article onClick={() => { setModalEditTransaction(true), setDocId(item.docId) }} key={item.docId} className="cursor-pointer flex items-center justify-between my-3 p-2 transition-all duration-200 hover:bg-gray-600/10 px-4">
                         <div className="flex gap-4 items-center">
                             <span className="sm:text-base text-sm bg-gray-100 rounded-full p-3 text-white">
