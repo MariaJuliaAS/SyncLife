@@ -8,7 +8,6 @@ interface LayoutTransactionProps {
 }
 
 export function LayoutModalAddTransaction({ transaction, setTransaction, disableEditing }: LayoutTransactionProps) {
-    console.log(transaction)
     return (
         <>
             <label className="sm:text-base text-sm mb-2 font-medium">Tipo</label>
