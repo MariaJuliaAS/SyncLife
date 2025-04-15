@@ -23,7 +23,7 @@ export function RecentTransactions() {
             <main className="flex flex-col gap-4 mt-6">
 
                 {getTransactions.length === 0 &&
-                    <div className="flex items-center justify-center min-h-24 text-lg">
+                    <div className="flex items-center justify-center min-h-40 text-lg">
                         <p>Suas transações aparecerão aqui!</p>
                     </div>}
 
@@ -55,11 +55,13 @@ export function RecentTransactions() {
 
             </main>
 
-            <footer className="border-t border-gray-200 mt-4 flex items-center justify-center px-4">
-                <button onClick={() => setModalAllTransactions(true)} className="mt-4 border border-gray-200 rounded-lg w-full py-1 cursor-pointer transition-all duration-200 hover:bg-gray-300/30">
-                    Ver Todas Transações
-                </button>
-            </footer>
+            {getTransactions.length === 0 ? <></> :
+                (<footer className="border-t border-gray-200 mt-4 flex items-center justify-center px-4">
+                    <button onClick={() => setModalAllTransactions(true)} className="mt-4 border border-gray-200 rounded-lg w-full py-1 cursor-pointer transition-all duration-200 hover:bg-gray-300/30">
+                        Ver Todas Transações
+                    </button>
+                </footer>)
+            }
 
             {modalEditTransaction && <ModalEditTransaction closeModal={() => setModalEditTransaction(false)} docId={docId} />}
             {modalAllTransactions && <ModalAllTransactions closeModal={() => setModalAllTransactions(false)} />}
