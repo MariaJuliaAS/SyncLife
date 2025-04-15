@@ -3,13 +3,11 @@ import { MdKeyboardArrowRight } from "react-icons/md";
 export function Card() {
     return (
         <section className="flex-1 bg-white border border-gray-200 rounded-md py-7 shadow-lg">
-            <header className="border-b border-gray-200 px-4">
-                <div className="flex items-center justify-between mb-2">
-                    <p className="font-bold sm:text-xl text-lg">Fatura</p>
-                    <button className="sm:text-base text-sm text-emerald-600 font-medium cursor-pointer transition-all duration-200 hover:scale-105">
-                        Novo Cartão
-                    </button>
-                </div>
+            <header className=" px-4 flex justify-between">
+                <p className="font-bold sm:text-xl text-lg">Fatura</p>
+                <button className="sm:text-base text-sm text-emerald-600 font-medium cursor-pointer transition-all duration-200 hover:scale-105">
+                    Novo Cartão
+                </button>
             </header>
 
             <main className="flex flex-col gap-4 mt-4">
@@ -33,6 +31,12 @@ export function Card() {
                     </div>
                     <MdKeyboardArrowRight size={20} color="#000" />
                 </article>
+
+                <footer className="border-t border-gray-200 mt-4 flex items-center justify-center px-4">
+                    <button className="mt-4 border border-gray-200 rounded-lg w-full py-1 cursor-pointer transition-all duration-200 hover:bg-gray-300/30">
+                        Novo Pagamento
+                    </button>
+                </footer>
             </main>
         </section>
     )
