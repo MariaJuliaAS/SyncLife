@@ -5,7 +5,7 @@ import { addDoc, collection } from "firebase/firestore";
 import { auth, db } from "../../../services/firebaseConnection";
 import toast from "react-hot-toast";
 
-interface modalAddTransactionProps {
+export interface ModalProps {
     closeModal: () => void;
 }
 
@@ -19,7 +19,7 @@ export interface TransactionPros {
     observation: string;
 }
 
-export function ModalAddTransaction({ closeModal }: modalAddTransactionProps) {
+export function ModalAddTransaction({ closeModal }: ModalProps) {
     const [transaction, setTransaction] = useState<TransactionPros>({
         type: '',
         description: '',

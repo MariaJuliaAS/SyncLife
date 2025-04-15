@@ -1,11 +1,15 @@
+import { useState } from "react";
 import { MdKeyboardArrowRight } from "react-icons/md";
+import { ModalAddNewCard } from "./modal/modalAddNewCard";
 
 export function Card() {
+    const [modalAddNewCard, setModalAddNewCard] = useState(false)
+
     return (
         <section className="flex-1 bg-white border border-gray-200 rounded-md py-7 shadow-lg">
             <header className=" px-4 flex justify-between">
                 <p className="font-bold sm:text-xl text-lg">Fatura</p>
-                <button className="sm:text-base text-sm text-emerald-600 font-medium cursor-pointer transition-all duration-200 hover:scale-105">
+                <button onClick={() => setModalAddNewCard(true)} className="sm:text-base text-sm text-emerald-600 font-medium cursor-pointer transition-all duration-200 hover:scale-105">
                     Novo Cartão
                 </button>
             </header>
@@ -37,6 +41,8 @@ export function Card() {
                         Novo Pagamento
                     </button>
                 </footer>
+
+                {modalAddNewCard && <ModalAddNewCard closeModal={() => setModalAddNewCard(false)} />}
             </main>
         </section>
     )

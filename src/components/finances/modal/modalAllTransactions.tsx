@@ -6,12 +6,9 @@ import { GiMoneyStack } from "react-icons/gi";
 import { FormatDate } from "../../../utils/formatDate";
 import { useState } from "react";
 import { ModalEditTransaction } from "./modalEditTransaction";
+import { ModalProps } from "./modalAddTransaction";
 
-interface ModalAllTransactionsProps {
-    closeModal: () => void;
-}
-
-export function ModalAllTransactions({ closeModal }: ModalAllTransactionsProps) {
+export function ModalAllTransactions({ closeModal }: ModalProps) {
     const { getTransactions } = GetTransactions();
     const currentDate = new Date().toISOString().slice(0, 10);
     const [modalEditTransaction, setModalEditTransaction] = useState(false)
