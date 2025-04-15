@@ -58,11 +58,11 @@ export function ModalAddTransaction({ closeModal }: ModalProps) {
 
                 <form onSubmit={handleAddTransaction} className="mt-4 flex flex-col">
                     <LayoutModalTransactions transaction={transaction} setTransaction={setTransaction} />
-                    <div className="flex gap-4">
-                        <button onClick={closeModal} type="button" className="sm:text-base text-sm border w-full border-gray-200 px-4 py-2 rounded-lg font-medium cursor-pointer transition-all duration-200 hover:bg-red-500 hover:text-white">
+                    <div className="flex justify-end gap-4">
+                        <button onClick={closeModal} type="button" className="sm:text-base text-sm border border-gray-200 px-4 py-2 rounded-lg font-medium cursor-pointer transition-all duration-200 hover:bg-red-500 hover:text-white">
                             Cancelar
                         </button>
-                        <button className="sm:text-base text-sm w-full bg-gray-700 text-white px-4 py-2 rounded-lg font-medium cursor-pointer transition-all duration-200 hover:bg-gray-800">
+                        <button className="sm:text-base text-sm bg-gray-700 text-white px-4 py-2 rounded-lg font-medium cursor-pointer transition-all duration-200 hover:bg-gray-800">
                             Salvar
                         </button>
                     </div>

@@ -102,8 +102,8 @@ export function ModalEdit({ closeModal, docEventId }: ModalEditProps) {
                 <form onSubmit={handleEditEvent} className="flex flex-col">
                     <LayoutFormModal eventsInfos={eventsInfos} setEventsInfos={setEventsInfos} disableEditing={disableEditing} />
 
-                    <div className="gap-4 flex">
-                        <button type="button" onClick={handleDeleteEvent} className="sm:text-base text-sm w-full border border-gray-200 px-4 py-2 rounded-lg font-medium cursor-pointer transition-all duration-200 hover:bg-red-500 hover:text-white">
+                    <div className="gap-4 flex justify-end">
+                        <button type="button" onClick={handleDeleteEvent} className="sm:text-base text-sm border border-gray-200 px-4 py-2 rounded-lg font-medium cursor-pointer transition-all duration-200 hover:bg-red-500 hover:text-white">
                             Excluir
                         </button>
 
@@ -111,10 +111,10 @@ export function ModalEdit({ closeModal, docEventId }: ModalEditProps) {
                             <button onClick={(e: FormEvent) => {
                                 e.preventDefault()
                                 setDisableEditing(!disableEditing)
-                            }} type="button" className="sm:text-base text-sm w-full bg-gray-700 text-white px-4 py-2 rounded-lg font-medium cursor-pointer transition-all duration-200 hover:bg-gray-800">
+                            }} type="button" className="sm:text-base text-sm bg-gray-700 text-white px-4 py-2 rounded-lg font-medium cursor-pointer transition-all duration-200 hover:bg-gray-800">
                                 Habilitar Edição
                             </button> :
-                            <button type="submit" className="sm:text-base text-sm w-full bg-gray-700 text-white px-4 py-2 rounded-lg font-medium cursor-pointer transition-all duration-200 hover:bg-gray-800">
+                            <button type="submit" className="sm:text-base text-sm bg-gray-700 text-white px-4 py-2 rounded-lg font-medium cursor-pointer transition-all duration-200 hover:bg-gray-800">
                                 Salvar Edição
                             </button>
                         }
