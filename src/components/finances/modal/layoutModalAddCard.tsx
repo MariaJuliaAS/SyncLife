@@ -24,8 +24,7 @@ export function LayoutModalAddCard({ cardInfos, setCardInfos }: LayoutModalAddCa
             />
             <label className="sm:text-base text-sm mb-2 font-medium">Vencimento</label>
             <Input
-                placeholder="12/05/2025"
-                type="date"
+                placeholder="11/04"
                 value={cardInfos.date}
                 onChange={(e) => setCardInfos(prev => ({ ...prev, date: e.target.value }))}
             />
