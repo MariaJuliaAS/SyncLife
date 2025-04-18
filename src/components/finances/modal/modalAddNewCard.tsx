@@ -10,13 +10,15 @@ export interface CardProps {
     name: string;
     limit: number;
     date: string;
+    color: string;
 }
 
 export function ModalAddNewCard({ closeModal }: ModalProps) {
     const [cardInfos, setCardInfos] = useState<CardProps>({
         name: '',
         limit: 0,
-        date: ''
+        date: '',
+        color: '#000000'
     })
 
     async function handleAddNewCard(e: FormEvent) {
@@ -26,6 +28,7 @@ export function ModalAddNewCard({ closeModal }: ModalProps) {
             .then(() => {
                 toast.success('Novo cartão adicionado!')
                 closeModal()
+                window.location.reload();
             })
             .catch((error) => {
                 console.log('Erro ao adicionar cartão: ' + error)

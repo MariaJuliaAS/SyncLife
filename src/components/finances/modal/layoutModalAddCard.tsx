@@ -28,6 +28,12 @@ export function LayoutModalAddCard({ cardInfos, setCardInfos }: LayoutModalAddCa
                 value={cardInfos.date}
                 onChange={(e) => setCardInfos(prev => ({ ...prev, date: e.target.value }))}
             />
+            <label className="sm:text-base text-sm mb-2 font-medium">Cor do ícone</label>
+            <Input
+                type="color"
+                value={cardInfos.color}
+                onChange={(e) => setCardInfos(prev => ({ ...prev, color: e.target.value }))}
+            />
         </>
     )
 }
