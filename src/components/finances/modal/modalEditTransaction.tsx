@@ -6,12 +6,12 @@ import { deleteDoc, doc, getDoc, updateDoc } from "firebase/firestore";
 import { db } from "../../../services/firebaseConnection";
 import toast from "react-hot-toast";
 
-interface ModalEditeTransaction {
+export interface ModalEditProps {
     closeModal: () => void;
     docId: string;
 }
 
-export function ModalEditTransaction({ closeModal, docId }: ModalEditeTransaction) {
+export function ModalEditTransaction({ closeModal, docId }: ModalEditProps) {
     const [disableEditing, setDisableEditing] = useState(true)
     const [transaction, setTransaction] = useState<TransactionPros>({
         type: '',
