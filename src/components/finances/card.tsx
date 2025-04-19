@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { MdKeyboardArrowRight } from "react-icons/md";
 import { ModalAddNewCard } from "./modal/modalAddNewCard";
-import { collection, deleteDoc, doc, getDocs } from "firebase/firestore";
-import { db } from "../../services/firebaseConnection";
+import { collection, deleteDoc, doc, getDocs, query, where } from "firebase/firestore";
+import { auth, db } from "../../services/firebaseConnection";
 import { ModalEditCard } from "./modal/modalEditCard";
 import toast from "react-hot-toast";
 
@@ -22,7 +22,13 @@ export function Card() {
 
     useEffect(() => {
         async function getCardsInfos() {
-            await getDocs(collection(db, 'cards'))
+
+            const q = query(
+                collection(db, "cards"),
+                where("userId", "==", auth.currentUser?.uid)
+            )
+
+            await getDocs(q)
                 .then((snapshot) => {
                     let list: GetCardProps[] = []
 
