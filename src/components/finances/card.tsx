@@ -38,6 +38,11 @@ export function Card() {
             </header>
 
             <main className="flex flex-col gap-4 mt-4">
+                {cardInfos?.length === 0 &&
+                    <div className="flex items-center justify-center min-h-40 text-lg">
+                        <p>Seus cartões aparecerão aqui!</p>
+                    </div>}
+
                 {cardInfos?.slice(0, 3).map((item) => (
                     <article key={item.name} className="flex items-center justify-between p-2 transition-all duration-200 hover:bg-gray-600/10 px-4">
                         <div className="flex gap-4 items-center">
