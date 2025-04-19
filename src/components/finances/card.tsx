@@ -38,7 +38,7 @@ export function Card() {
             </header>
 
             <main className="flex flex-col gap-4 mt-4">
-                {cardInfos?.map((item) => (
+                {cardInfos?.slice(0, 3).map((item) => (
                     <article key={item.name} className="flex items-center justify-between p-2 transition-all duration-200 hover:bg-gray-600/10 px-4">
                         <div className="flex gap-4 items-center">
                             <span className="sm:text-base text-sm rounded-full p-3 text-white" style={{ backgroundColor: item.color }}>{item.name.slice(0, 2).toUpperCase()}</span>

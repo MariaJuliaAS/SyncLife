@@ -3,7 +3,7 @@ import { ModalProps } from "./modalAddTransaction"
 import { LayoutModalAddCard } from "./layoutModalAddCard"
 import { FormEvent, useState } from "react"
 import { addDoc, collection } from "firebase/firestore";
-import { db } from "../../../services/firebaseConnection";
+import { auth, db } from "../../../services/firebaseConnection";
 import toast from "react-hot-toast";
 
 export interface CardProps {
@@ -11,6 +11,7 @@ export interface CardProps {
     limit: number;
     date: string;
     color: string;
+    userId?: string | undefined;
 }
 
 export function ModalAddNewCard({ closeModal }: ModalProps) {
@@ -18,7 +19,8 @@ export function ModalAddNewCard({ closeModal }: ModalProps) {
         name: '',
         limit: 0,
         date: '',
-        color: '#000000'
+        color: '#000000',
+        userId: auth.currentUser?.uid
     })
 
     async function handleAddNewCard(e: FormEvent) {
