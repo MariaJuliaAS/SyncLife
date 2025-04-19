@@ -56,11 +56,14 @@ export function Card() {
                     </article>
                 ))}
 
-                <footer className="border-t border-gray-200 mt-4 flex items-center justify-center px-4">
-                    <button className="mt-4 border border-gray-200 rounded-lg w-full py-1 cursor-pointer transition-all duration-200 hover:bg-gray-300/30">
-                        Novo Pagamento
-                    </button>
-                </footer>
+                {cardInfos?.length === 0 ? <></> :
+                    (
+                        <footer className="border-t border-gray-200 mt-4 flex items-center justify-center px-4">
+                            <button className="mt-4 border border-gray-200 rounded-lg w-full py-1 cursor-pointer transition-all duration-200 hover:bg-gray-300/30">
+                                Novo Pagamento
+                            </button>
+                        </footer>)
+                }
 
                 {modalAddNewCard && <ModalAddNewCard closeModal={() => setModalAddNewCard(false)} />}
             </main>
