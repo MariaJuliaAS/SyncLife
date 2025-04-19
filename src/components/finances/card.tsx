@@ -1,53 +1,20 @@
-import { useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { MdKeyboardArrowRight } from "react-icons/md";
 import { ModalAddNewCard } from "./modal/modalAddNewCard";
-import { collection, deleteDoc, doc, getDocs, query, where } from "firebase/firestore";
-import { auth, db } from "../../services/firebaseConnection";
+import { deleteDoc, doc } from "firebase/firestore";
+import { db } from "../../services/firebaseConnection";
 import { ModalEditCard } from "./modal/modalEditCard";
 import toast from "react-hot-toast";
 import { ModalAddPayment } from "./modal/modalAddPayment";
+import { PaymentContext } from "../../context/paymentContext";
 
-interface GetCardProps {
-    name: string;
-    limit: number;
-    date: string;
-    color: string;
-    docId: string;
-}
 
 export function Card() {
     const [modalAddNewCard, setModalAddNewCard] = useState(false)
     const [modalEditCard, setModalEditCard] = useState(false)
     const [modalAddPayment, setModalAddPayment] = useState(false)
-    const [cardInfos, setCardInfos] = useState<GetCardProps[]>()
     const [docId, setDocId] = useState<string>("")
-
-    useEffect(() => {
-        async function getCardsInfos() {
-
-            const q = query(
-                collection(db, "cards"),
-                where("userId", "==", auth.currentUser?.uid)
-            )
-
-            await getDocs(q)
-                .then((snapshot) => {
-                    let list: GetCardProps[] = []
-
-                    snapshot.forEach((item) => {
-                        list.push({
-                            name: item.data().name,
-                            limit: item.data().limit,
-                            date: item.data().date,
-                            color: item.data().color,
-                            docId: item.id
-                        })
-                    })
-                    setCardInfos(list)
-                })
-        }
-        getCardsInfos()
-    }, [])
+    const { cardInfos } = useContext(PaymentContext)
 
     async function handleDeleteCard(docIdDelete: string) {
         const deleteCardRef = doc(db, "cards", docIdDelete)

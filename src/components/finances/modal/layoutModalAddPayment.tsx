@@ -1,14 +1,18 @@
+import { useContext } from "react";
 import { Input } from "../../input";
+import { PaymentContext } from "../../../context/paymentContext";
 
 
 export function LayoutModalAddPayment() {
+    const { cardInfos } = useContext(PaymentContext)
     return (
         <>
             <label className="sm:text-base text-sm mb-2 font-medium">Cartão</label>
             <select required className="border border-gray-200 h-10 rounded-md outline-none px-2 mb-4 bg-white">
                 <option value="" disabled>Selecione um cartão</option>
-                <option value="Nubank">Nubank</option>
-                <option value="Will">Will</option>
+                {cardInfos.map((item) => (
+                    <option value={item.name}>{item.name}</option>
+                ))}
             </select>
             <label className="sm:text-base text-sm mb-2 font-medium">Estabelecimento</label>
             <Input
