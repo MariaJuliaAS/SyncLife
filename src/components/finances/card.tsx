@@ -52,7 +52,13 @@ export function Card() {
                                 <span className="sm:text-base text-sm font-normal text-gray-500">Vencimento: {item.date}</span>
                             </p>
                         </div>
-                        <MdKeyboardArrowRight size={20} color="#000" />
+                        <div className="flex flex-col items-end justify-center gap-2">
+                            <MdKeyboardArrowRight size={20} color="#000" />
+                            <div className="flex gap-4 text-sm underline">
+                                <button className="hover:font-semibold cursor-pointer">Editar</button>
+                                <button className="hover:text-red-500 hover:font-semibold cursor-pointer">Excluir</button>
+                            </div>
+                        </div>
                     </article>
                 ))}
 
