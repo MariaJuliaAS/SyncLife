@@ -1,7 +1,6 @@
 import { collection, getDocs, query, where } from "firebase/firestore";
 import { createContext, ReactNode, useEffect, useState } from "react";
 import { auth, db } from "../services/firebaseConnection";
-import { onAuthStateChanged } from "firebase/auth";
 
 interface PaymentPropsData {
     //payment: PaymentProps[];

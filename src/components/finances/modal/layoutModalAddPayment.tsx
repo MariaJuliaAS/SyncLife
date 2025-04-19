@@ -1,14 +1,24 @@
 import { useContext } from "react";
 import { Input } from "../../input";
 import { PaymentContext } from "../../../context/paymentContext";
+import { PaymentsListProps } from "./modalAddPayment";
 
+interface LayoutModalPaymentProps {
+    payments: PaymentsListProps;
+    setPayments: React.Dispatch<React.SetStateAction<PaymentsListProps>>;
+}
 
-export function LayoutModalAddPayment() {
+export function LayoutModalAddPayment({ payments, setPayments }: LayoutModalPaymentProps) {
     const { cardInfos } = useContext(PaymentContext)
     return (
         <>
             <label className="sm:text-base text-sm mb-2 font-medium">Cartão</label>
-            <select required className="border border-gray-200 h-10 rounded-md outline-none px-2 mb-4 bg-white">
+            <select
+                required
+                className="border border-gray-200 h-10 rounded-md outline-none px-2 mb-4 bg-white"
+                value={payments.card}
+                onChange={(e) => setPayments(prev => ({ ...prev, card: e.target.value }))}
+            >
                 <option value="" disabled>Selecione um cartão</option>
                 {cardInfos.map((item) => (
                     <option key={item.docId} value={item.name}>{item.name}</option>
@@ -18,9 +28,16 @@ export function LayoutModalAddPayment() {
             <Input
                 placeholder="Spotify"
                 required
+                value={payments.establishment}
+                onChange={(e) => setPayments(prev => ({ ...prev, establishment: e.target.value }))}
             />
             <label className="sm:text-base text-sm mb-2 font-medium">Categoria</label>
-            <select required className="border border-gray-200 h-10 rounded-md outline-none px-2 mb-4 bg-white">
+            <select
+                required
+                className="border border-gray-200 h-10 rounded-md outline-none px-2 mb-4 bg-white"
+                value={payments.category}
+                onChange={(e) => setPayments(prev => ({ ...prev, category: e.target.value }))}
+            >
                 <option value="" disabled>Selecione uma categoria</option>
                 <option value="Alimentação">Alimentação</option>
                 <option value="Transporte">Transporte</option>
@@ -34,16 +51,22 @@ export function LayoutModalAddPayment() {
                 placeholder="R$ 21,90"
                 type="number"
                 required
+                value={payments.value}
+                onChange={(e) => setPayments(prev => ({ ...prev, value: Number(e.target.value) }))}
             />
             <label className="sm:text-base text-sm mb-2 font-medium">Data</label>
             <Input
                 type="datetime-local"
+                value={payments.date}
+                onChange={(e) => setPayments(prev => ({ ...prev, date: e.target.value }))}
             />
             <label className="sm:text-base text-sm mb-2 font-medium">Observação (opcional)</label>
             <textarea
                 placeholder="Adicione detalhes sobre o pagamento"
                 rows={3}
                 className="border border-gray-200 rounded-md outline-none px-2 mb-4 bg-white"
+                value={payments.observation}
+                onChange={(e) => setPayments(prev => ({ ...prev, observation: e.target.value }))}
             />
         </>
     )
