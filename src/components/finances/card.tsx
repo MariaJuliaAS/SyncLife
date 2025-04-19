@@ -5,6 +5,7 @@ import { collection, deleteDoc, doc, getDocs, query, where } from "firebase/fire
 import { auth, db } from "../../services/firebaseConnection";
 import { ModalEditCard } from "./modal/modalEditCard";
 import toast from "react-hot-toast";
+import { ModalAddPayment } from "./modal/modalAddPayment";
 
 interface GetCardProps {
     name: string;
@@ -17,6 +18,7 @@ interface GetCardProps {
 export function Card() {
     const [modalAddNewCard, setModalAddNewCard] = useState(false)
     const [modalEditCard, setModalEditCard] = useState(false)
+    const [modalAddPayment, setModalAddPayment] = useState(false)
     const [cardInfos, setCardInfos] = useState<GetCardProps[]>()
     const [docId, setDocId] = useState<string>("")
 
@@ -96,7 +98,7 @@ export function Card() {
                 {cardInfos?.length === 0 ? <></> :
                     (
                         <footer className="border-t border-gray-200 mt-4 flex items-center justify-center px-4">
-                            <button className="mt-4 border border-gray-200 rounded-lg w-full py-1 cursor-pointer transition-all duration-200 hover:bg-gray-300/30">
+                            <button onClick={() => setModalAddPayment(true)} className="mt-4 border border-gray-200 rounded-lg w-full py-1 cursor-pointer transition-all duration-200 hover:bg-gray-300/30">
                                 Novo Pagamento
                             </button>
                         </footer>)
@@ -104,6 +106,7 @@ export function Card() {
 
                 {modalAddNewCard && <ModalAddNewCard closeModal={() => setModalAddNewCard(false)} />}
                 {modalEditCard && <ModalEditCard closeModal={() => setModalEditCard(false)} docId={docId} />}
+                {modalAddPayment && <ModalAddPayment closeModal={() => setModalAddPayment(false)} />}
 
             </main>
         </section>
