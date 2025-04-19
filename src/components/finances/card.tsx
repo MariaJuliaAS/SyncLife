@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import { MdKeyboardArrowRight } from "react-icons/md";
 import { ModalAddNewCard } from "./modal/modalAddNewCard";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, deleteDoc, doc, getDocs } from "firebase/firestore";
 import { db } from "../../services/firebaseConnection";
 import { ModalEditCard } from "./modal/modalEditCard";
+import toast from "react-hot-toast";
 
 interface GetCardProps {
     name: string;
@@ -40,6 +41,18 @@ export function Card() {
         getCardsInfos()
     }, [])
 
+    async function handleDeleteCard(docIdDelete: string) {
+        const deleteCardRef = doc(db, "cards", docIdDelete)
+        await deleteDoc(deleteCardRef)
+            .then(() => {
+                toast.success("Cartão excluído com sucesso!")
+                window.location.reload()
+            })
+            .catch((error) => {
+                console.log("Erro ao excluir cartão: " + error)
+            })
+    }
+
     return (
         <section className="flex-1 bg-white border border-gray-200 rounded-md py-7 shadow-lg">
             <header className=" px-4 flex justify-between">
@@ -68,7 +81,7 @@ export function Card() {
                             <MdKeyboardArrowRight size={20} color="#000" />
                             <div className="flex gap-4 text-sm underline">
                                 <button onClick={() => { setModalEditCard(true), setDocId(item.docId) }} className="hover:font-semibold cursor-pointer">Editar</button>
-                                <button className="hover:text-red-500 hover:font-semibold cursor-pointer">Excluir</button>
+                                <button onClick={() => handleDeleteCard(item.docId)} className="hover:text-red-500 hover:font-semibold cursor-pointer">Excluir</button>
                             </div>
                         </div>
                     </article>
