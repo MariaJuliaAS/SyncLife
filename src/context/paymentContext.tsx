@@ -36,15 +36,16 @@ function PaymentProvider({ children }: PaymentProviderProps) {
     const [cardInfos, setCardInfos] = useState<GetCardProps[]>([])
 
     useEffect(() => {
-        const unsubscribe = onAuthStateChanged(auth, (user) => {
-            if (user) {
-                const q = query(
-                    collection(db, "cards"),
-                    where("userId", "==", user.uid)
-                );
+        async function getCardsInfos() {
 
-                getDocs(q).then((snapshot) => {
-                    let list: GetCardProps[] = [];
+            const q = query(
+                collection(db, "cards"),
+                where("userId", "==", auth.currentUser?.uid)
+            )
+
+            await getDocs(q)
+                .then((snapshot) => {
+                    let list: GetCardProps[] = []
 
                     snapshot.forEach((item) => {
                         list.push({
@@ -52,17 +53,14 @@ function PaymentProvider({ children }: PaymentProviderProps) {
                             limit: item.data().limit,
                             date: item.data().date,
                             color: item.data().color,
-                            docId: item.id,
-                        });
-                    });
-
-                    setCardInfos(list);
-                });
-            }
-        });
-
-        return () => unsubscribe();
-    }, []);
+                            docId: item.id
+                        })
+                    })
+                    setCardInfos(list)
+                })
+        }
+        getCardsInfos()
+    }, [])
 
     return (
         <PaymentContext.Provider value={{ cardInfos }}>

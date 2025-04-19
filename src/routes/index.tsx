@@ -4,6 +4,7 @@ import { Finances } from "../pages/finances";
 import { Login } from '../pages/login';
 import { Register } from "../pages/register";
 import { Private } from "./private";
+import PaymentProvider from "../context/paymentContext";
 
 export const router = createBrowserRouter([
     {
@@ -12,7 +13,11 @@ export const router = createBrowserRouter([
     },
     {
         path: '/finances',
-        element: <Private> <Finances /> </Private>
+        element: <Private>
+            <PaymentProvider>
+                <Finances />
+            </PaymentProvider>
+        </Private>
     },
     {
         path: '/login',
