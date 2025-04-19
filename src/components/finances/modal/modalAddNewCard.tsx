@@ -11,8 +11,6 @@ export interface CardProps {
     limit: number;
     date: string;
     color: string;
-    userId?: string | undefined;
-    docId?: string;
 }
 
 export function ModalAddNewCard({ closeModal }: ModalProps) {
@@ -21,13 +19,15 @@ export function ModalAddNewCard({ closeModal }: ModalProps) {
         limit: 0,
         date: '',
         color: '#000000',
-        userId: auth.currentUser?.uid,
     })
 
     async function handleAddNewCard(e: FormEvent) {
         e.preventDefault()
 
-        await addDoc(collection(db, 'cards'), { ...cardInfos })
+        await addDoc(collection(db, 'cards'), {
+            ...cardInfos,
+            userId: auth.currentUser?.uid
+        })
             .then(() => {
                 toast.success('Novo cartão adicionado!')
                 closeModal()
