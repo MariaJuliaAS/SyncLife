@@ -47,6 +47,10 @@ export function ModalAllPayments({ closeModal, selectedCard }: ModalAllPaymentsP
                         })
                     })
                     setGetPayment(list)
+
+                })
+                .catch((error) => {
+                    console.log('Erro ao puxar pagamentos no modal: ' + error)
                 })
         }
 
