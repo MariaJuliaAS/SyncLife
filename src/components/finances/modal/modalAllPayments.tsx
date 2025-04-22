@@ -1,5 +1,4 @@
 import { MdOutlineClose } from "react-icons/md";
-import { ModalProps } from "./modalAddTransaction";
 import { useEffect, useState } from "react";
 import { collection, getDocs, query, where } from "firebase/firestore";
 import { auth, db } from "../../../services/firebaseConnection";
