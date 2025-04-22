@@ -1,8 +1,12 @@
 import { MdOutlineClose } from "react-icons/md";
 import { ModalProps } from "./modalAddTransaction";
 
+interface ModalAllPaymentsProps {
+    closeModal: () => void;
+    selectedCard: string;
+}
 
-export function ModalAllPayments({ closeModal }: ModalProps) {
+export function ModalAllPayments({ closeModal, selectedCard }: ModalAllPaymentsProps) {
     return (
         <div onClick={closeModal} className="bg-black/40 fixed inset-0 flex items-center justify-center z-10">
             <main onClick={(e) => e.stopPropagation()} className="max-h-11/12 overflow-y-auto bg-white w-11/12 max-w-xl h-auto flex flex-col rounded-lg p-8 ">

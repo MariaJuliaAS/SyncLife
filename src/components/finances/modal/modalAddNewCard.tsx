@@ -7,7 +7,7 @@ import { auth, db } from "../../../services/firebaseConnection";
 import toast from "react-hot-toast";
 
 export interface CardProps {
-    name: string;
+    card: string;
     limit: number;
     date: string;
     color: string;
@@ -15,7 +15,7 @@ export interface CardProps {
 
 export function ModalAddNewCard({ closeModal }: ModalProps) {
     const [cardInfos, setCardInfos] = useState<CardProps>({
-        name: '',
+        card: '',
         limit: 0,
         date: '',
         color: '#000000',

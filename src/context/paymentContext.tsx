@@ -22,7 +22,7 @@ interface PaymentProviderProps {
 }
 
 interface GetCardProps {
-    name: string;
+    card: string;
     limit: number;
     date: string;
     color: string;
@@ -48,7 +48,7 @@ function PaymentProvider({ children }: PaymentProviderProps) {
 
                     snapshot.forEach((item) => {
                         list.push({
-                            name: item.data().name,
+                            card: item.data().name,
                             limit: item.data().limit,
                             date: item.data().date,
                             color: item.data().color,

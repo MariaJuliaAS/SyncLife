@@ -16,6 +16,7 @@ export function Card() {
     const [modalAddPayment, setModalAddPayment] = useState(false)
     const [modalAllPayments, setModalAllPayments] = useState(false)
     const [docId, setDocId] = useState<string>("")
+    const [selectedCard, setSelectedCard] = useState<string>('')
     const { cardInfos } = useContext(PaymentContext)
 
     async function handleDeleteCard(docIdDelete: string) {
@@ -46,9 +47,9 @@ export function Card() {
                     </div>}
 
                 {cardInfos?.slice(0, 3).map((item) => (
-                    <article onClick={() => setModalAllPayments(true)} key={item.docId} className="cursor-pointer flex items-center justify-between p-2 transition-all duration-200 hover:bg-gray-600/10 px-4">
+                    <article onClick={() => { setModalAllPayments(true), setSelectedCard(item.card) }} key={item.docId} className="cursor-pointer flex items-center justify-between p-2 transition-all duration-200 hover:bg-gray-600/10 px-4">
                         <div className="flex gap-4 items-center">
-                            <span className="sm:text-base text-sm rounded-full p-3 text-white" style={{ backgroundColor: item.color }}>{item.name.slice(0, 2).toUpperCase()}</span>
+                            <span className="sm:text-base text-sm rounded-full p-3 text-white" style={{ backgroundColor: item.color }}>{item.card.slice(0, 2).toUpperCase()}</span>
                             <p className="flex flex-col font-bold sm:text-lg text-base">
                                 R$ 691,00
                                 <span className="sm:text-base text-sm font-normal text-gray-500">Vencimento: {item.date}</span>
@@ -76,7 +77,7 @@ export function Card() {
                 {modalAddNewCard && <ModalAddNewCard closeModal={() => setModalAddNewCard(false)} />}
                 {modalEditCard && <ModalEditCard closeModal={() => setModalEditCard(false)} docId={docId} />}
                 {modalAddPayment && <ModalAddPayment closeModal={() => setModalAddPayment(false)} />}
-                {modalAllPayments && <ModalAllPayments closeModal={() => setModalAllPayments(false)} />}
+                {modalAllPayments && <ModalAllPayments closeModal={() => setModalAllPayments(false)} selectedCard={selectedCard} />}
 
             </main>
         </section>
