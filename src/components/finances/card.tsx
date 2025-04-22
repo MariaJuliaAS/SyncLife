@@ -58,8 +58,8 @@ export function Card() {
                         <div className="flex flex-col items-end justify-center gap-2">
                             <MdKeyboardArrowRight size={20} color="#000" />
                             <div className="flex gap-4 text-sm underline">
-                                <button onClick={() => { setModalEditCard(true), setDocId(item.docId) }} className="hover:font-semibold cursor-pointer">Editar</button>
-                                <button onClick={() => handleDeleteCard(item.docId)} className="hover:text-red-500 hover:font-semibold cursor-pointer">Excluir</button>
+                                <button onClick={(e) => { setModalEditCard(true), setDocId(item.docId), e.stopPropagation() }} className="hover:font-semibold cursor-pointer">Editar</button>
+                                <button onClick={(e) => { handleDeleteCard(item.docId), e.stopPropagation() }} className="hover:text-red-500 hover:font-semibold cursor-pointer">Excluir</button>
                             </div>
                         </div>
                     </article>
