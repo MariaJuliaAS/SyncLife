@@ -21,7 +21,7 @@ export function LayoutModalAddPayment({ payments, setPayments }: LayoutModalPaym
             >
                 <option value="" disabled>Selecione um cartão</option>
                 {cardInfos.map((item) => (
-                    <option key={item.docId} value={item.name}>{item.name}</option>
+                    <option key={item.docId} value={item.card}>{item.card}</option>
                 ))}
             </select>
             <label className="sm:text-base text-sm mb-2 font-medium">Estabelecimento</label>
