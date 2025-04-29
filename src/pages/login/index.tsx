@@ -86,10 +86,7 @@ export function Login() {
                             onChange={(e) => setUserLogin(prev => ({ ...prev, email: e.target.value }))}
                             required
                         />
-                        <div className="flex justify-between mb-2">
-                            <label className="sm:text-base text-sm font-medium">Senha</label>
-                            <a className="sm:text-base text-sm text-emerald-600 font-medium select-none cursor-pointer">Esqueceu a senha?</a>
-                        </div>
+                        <label className="sm:text-base text-sm font-medium">Senha</label>
                         <Input
                             placeholder="••••••••"
                             type={showPassword ? 'text' : 'password'}
