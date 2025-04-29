@@ -6,9 +6,10 @@ import { PaymentsListProps } from "./modalAddPayment";
 interface LayoutModalPaymentProps {
     payments: PaymentsListProps;
     setPayments: React.Dispatch<React.SetStateAction<PaymentsListProps>>;
+    disableEditing?: boolean;
 }
 
-export function LayoutModalAddPayment({ payments, setPayments }: LayoutModalPaymentProps) {
+export function LayoutModalAddPayment({ payments, setPayments, disableEditing }: LayoutModalPaymentProps) {
     const { cardInfos } = useContext(PaymentContext)
     return (
         <>
@@ -18,6 +19,7 @@ export function LayoutModalAddPayment({ payments, setPayments }: LayoutModalPaym
                 className="border border-gray-200 h-10 rounded-md outline-none px-2 mb-4 bg-white"
                 value={payments.card}
                 onChange={(e) => setPayments(prev => ({ ...prev, card: e.target.value }))}
+                disabled={disableEditing}
             >
                 <option value="" disabled>Selecione um cartão</option>
                 {cardInfos.map((item) => (
@@ -30,6 +32,7 @@ export function LayoutModalAddPayment({ payments, setPayments }: LayoutModalPaym
                 required
                 value={payments.establishment}
                 onChange={(e) => setPayments(prev => ({ ...prev, establishment: e.target.value }))}
+                disabled={disableEditing}
             />
             <label className="sm:text-base text-sm mb-2 font-medium">Categoria</label>
             <select
@@ -37,6 +40,7 @@ export function LayoutModalAddPayment({ payments, setPayments }: LayoutModalPaym
                 className="border border-gray-200 h-10 rounded-md outline-none px-2 mb-4 bg-white"
                 value={payments.category}
                 onChange={(e) => setPayments(prev => ({ ...prev, category: e.target.value }))}
+                disabled={disableEditing}
             >
                 <option value="" disabled>Selecione uma categoria</option>
                 <option value="Alimentação">Alimentação</option>
@@ -53,12 +57,14 @@ export function LayoutModalAddPayment({ payments, setPayments }: LayoutModalPaym
                 required
                 value={payments.value}
                 onChange={(e) => setPayments(prev => ({ ...prev, value: Number(e.target.value) }))}
+                disabled={disableEditing}
             />
             <label className="sm:text-base text-sm mb-2 font-medium">Data da compra</label>
             <Input
                 type="datetime-local"
                 value={payments.date}
                 onChange={(e) => setPayments(prev => ({ ...prev, date: e.target.value }))}
+                disabled={disableEditing}
             />
             <label className="sm:text-base text-sm mb-2 font-medium">Observação (opcional)</label>
             <textarea
@@ -67,6 +73,7 @@ export function LayoutModalAddPayment({ payments, setPayments }: LayoutModalPaym
                 className="border border-gray-200 rounded-md outline-none px-2 mb-4 bg-white"
                 value={payments.observation}
                 onChange={(e) => setPayments(prev => ({ ...prev, observation: e.target.value }))}
+                disabled={disableEditing}
             />
         </>
     )

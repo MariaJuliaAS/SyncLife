@@ -13,7 +13,7 @@ export function LayoutModalAddCard({ cardInfos, setCardInfos }: LayoutModalAddCa
             <Input
                 placeholder="Ex.: Nubank"
                 value={cardInfos.card}
-                onChange={(e) => setCardInfos(prev => ({ ...prev, name: e.target.value }))}
+                onChange={(e) => setCardInfos(prev => ({ ...prev, card: e.target.value }))}
             />
             <label className="sm:text-base text-sm mb-2 font-medium">Limite</label>
             <Input
