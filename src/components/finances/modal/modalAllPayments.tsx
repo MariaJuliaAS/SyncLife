@@ -69,6 +69,12 @@ export function ModalAllPayments({ closeModal, selectedCard }: ModalAllPaymentsP
                     </div>
                 </header>
 
+                {filterCard.length === 0 &&
+                    <div>
+                        <p className="w-full flex justify-center pt-8 text-lg">Nenhum pagamento registrado!</p>
+                    </div>
+                }
+
                 {filterCard.map((item) => (
                     <article key={item.docId} className="cursor-pointer flex items-center justify-between my-3 p-2 transition-all duration-200 hover:bg-gray-600/10 px-4">
                         <p className="flex flex-col font-bold sm:text-lg text-base">
