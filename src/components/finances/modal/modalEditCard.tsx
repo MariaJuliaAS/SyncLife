@@ -9,7 +9,7 @@ import toast from "react-hot-toast";
 
 export function ModalEditCard({ closeModal, docId }: ModalEditProps) {
     const [cardInfos, setCardInfos] = useState<CardProps>({
-        name: "",
+        card: "",
         limit: 0,
         date: "",
         color: "#000000"
@@ -22,7 +22,7 @@ export function ModalEditCard({ closeModal, docId }: ModalEditProps) {
             await getDoc(getCardRef)
                 .then((snapshot) => {
                     setCardInfos({
-                        name: snapshot.data()?.name,
+                        card: snapshot.data()?.card,
                         limit: snapshot.data()?.limit,
                         date: snapshot.data()?.date,
                         color: snapshot.data()?.color

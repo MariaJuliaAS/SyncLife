@@ -11,8 +11,8 @@ export function LayoutModalAddCard({ cardInfos, setCardInfos }: LayoutModalAddCa
         <>
             <label className="sm:text-base text-sm mb-2 font-medium">Nome</label>
             <Input
-                placeholder="Nubank"
-                value={cardInfos.name}
+                placeholder="Ex.: Nubank"
+                value={cardInfos.card}
                 onChange={(e) => setCardInfos(prev => ({ ...prev, name: e.target.value }))}
             />
             <label className="sm:text-base text-sm mb-2 font-medium">Limite</label>

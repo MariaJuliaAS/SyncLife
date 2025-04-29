@@ -48,7 +48,7 @@ function PaymentProvider({ children }: PaymentProviderProps) {
 
                     snapshot.forEach((item) => {
                         list.push({
-                            card: item.data().name,
+                            card: item.data().card,
                             limit: item.data().limit,
                             date: item.data().date,
                             color: item.data().color,
