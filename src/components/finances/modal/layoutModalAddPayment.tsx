@@ -1,7 +1,6 @@
-import { useContext } from "react";
 import { Input } from "../../input";
-import { PaymentContext } from "../../../context/paymentContext";
 import { PaymentsListProps } from "./modalAddPayment";
+import { GetCardInfos } from "../../../hooks/getCardInfos";
 
 interface LayoutModalPaymentProps {
     payments: PaymentsListProps;
@@ -10,7 +9,7 @@ interface LayoutModalPaymentProps {
 }
 
 export function LayoutModalAddPayment({ payments, setPayments, disableEditing }: LayoutModalPaymentProps) {
-    const { cardInfos } = useContext(PaymentContext)
+    const { cardInfos } = GetCardInfos()
     return (
         <>
             <label className="sm:text-base text-sm mb-2 font-medium">Cartão</label>

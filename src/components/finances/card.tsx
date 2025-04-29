@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { MdKeyboardArrowRight } from "react-icons/md";
 import { ModalAddNewCard } from "./modal/modalAddNewCard";
 import { collection, deleteDoc, doc, getDocs, onSnapshot, query, where, writeBatch } from "firebase/firestore";
@@ -6,8 +6,8 @@ import { auth, db } from "../../services/firebaseConnection";
 import { ModalEditCard } from "./modal/modalEditCard";
 import toast from "react-hot-toast";
 import { ModalAddPayment } from "./modal/modalAddPayment";
-import { PaymentContext } from "../../context/paymentContext";
 import { ModalAllPayments } from "./modal/modalAllPayments";
+import { GetCardInfos } from "../../hooks/getCardInfos";
 
 interface PaymentValueProps {
     value: number;
@@ -22,7 +22,7 @@ export function Card() {
     const [docId, setDocId] = useState<string>("")
     const [selectedCard, setSelectedCard] = useState<string>('')
     const [paymentValue, setPaymentValue] = useState<PaymentValueProps[]>([])
-    const { cardInfos } = useContext(PaymentContext)
+    const { cardInfos } = GetCardInfos()
 
     useEffect(() => {
         const q = query(

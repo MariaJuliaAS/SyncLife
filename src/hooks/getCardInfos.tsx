@@ -1,14 +1,6 @@
 import { collection, getDocs, query, where } from "firebase/firestore";
-import { createContext, ReactNode, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { auth, db } from "../services/firebaseConnection";
-
-interface PaymentPropsData {
-    cardInfos: GetCardProps[];
-}
-
-interface PaymentProviderProps {
-    children: ReactNode
-}
 
 interface GetCardProps {
     card: string;
@@ -18,9 +10,7 @@ interface GetCardProps {
     docId: string;
 }
 
-export const PaymentContext = createContext({} as PaymentPropsData)
-
-function PaymentProvider({ children }: PaymentProviderProps) {
+export function GetCardInfos() {
     const [cardInfos, setCardInfos] = useState<GetCardProps[]>([])
 
     useEffect(() => {
@@ -50,12 +40,6 @@ function PaymentProvider({ children }: PaymentProviderProps) {
         getCardsInfos()
     }, [])
 
-    return (
-        <PaymentContext.Provider value={{ cardInfos }}>
-            {children}
-        </PaymentContext.Provider>
-    )
+    return { cardInfos }
 
 }
-
-export default PaymentProvider;
