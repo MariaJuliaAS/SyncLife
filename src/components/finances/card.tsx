@@ -8,8 +8,6 @@ import toast from "react-hot-toast";
 import { ModalAddPayment } from "./modal/modalAddPayment";
 import { PaymentContext } from "../../context/paymentContext";
 import { ModalAllPayments } from "./modal/modalAllPayments";
-import { ModalEditPayment } from "./modal/modalEditPayment";
-
 
 export function Card() {
     const [modalAddNewCard, setModalAddNewCard] = useState(false)
