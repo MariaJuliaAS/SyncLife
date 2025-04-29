@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
 import { MdKeyboardArrowRight } from "react-icons/md";
 import { ModalAddNewCard } from "./modal/modalAddNewCard";
-import { deleteDoc, doc } from "firebase/firestore";
+import { collection, deleteDoc, doc, getDocs, query, where, writeBatch } from "firebase/firestore";
 import { db } from "../../services/firebaseConnection";
 import { ModalEditCard } from "./modal/modalEditCard";
 import toast from "react-hot-toast";
@@ -19,16 +19,30 @@ export function Card() {
     const [selectedCard, setSelectedCard] = useState<string>('')
     const { cardInfos } = useContext(PaymentContext)
 
-    async function handleDeleteCard(docIdDelete: string) {
+    async function handleDeleteCard(docIdDelete: string, cardName: string) {
         const deleteCardRef = doc(db, "cards", docIdDelete)
         await deleteDoc(deleteCardRef)
             .then(() => {
+                const paymentsRef = collection(db, 'payments')
+                const q = query(paymentsRef, where('card', '==', cardName))
+
+                return getDocs(q)
+            })
+            .then((querySnapshot) => {
+                const batch = writeBatch(db)
+
+                querySnapshot.forEach((docSnap) => {
+                    batch.delete(docSnap.ref)
+                })
+                return batch.commit()
+            })
+            .then(() => {
                 toast.success("Cartão excluído com sucesso!")
-                window.location.reload()
             })
             .catch((error) => {
-                console.log("Erro ao excluir cartão: " + error)
+                console.error("Erro ao deletar cartão ou pagamentos:", error);
             })
+        window.location.reload()
     }
 
     return (
@@ -59,7 +73,7 @@ export function Card() {
                             <MdKeyboardArrowRight size={20} color="#000" />
                             <div className="flex gap-4 text-sm underline">
                                 <button onClick={(e) => { setModalEditCard(true), setDocId(item.docId), e.stopPropagation() }} className="hover:font-semibold cursor-pointer">Editar</button>
-                                <button onClick={(e) => { handleDeleteCard(item.docId), e.stopPropagation() }} className="hover:text-red-500 hover:font-semibold cursor-pointer">Excluir</button>
+                                <button onClick={(e) => { handleDeleteCard(item.docId, item.card), e.stopPropagation() }} className="hover:text-red-500 hover:font-semibold cursor-pointer">Excluir</button>
                             </div>
                         </div>
                     </article>
