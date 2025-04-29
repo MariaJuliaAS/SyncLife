@@ -54,7 +54,7 @@ export function LayoutModalAddPayment({ payments, setPayments }: LayoutModalPaym
                 value={payments.value}
                 onChange={(e) => setPayments(prev => ({ ...prev, value: Number(e.target.value) }))}
             />
-            <label className="sm:text-base text-sm mb-2 font-medium">Data</label>
+            <label className="sm:text-base text-sm mb-2 font-medium">Data da compra</label>
             <Input
                 type="datetime-local"
                 value={payments.date}
