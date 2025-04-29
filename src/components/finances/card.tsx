@@ -1,13 +1,18 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { MdKeyboardArrowRight } from "react-icons/md";
 import { ModalAddNewCard } from "./modal/modalAddNewCard";
-import { collection, deleteDoc, doc, getDocs, query, where, writeBatch } from "firebase/firestore";
-import { db } from "../../services/firebaseConnection";
+import { collection, deleteDoc, doc, getDocs, onSnapshot, query, where, writeBatch } from "firebase/firestore";
+import { auth, db } from "../../services/firebaseConnection";
 import { ModalEditCard } from "./modal/modalEditCard";
 import toast from "react-hot-toast";
 import { ModalAddPayment } from "./modal/modalAddPayment";
 import { PaymentContext } from "../../context/paymentContext";
 import { ModalAllPayments } from "./modal/modalAllPayments";
+
+interface PaymentValueProps {
+    value: number;
+    card: string;
+}
 
 export function Card() {
     const [modalAddNewCard, setModalAddNewCard] = useState(false)
@@ -16,7 +21,31 @@ export function Card() {
     const [modalAllPayments, setModalAllPayments] = useState(false)
     const [docId, setDocId] = useState<string>("")
     const [selectedCard, setSelectedCard] = useState<string>('')
+    const [paymentValue, setPaymentValue] = useState<PaymentValueProps[]>([])
     const { cardInfos } = useContext(PaymentContext)
+
+    useEffect(() => {
+        const q = query(
+            collection(db, "payments"),
+            where("userId", "==", auth.currentUser?.uid),
+        )
+
+        const unsub = onSnapshot(q, (snapshot) => {
+            let listValue: PaymentValueProps[] = []
+            snapshot.forEach((doc) => {
+                listValue.push({
+                    value: doc.data().value,
+                    card: doc.data().card
+                })
+            })
+            setPaymentValue(listValue)
+        })
+
+        return () => {
+            unsub()
+        }
+
+    }, [])
 
     async function handleDeleteCard(docIdDelete: string, cardName: string) {
         const deleteCardRef = doc(db, "cards", docIdDelete)
@@ -44,6 +73,13 @@ export function Card() {
         window.location.reload()
     }
 
+    function total(card: string) {
+        const totalValue = paymentValue
+            .filter((item) => item.card === card)
+            .reduce((acc, item) => acc + item.value, 0)
+        return totalValue
+    }
+
     return (
         <section className="flex-1 bg-white border border-gray-200 rounded-md py-7 shadow-lg">
             <header className=" px-4 flex justify-between">
@@ -64,7 +100,7 @@ export function Card() {
                         <div className="flex gap-4 items-center">
                             <span className="sm:text-base text-sm rounded-full p-3 text-white" style={{ backgroundColor: item.color }}>{item.card?.slice(0, 2).toUpperCase()}</span>
                             <p className="flex flex-col font-bold sm:text-lg text-base">
-                                R$ 691,00
+                                {total(item.card).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}
                                 <span className="sm:text-base text-sm font-normal text-gray-500">Vencimento: {item.date}</span>
                             </p>
                         </div>
