@@ -8,6 +8,7 @@ import toast from "react-hot-toast";
 import { ModalAddPayment } from "./modal/modalAddPayment";
 import { PaymentContext } from "../../context/paymentContext";
 import { ModalAllPayments } from "./modal/modalAllPayments";
+import { ModalEditPayment } from "./modal/modalEditPayment";
 
 
 export function Card() {
@@ -92,7 +93,6 @@ export function Card() {
                 {modalEditCard && <ModalEditCard closeModal={() => setModalEditCard(false)} docId={docId} />}
                 {modalAddPayment && <ModalAddPayment closeModal={() => setModalAddPayment(false)} />}
                 {modalAllPayments && <ModalAllPayments closeModal={() => setModalAllPayments(false)} selectedCard={selectedCard} />}
-
             </main>
         </section>
     )
