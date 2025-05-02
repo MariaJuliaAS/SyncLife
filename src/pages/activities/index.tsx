@@ -74,8 +74,16 @@ export function Activities() {
                         <section className="bg-white rounded-md border border-gray-200 shadow-lg py-2 px-4 overflow-y-auto" style={{ maxHeight: 'calc(100vh - 115px)' }}>
                             <header className="flex justify-between items-center mb-4">
                                 <h1 className="text-lg font-medium">A Fazer</h1>
-                                <span className="bg-gray-100 px-3 border border-gray-200 rounded-full text-sm">1</span>
+                                {toDo.length > 0 && (
+                                    <span className="bg-gray-100 px-3 border border-gray-200 rounded-full text-sm">{toDo.length}</span>
+                                )}
                             </header>
+
+                            {toDo.length === 0 && (
+                                <span className="flex items-center justify-center text-gray-500 h-7/12">
+                                    Nenhuma atividade cadastrada
+                                </span>
+                            )}
 
                             {toDo.map((item) => (
                                 <LayoutActivities
@@ -91,8 +99,16 @@ export function Activities() {
                         <section className="bg-white rounded-md border border-gray-200 shadow-lg py-2 px-4 overflow-y-auto" style={{ maxHeight: 'calc(100vh - 115px)' }}>
                             <header className="flex justify-between items-center mb-4">
                                 <h1 className="text-lg font-medium">Em Andamento</h1>
-                                <span className="bg-gray-100 px-3 border border-gray-200 rounded-full text-sm">1</span>
+                                {toDo.length > 0 && (
+                                    <span className="bg-gray-100 px-3 border border-gray-200 rounded-full text-sm">{inProgress.length}</span>
+                                )}
                             </header>
+
+                            {inProgress.length === 0 && (
+                                <span className="flex items-center justify-center text-gray-500 h-7/12">
+                                    Nenhuma atividade cadastrada
+                                </span>
+                            )}
 
                             {inProgress.map((item) => (
                                 <LayoutActivities
@@ -107,8 +123,16 @@ export function Activities() {
                         <section className="bg-white rounded-md border border-gray-200 shadow-lg py-2 px-4 overflow-y-auto" style={{ maxHeight: 'calc(100vh - 115px)' }}>
                             <header className="flex justify-between items-center mb-4">
                                 <h1 className="text-lg font-medium">Concluído</h1>
-                                <span className="bg-gray-100 px-3 border border-gray-200 rounded-full text-sm">1</span>
+                                {completed.length > 0 && (
+                                    <span className="bg-gray-100 px-3 border border-gray-200 rounded-full text-sm">{completed.length}</span>
+                                )}
                             </header>
+
+                            {completed.length === 0 && (
+                                <span className="flex items-center justify-center text-gray-500 h-7/12">
+                                    Nenhuma atividade cadastrada
+                                </span>
+                            )}
 
                             {completed.map((item) => (
                                 <LayoutActivities
