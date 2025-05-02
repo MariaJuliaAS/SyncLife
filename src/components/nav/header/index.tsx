@@ -6,6 +6,7 @@ import { TbMenu2 } from "react-icons/tb";
 import { Link } from "react-router-dom";
 import { auth } from "../../../services/firebaseConnection";
 import { GrTarget } from "react-icons/gr";
+import { LuNotebookPen } from "react-icons/lu";
 
 export function Header() {
     const [statusNav, setStatusNav] = useState(false)
@@ -34,6 +35,13 @@ export function Header() {
                             <div className="flex items-center">
                                 <GoCalendar className="mr-3 sm:text-[25px] text-xl" />
                                 Agenda
+                            </div>
+                            <span className="text-gray-400 group-hover:text-emerald-600">›</span>
+                        </Link>
+                        <Link to='/activities' className="sm:text-lg text-base select-none cursor-pointer flex items-center justify-between rounded-md py-1 transition-all duration-200 hover:bg-emerald-600/10 hover:px-4 hover:text-emerald-600">
+                            <div className="flex items-center">
+                                <LuNotebookPen className="mr-3 sm:text-[25px] text-xl" />
+                                Atividades
                             </div>
                             <span className="text-gray-400 group-hover:text-emerald-600">›</span>
                         </Link>
