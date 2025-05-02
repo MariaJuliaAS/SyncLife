@@ -1,15 +1,48 @@
 import { MdOutlineClose } from "react-icons/md";
 import { ModalProps } from "../../finances/modal/modalAddTransaction";
 import { LayoutModalAddActivity } from "./layoutModalAddActivity";
+import { FormEvent, useState } from "react";
+import { addDoc, collection } from "firebase/firestore";
+import { auth, db } from "../../../services/firebaseConnection";
+import toast from "react-hot-toast";
 
+export interface ActitivitiesProps {
+    subject: string;
+    details: string;
+    dateTime: string;
+    status: string;
+}
 
 
 export function ModalAddActivity({ closeModal }: ModalProps) {
+    const [activities, setActivities] = useState<ActitivitiesProps>({
+        subject: "",
+        details: "",
+        dateTime: "",
+        status: "A Fazer"
+    })
 
+    async function handleAddActivity(e: FormEvent) {
+        e.preventDefault()
+
+        await addDoc(collection(db, "activities"),
+            {
+                ...activities,
+                userId: auth.currentUser?.uid
+            })
+            .then(() => {
+                closeModal()
+                toast.success("Atividade adicionada com sucesso!")
+            })
+            .catch((error) => {
+                console.log("Erro ao adicionar atividade: " + error)
+
+            })
+    }
 
     return (
         <div onClick={closeModal} className="bg-black/40 fixed inset-0 flex items-center justify-center z-10">
-            <main onClick={(e) => e.stopPropagation()} className="max-h-11/12 overflow-y-auto bg-white w-11/12 max-w-lg h-auto flex flex-col rounded-lg p-8 ">
+            <main onClick={(e) => e.stopPropagation()} className="max-h-11/12 overflow-y-auto bg-white w-11/12 max-w-xl h-auto flex flex-col rounded-lg p-8 ">
                 <header className="border-b border-gray-200">
                     <div className="flex  justify-between mb-2">
                         <p className="font-bold sm:text-lg text-base">Nova Atividade</p>
@@ -17,8 +50,8 @@ export function ModalAddActivity({ closeModal }: ModalProps) {
                     </div>
                 </header>
 
-                <form className="mt-4 flex flex-col">
-                    <LayoutModalAddActivity />
+                <form onSubmit={handleAddActivity} className="mt-4 flex flex-col">
+                    <LayoutModalAddActivity activities={activities} setActivities={setActivities} />
 
                     <div className="flex justify-end gap-4">
                         <button onClick={closeModal} type="button" className="sm:text-base text-sm border border-gray-200 px-4 py-2 rounded-lg font-medium cursor-pointer transition-all duration-200 hover:bg-red-500 hover:text-white">
