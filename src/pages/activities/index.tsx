@@ -1,12 +1,56 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Nav } from "../../components/nav";
 import { FiPlusCircle } from "react-icons/fi";
 import { ModalAddActivity } from "../../components/activities/modal/modalAddActivity";
 import { LayoutActivities } from "../../components/activities/layoutActivities";
+import { collection, onSnapshot, query, where } from "firebase/firestore";
+import { auth, db } from "../../services/firebaseConnection";
+import { FormatDate } from "../../utils/formatDate";
+
+interface GetActivitiesProps {
+    subject: string;
+    details: string;
+    dateTime: string;
+    status: string;
+    docId: string;
+}
 
 
 export function Activities() {
     const [modalAddActivity, setModalAddActivity] = useState(false)
+    const [activitiesList, setActivitiesList] = useState<GetActivitiesProps[]>([])
+
+    useEffect(() => {
+        const q = query(
+            collection(db, 'activities'),
+            where('userId', '==', auth.currentUser?.uid)
+        )
+
+        const unsub = onSnapshot(q, (snapshot) => {
+            let list: GetActivitiesProps[] = []
+
+            snapshot.forEach((doc) => {
+                const item = doc.data()
+
+                list.push({
+                    subject: item.subject,
+                    details: item.details,
+                    dateTime: item.dateTime,
+                    status: item.status,
+                    docId: doc.id
+                })
+            })
+            setActivitiesList(list)
+        })
+
+        return () => {
+            unsub()
+        }
+    }, [])
+
+    const toDo = activitiesList.filter((item) => item.status === 'A Fazer')
+    const inProgress = activitiesList.filter((item) => item.status === 'Em Andamento')
+    const completed = activitiesList.filter((item) => item.status === 'Concluído')
 
     return (
         <div className="flex">
@@ -33,23 +77,47 @@ export function Activities() {
                                 <span className="bg-gray-100 px-3 border border-gray-200 rounded-full text-sm">1</span>
                             </header>
 
-                            <LayoutActivities />
+                            {toDo.map((item) => (
+                                <LayoutActivities
+                                    key={item.docId}
+                                    subject={item.subject}
+                                    details={item.details}
+                                    dateTime={FormatDate(item.dateTime).dateHourFormatted}
+                                />
+                            ))}
+
                         </section>
+
                         <section className="bg-white rounded-md border border-gray-200 shadow-lg py-2 px-4 overflow-y-auto" style={{ maxHeight: 'calc(100vh - 115px)' }}>
                             <header className="flex justify-between items-center mb-4">
                                 <h1 className="text-lg font-medium">Em Andamento</h1>
                                 <span className="bg-gray-100 px-3 border border-gray-200 rounded-full text-sm">1</span>
                             </header>
 
-                            <LayoutActivities />
+                            {inProgress.map((item) => (
+                                <LayoutActivities
+                                    key={item.docId}
+                                    subject={item.subject}
+                                    details={item.details}
+                                    dateTime={FormatDate(item.dateTime).dateHourFormatted}
+                                />
+                            ))}
                         </section>
+
                         <section className="bg-white rounded-md border border-gray-200 shadow-lg py-2 px-4 overflow-y-auto" style={{ maxHeight: 'calc(100vh - 115px)' }}>
                             <header className="flex justify-between items-center mb-4">
                                 <h1 className="text-lg font-medium">Concluído</h1>
                                 <span className="bg-gray-100 px-3 border border-gray-200 rounded-full text-sm">1</span>
                             </header>
 
-                            <LayoutActivities />
+                            {completed.map((item) => (
+                                <LayoutActivities
+                                    key={item.docId}
+                                    subject={item.subject}
+                                    details={item.details}
+                                    dateTime={FormatDate(item.dateTime).dateHourFormatted}
+                                />
+                            ))}
                         </section>
                     </div>
 
