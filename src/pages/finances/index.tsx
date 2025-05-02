@@ -4,6 +4,7 @@ import { RecentTransactions } from "../../components/finances/recentTransactions
 import { Transaction } from "../../components/finances/transaction";
 import { Nav } from "../../components/nav";
 import { ModalAddTransaction } from "../../components/finances/modal/modalAddTransaction";
+import { FiPlusCircle } from "react-icons/fi";
 
 export function Finances() {
     const [modalAddTransaction, setModalAddTransaction] = useState(false)
@@ -20,7 +21,8 @@ export function Finances() {
                             <span className="sm:text-base text-sm mt-2 text-gray-500">Acompanhe suas finanças em um só lugar</span>
                         </div>
                         <div className="flex items-center">
-                            <button onClick={() => setModalAddTransaction(true)} className="sm:text-base text-sm sm:px-5 px-2 bg-emerald-600 py-1 text-white font-medium rounded-md cursor-pointer transition-all duration-200 hover:bg-emerald-700">
+                            <button onClick={() => setModalAddTransaction(true)} className="sm:text-base text-sm sm:px-5 px-2 sm:py-2 flex items-center bg-emerald-600 py-1 text-white font-medium rounded-md cursor-pointer transition-all duration-200 hover:bg-emerald-700">
+                                <FiPlusCircle className="sm:text-lg text-base mr-2" />
                                 Nova Transação
                             </button>
                         </div>
