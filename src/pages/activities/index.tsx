@@ -2,12 +2,11 @@ import { useEffect, useState } from "react";
 import { Nav } from "../../components/nav";
 import { FiPlusCircle } from "react-icons/fi";
 import { ModalAddActivity } from "../../components/activities/modal/modalAddActivity";
-import { LayoutActivities } from "../../components/activities/layoutActivities";
 import { collection, onSnapshot, query, where } from "firebase/firestore";
 import { auth, db } from "../../services/firebaseConnection";
-import { FormatDate } from "../../utils/formatDate";
+import { ActivitiesSection } from "../../components/activities/activitiesSection";
 
-interface GetActivitiesProps {
+export interface GetActivitiesProps {
     subject: string;
     details: string;
     dateTime: string;
@@ -70,79 +69,9 @@ export function Activities() {
                     </header>
 
                     <div className="xl:grid-cols-3 grid grid-cols-1 gap-12" >
-
-                        <section className="bg-white rounded-md border border-gray-200 shadow-lg py-2 px-4 overflow-y-auto" style={{ maxHeight: 'calc(100vh - 115px)' }}>
-                            <header className="flex justify-between items-center mb-4">
-                                <h1 className="text-lg font-medium">A Fazer</h1>
-                                {toDo.length > 0 && (
-                                    <span className="bg-gray-100 px-3 border border-gray-200 rounded-full text-sm">{toDo.length}</span>
-                                )}
-                            </header>
-
-                            {toDo.length === 0 && (
-                                <span className="flex items-center justify-center text-gray-500 h-7/12">
-                                    Nenhuma atividade cadastrada
-                                </span>
-                            )}
-
-                            {toDo.map((item) => (
-                                <LayoutActivities
-                                    key={item.docId}
-                                    subject={item.subject}
-                                    details={item.details}
-                                    dateTime={FormatDate(item.dateTime).dateHourFormatted}
-                                />
-                            ))}
-
-                        </section>
-
-                        <section className="bg-white rounded-md border border-gray-200 shadow-lg py-2 px-4 overflow-y-auto" style={{ maxHeight: 'calc(100vh - 115px)' }}>
-                            <header className="flex justify-between items-center mb-4">
-                                <h1 className="text-lg font-medium">Em Andamento</h1>
-                                {toDo.length > 0 && (
-                                    <span className="bg-gray-100 px-3 border border-gray-200 rounded-full text-sm">{inProgress.length}</span>
-                                )}
-                            </header>
-
-                            {inProgress.length === 0 && (
-                                <span className="flex items-center justify-center text-gray-500 h-7/12">
-                                    Nenhuma atividade cadastrada
-                                </span>
-                            )}
-
-                            {inProgress.map((item) => (
-                                <LayoutActivities
-                                    key={item.docId}
-                                    subject={item.subject}
-                                    details={item.details}
-                                    dateTime={FormatDate(item.dateTime).dateHourFormatted}
-                                />
-                            ))}
-                        </section>
-
-                        <section className="bg-white rounded-md border border-gray-200 shadow-lg py-2 px-4 overflow-y-auto" style={{ maxHeight: 'calc(100vh - 115px)' }}>
-                            <header className="flex justify-between items-center mb-4">
-                                <h1 className="text-lg font-medium">Concluído</h1>
-                                {completed.length > 0 && (
-                                    <span className="bg-gray-100 px-3 border border-gray-200 rounded-full text-sm">{completed.length}</span>
-                                )}
-                            </header>
-
-                            {completed.length === 0 && (
-                                <span className="flex items-center justify-center text-gray-500 h-7/12">
-                                    Nenhuma atividade cadastrada
-                                </span>
-                            )}
-
-                            {completed.map((item) => (
-                                <LayoutActivities
-                                    key={item.docId}
-                                    subject={item.subject}
-                                    details={item.details}
-                                    dateTime={FormatDate(item.dateTime).dateHourFormatted}
-                                />
-                            ))}
-                        </section>
+                        <ActivitiesSection list={toDo} status="A Fazer" />
+                        <ActivitiesSection list={inProgress} status="Em Andamento" />
+                        <ActivitiesSection list={completed} status="Concluído" />
                     </div>
 
                     {modalAddActivity && <ModalAddActivity closeModal={() => setModalAddActivity(false)} />}
