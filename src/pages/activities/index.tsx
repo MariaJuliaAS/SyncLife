@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Nav } from "../../components/nav";
 import { FiPlusCircle } from "react-icons/fi";
 import { GoCalendar, GoKebabHorizontal } from "react-icons/go";
-import { ModalAddActivity } from "../../components/activities/modalAddActivity";
+import { ModalAddActivity } from "../../components/activities/modal/modalAddActivity";
 
 export function Activities() {
     const [modalAddActivity, setModalAddActivity] = useState(false)

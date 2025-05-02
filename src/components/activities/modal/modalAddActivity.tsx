@@ -1,5 +1,5 @@
 import { MdOutlineClose } from "react-icons/md";
-import { ModalProps } from "../finances/modal/modalAddTransaction";
+import { ModalProps } from "../../finances/modal/modalAddTransaction";
 
 
 export function ModalAddActivity({ closeModal }: ModalProps) {
