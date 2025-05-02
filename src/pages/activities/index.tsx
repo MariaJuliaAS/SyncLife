@@ -1,5 +1,6 @@
 import { Nav } from "../../components/nav";
 import { FiPlusCircle } from "react-icons/fi";
+import { GoCalendar, GoKebabHorizontal } from "react-icons/go";
 
 export function Activities() {
     return (
@@ -18,19 +19,77 @@ export function Activities() {
                             </button>
                         </div>
                     </header>
+
+                    <div className="grid grid-cols-3 gap-12" style={{ maxHeight: 'calc(100vh - 115px)' }}>
+                        <section className="bg-white rounded-md border border-gray-200 shadow-lg py-2 px-4">
+                            <header className="flex justify-between items-center mb-4">
+                                <h1 className="text-lg font-medium">A Fazer</h1>
+                                <span className="bg-gray-100 px-3 border border-gray-200 rounded-full text-sm">1</span>
+                            </header>
+
+                            <article className="border border-gray-200 rounded-lg p-4">
+                                <header className="flex justify-between items-center mb-6">
+                                    <h3 className="bg-gray-100 px-3 py-1 rounded-full text-sm">Fundamento de Cáculo</h3>
+                                    <GoKebabHorizontal className="text-lg cursor-pointer" />
+                                </header>
+
+                                <div>
+                                    <p>Lista de exercícios sobre integrais duplas</p>
+                                    <span className="flex items-center mt-2.5 text-gray-400 text-sm">
+                                        <GoCalendar className="mr-2" />
+                                        Entrega: 09/05/2025
+                                    </span>
+                                </div>
+                            </article>
+                        </section>
+
+                        <section className="bg-white rounded-md border border-gray-200 shadow-lg py-2 px-4">
+                            <header className="flex justify-between items-center mb-4">
+                                <h1 className="text-lg font-medium">Em Andamento</h1>
+                                <span className="bg-gray-100 px-3 border border-gray-200 rounded-full text-sm">1</span>
+                            </header>
+
+                            <article className="border border-gray-200 rounded-lg p-4">
+                                <header className="flex justify-between items-center mb-6">
+                                    <h3 className="bg-gray-100 px-3 py-1 rounded-full text-sm">Fundamento de Cáculo</h3>
+                                    <GoKebabHorizontal className="text-lg cursor-pointer" />
+                                </header>
+
+                                <div>
+                                    <p>Lista de exercícios sobre integrais duplas</p>
+                                    <span className="flex items-center mt-2.5 text-gray-400 text-sm">
+                                        <GoCalendar className="mr-2" />
+                                        Entrega: 09/05/2025
+                                    </span>
+                                </div>
+                            </article>
+                        </section>
+
+                        <section className="bg-white rounded-md border border-gray-200 shadow-lg py-2 px-4">
+                            <header className="flex justify-between items-center mb-4">
+                                <h1 className="text-lg font-medium">Concluído</h1>
+                                <span className="bg-gray-100 px-3 border border-gray-200 rounded-full text-sm">1</span>
+                            </header>
+
+                            <article className="border border-gray-200 rounded-lg p-4">
+                                <header className="flex justify-between items-center mb-6">
+                                    <h3 className="bg-gray-100 px-3 py-1 rounded-full text-sm">Fundamento de Cáculo</h3>
+                                    <GoKebabHorizontal className="text-lg cursor-pointer" />
+                                </header>
+
+                                <div>
+                                    <p>Lista de exercícios sobre integrais duplas</p>
+                                    <span className="flex items-center mt-2.5 text-gray-400 text-sm">
+                                        <GoCalendar className="mr-2" />
+                                        Entrega: 09/05/2025
+                                    </span>
+                                </div>
+                            </article>
+                        </section>
+                    </div>
+
                 </main>
             </div>
-
-            {/* <section className="bg-red-400">
-                    <h1>teste</h1>
-                </section>
-                <section className="bg-red-400">
-                    <h1>teste</h1>
-                </section>
-                <section className="bg-red-400">
-                    <h1>teste</h1>
-                </section> */}
-
         </div>
     )
 }
