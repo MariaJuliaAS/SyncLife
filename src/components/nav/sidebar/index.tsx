@@ -2,7 +2,7 @@ import { GrTarget } from "react-icons/gr";
 import { GoCalendar, GoCreditCard } from "react-icons/go";
 import { LuNotebookPen } from "react-icons/lu";
 import { IoExitOutline } from "react-icons/io5";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { signOut } from "firebase/auth";
 import { auth } from "../../../services/firebaseConnection";
 
@@ -21,18 +21,18 @@ export function Siderbar() {
                 </header>
 
                 <nav className="flex flex-col gap-4 pt-7 pl-1">
-                    <Link to='/' className="select-none cursor-pointer flex items-center text-lg  rounded-md py-1 transition-all duration-200 hover:bg-emerald-600/10 hover:px-4 hover:text-emerald-600">
+                    <NavLink to='/' className={({ isActive }) => `select-none cursor-pointer flex items-center text-lg  rounded-md py-1 transition-all duration-200 hover:bg-emerald-600/10 hover:px-4 hover:text-emerald-600 ${isActive ? 'bg-emerald-600/10 text-emerald-600 px-4' : 'text-black'}`}  >
                         <GoCalendar size={25} className="mr-3" />
                         Agenda
-                    </Link>
-                    <Link to='/activities' className="select-none cursor-pointer flex items-center text-lg  rounded-md py-1 transition-all duration-200 hover:bg-emerald-600/10 hover:px-4 hover:text-emerald-600">
+                    </NavLink>
+                    <NavLink to='/activities' className={({ isActive }) => `select-none cursor-pointer flex items-center text-lg  rounded-md py-1 transition-all duration-200 hover:bg-emerald-600/10 hover:px-4 hover:text-emerald-600 ${isActive ? 'bg-emerald-600/10 text-emerald-600 px-4' : 'text-black'}`}>
                         <LuNotebookPen size={25} className="mr-3" />
                         Atividades
-                    </Link>
-                    <Link to='/finances' className="select-none cursor-pointer flex items-center text-lg rounded-md py-1 transition-all duration-200 hover:bg-emerald-600/10 hover:px-4 hover:text-emerald-600">
+                    </NavLink>
+                    <NavLink to='/finances' className={({ isActive }) => `select-none cursor-pointer flex items-center text-lg  rounded-md py-1 transition-all duration-200 hover:bg-emerald-600/10 hover:px-4 hover:text-emerald-600 ${isActive ? 'bg-emerald-600/10 text-emerald-600 px-4' : 'text-black'}`}>
                         <GoCreditCard size={25} className=" mr-3 " />
                         Finanças
-                    </Link>
+                    </NavLink>
                 </nav>
             </div>
 

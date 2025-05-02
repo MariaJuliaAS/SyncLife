@@ -3,7 +3,7 @@ import { useState } from "react";
 import { GoCalendar, GoCreditCard } from "react-icons/go";
 import { IoExitOutline } from "react-icons/io5";
 import { TbMenu2 } from "react-icons/tb";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { auth } from "../../../services/firebaseConnection";
 import { GrTarget } from "react-icons/gr";
 import { LuNotebookPen } from "react-icons/lu";
@@ -31,27 +31,27 @@ export function Header() {
                             <GrTarget color="#fff" className="sm:text-4xl text-3xl mr-2 bg-emerald-600 rounded-xl p-1" />
                             <p className="sm:text-3xl font-bold text-2xl select-none text-gray-800">SyncLife</p>
                         </div>
-                        <Link to='/' className="sm:text-lg text-base select-none cursor-pointer flex items-center justify-between rounded-md py-1 transition-all duration-200 hover:bg-emerald-600/10 hover:px-4 hover:text-emerald-600">
+                        <NavLink to='/' className={({ isActive }) => `sm:text-lg text-base select-none cursor-pointer flex items-center justify-between rounded-md py-1 transition-all duration-200 hover:bg-emerald-600/10 hover:px-4 hover:text-emerald-600 ${isActive ? 'bg-emerald-600/10 text-emerald-600 px-4' : 'text-black'}`}>
                             <div className="flex items-center">
                                 <GoCalendar className="mr-3 sm:text-[25px] text-xl" />
                                 Agenda
                             </div>
                             <span className="text-gray-400 group-hover:text-emerald-600">›</span>
-                        </Link>
-                        <Link to='/activities' className="sm:text-lg text-base select-none cursor-pointer flex items-center justify-between rounded-md py-1 transition-all duration-200 hover:bg-emerald-600/10 hover:px-4 hover:text-emerald-600">
+                        </NavLink>
+                        <NavLink to='/activities' className={({ isActive }) => `sm:text-lg text-base my-1 select-none cursor-pointer flex items-center justify-between rounded-md py-1 transition-all duration-200 hover:bg-emerald-600/10 hover:px-4 hover:text-emerald-600 ${isActive ? 'bg-emerald-600/10 text-emerald-600 px-4' : 'text-black'}`}>
                             <div className="flex items-center">
                                 <LuNotebookPen className="mr-3 sm:text-[25px] text-xl" />
                                 Atividades
                             </div>
                             <span className="text-gray-400 group-hover:text-emerald-600">›</span>
-                        </Link>
-                        <Link to='/finances' className="sm:text-lg text-base select-none cursor-pointer flex items-center justify-between rounded-md py-1 transition-all duration-200 hover:bg-emerald-600/10 hover:px-4 hover:text-emerald-600">
+                        </NavLink>
+                        <NavLink to='/finances' className={({ isActive }) => `sm:text-lg text-base select-none cursor-pointer flex items-center justify-between rounded-md py-1 transition-all duration-200 hover:bg-emerald-600/10 hover:px-4 hover:text-emerald-600 ${isActive ? 'bg-emerald-600/10 text-emerald-600 px-4' : 'text-black'}`}>
                             <div className="flex items-center">
                                 <GoCreditCard className=" mr-3 sm:text-[25px] text-xl" />
                                 Finanças
                             </div>
                             <span className="text-gray-400 group-hover:text-emerald-600">›</span>
-                        </Link>
+                        </NavLink>
                         <div className="border-t border-gray-300 mt-4">
                             <div className="mt-1 flex items-center justify-between w-full select-none cursor-pointer text-lg rounded-md py-1 transition-all duration-200 hover:bg-red-500/10 hover:px-4 hover:text-red-500">
                                 <button onClick={handleLogout} className="flex items-center sm:text-lg text-base">
