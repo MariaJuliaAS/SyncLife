@@ -1,8 +1,12 @@
+import { useState } from "react";
 import { Nav } from "../../components/nav";
 import { FiPlusCircle } from "react-icons/fi";
 import { GoCalendar, GoKebabHorizontal } from "react-icons/go";
+import { ModalAddActivity } from "../../components/activities/modalAddActivity";
 
 export function Activities() {
+    const [modalAddActivity, setModalAddActivity] = useState(false)
+
     return (
         <div className="flex">
             <Nav />
@@ -13,7 +17,7 @@ export function Activities() {
                         <h1 className="font-bold lg:text-3xl text-2xl">Minhas Atividades</h1>
 
                         <div className="flex items-center">
-                            <button className="lg:text-base text-sm sm:px-5 px-2 sm:py-2 bg-emerald-600 py-1 text-white flex items-center font-medium rounded-md cursor-pointer transition-all duration-200 hover:bg-emerald-700">
+                            <button onClick={() => setModalAddActivity(true)} className="lg:text-base text-sm sm:px-5 px-2 sm:py-2 bg-emerald-600 py-1 text-white flex items-center font-medium rounded-md cursor-pointer transition-all duration-200 hover:bg-emerald-700">
                                 <FiPlusCircle className="sm:text-lg text-base mr-2" />
                                 Nova Atividade
                             </button>
@@ -88,6 +92,8 @@ export function Activities() {
                             </article>
                         </section>
                     </div>
+
+                    {modalAddActivity && <ModalAddActivity closeModal={() => setModalAddActivity(false)} />}
 
                 </main>
             </div>
