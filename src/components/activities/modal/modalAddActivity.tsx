@@ -1,10 +1,8 @@
 import { MdOutlineClose } from "react-icons/md";
 import { ModalProps } from "../../finances/modal/modalAddTransaction";
 import { LayoutModalAddActivity } from "./layoutModalAddActivity";
-import { FormEvent, useState } from "react";
-import { addDoc, collection } from "firebase/firestore";
-import { auth, db } from "../../../services/firebaseConnection";
-import toast from "react-hot-toast";
+import { useContext, useState } from "react";
+import { ActivitiesContext } from "../../../context/ActivitiesContext";
 
 export interface ActitivitiesProps {
     subject: string;
@@ -21,24 +19,7 @@ export function ModalAddActivity({ closeModal }: ModalProps) {
         dateTime: "",
         status: "A Fazer"
     })
-
-    async function handleAddActivity(e: FormEvent) {
-        e.preventDefault()
-
-        await addDoc(collection(db, "activities"),
-            {
-                ...activities,
-                userId: auth.currentUser?.uid
-            })
-            .then(() => {
-                closeModal()
-                toast.success("Atividade adicionada com sucesso!")
-            })
-            .catch((error) => {
-                console.log("Erro ao adicionar atividade: " + error)
-
-            })
-    }
+    const { handleAddActivity } = useContext(ActivitiesContext)
 
     return (
         <div onClick={closeModal} className="bg-black/40 fixed inset-0 flex items-center justify-center z-10">
@@ -50,7 +31,7 @@ export function ModalAddActivity({ closeModal }: ModalProps) {
                     </div>
                 </header>
 
-                <form onSubmit={handleAddActivity} className="mt-4 flex flex-col">
+                <form onSubmit={(e) => { handleAddActivity(e, activities), closeModal() }} className="mt-4 flex flex-col">
                     <LayoutModalAddActivity activities={activities} setActivities={setActivities} />
 
                     <div className="flex justify-end gap-4">

@@ -1,55 +1,14 @@
-import { useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { Nav } from "../../components/nav";
 import { FiPlusCircle } from "react-icons/fi";
 import { ModalAddActivity } from "../../components/activities/modal/modalAddActivity";
-import { collection, onSnapshot, query, where } from "firebase/firestore";
-import { auth, db } from "../../services/firebaseConnection";
 import { ActivitiesSection } from "../../components/activities/activitiesSection";
-
-export interface GetActivitiesProps {
-    subject: string;
-    details: string;
-    dateTime: string;
-    status: string;
-    docId: string;
-}
+import { ActivitiesContext } from "../../context/ActivitiesContext";
 
 
 export function Activities() {
     const [modalAddActivity, setModalAddActivity] = useState(false)
-    const [activitiesList, setActivitiesList] = useState<GetActivitiesProps[]>([])
-
-    useEffect(() => {
-        const q = query(
-            collection(db, 'activities'),
-            where('userId', '==', auth.currentUser?.uid)
-        )
-
-        const unsub = onSnapshot(q, (snapshot) => {
-            let list: GetActivitiesProps[] = []
-
-            snapshot.forEach((doc) => {
-                const item = doc.data()
-
-                list.push({
-                    subject: item.subject,
-                    details: item.details,
-                    dateTime: item.dateTime,
-                    status: item.status,
-                    docId: doc.id
-                })
-            })
-            setActivitiesList(list)
-        })
-
-        return () => {
-            unsub()
-        }
-    }, [])
-
-    const toDo = activitiesList.filter((item) => item.status === 'A Fazer')
-    const inProgress = activitiesList.filter((item) => item.status === 'Em Andamento')
-    const completed = activitiesList.filter((item) => item.status === 'Concluído')
+    const { filterActivities } = useContext(ActivitiesContext)
 
     return (
         <div className="flex">
@@ -69,9 +28,9 @@ export function Activities() {
                     </header>
 
                     <div className="xl:grid-cols-3 grid grid-cols-1 gap-12" >
-                        <ActivitiesSection list={toDo} status="A Fazer" />
-                        <ActivitiesSection list={inProgress} status="Em Andamento" />
-                        <ActivitiesSection list={completed} status="Concluído" />
+                        <ActivitiesSection list={filterActivities.toDo} status="A Fazer" />
+                        <ActivitiesSection list={filterActivities.inProgress} status="Em Andamento" />
+                        <ActivitiesSection list={filterActivities.completed} status="Concluído" />
                     </div>
 
                     {modalAddActivity && <ModalAddActivity closeModal={() => setModalAddActivity(false)} />}

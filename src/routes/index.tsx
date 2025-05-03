@@ -5,6 +5,7 @@ import { Login } from '../pages/login';
 import { Register } from "../pages/register";
 import { Private } from "./private";
 import { Activities } from "../pages/activities";
+import ActivitiesProvider from "../context/ActivitiesContext";
 
 export const router = createBrowserRouter([
     {
@@ -17,7 +18,11 @@ export const router = createBrowserRouter([
     },
     {
         path: '/activities',
-        element: <Private><Activities /></Private>
+        element: <Private>
+            <ActivitiesProvider>
+                <Activities />
+            </ActivitiesProvider>
+        </Private>
     },
     {
         path: '/login',

@@ -1,11 +1,8 @@
 import { GoCalendar, GoKebabHorizontal } from "react-icons/go";
-import { GetActivitiesProps } from "../../pages/activities";
 import { FormatDate } from "../../utils/formatDate";
-import { useState } from "react";
-import { doc, updateDoc } from "firebase/firestore";
-import { db } from "../../services/firebaseConnection";
-import toast from "react-hot-toast";
+import { useContext, useState } from "react";
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
+import { ActivitiesContext, GetActivitiesProps } from "../../context/ActivitiesContext";
 
 interface ActivitiesSectionProps {
     list: GetActivitiesProps[];
@@ -14,20 +11,7 @@ interface ActivitiesSectionProps {
 
 export function ActivitiesSection({ list, status }: ActivitiesSectionProps) {
     const [activeMenu, setActiveMenu] = useState<string | null>(null)
-
-    async function handleMoveActivity(docId: string, status: string) {
-        await updateDoc(doc(db, 'activities', docId), {
-            status: status
-        })
-            .then(() => {
-                toast.success('Atividade movida com sucesso!')
-                setActiveMenu(null)
-            })
-            .catch((error) => {
-                console.log('Error ao mover atividade: ', error)
-            })
-    }
-
+    const { handleMoveActivity } = useContext(ActivitiesContext)
 
     return (
         <section className="bg-white rounded-md border border-gray-200 shadow-lg py-2 px-4 overflow-y-auto" style={{ maxHeight: 'calc(100vh - 115px)' }}>
@@ -61,7 +45,7 @@ export function ActivitiesSection({ list, status }: ActivitiesSectionProps) {
                                     {['A Fazer', 'Em Andamento', 'Concluído']
                                         .filter((status) => status !== item.status)
                                         .map((status) => (
-                                            <button key={status} onClick={() => handleMoveActivity(item.docId, status)} className="w-full cursor-pointer transition duration-200 ease-in-out rounded-md text-start hover:bg-gray-400/10 py-1 px-2">Mover para {status}</button>
+                                            <button key={status} onClick={() => { handleMoveActivity(item.docId, status), setActiveMenu(null) }} className="w-full cursor-pointer transition duration-200 ease-in-out rounded-md text-start hover:bg-gray-400/10 py-1 px-2">Mover para {status}</button>
                                         ))
                                     }
                                     <button className="w-full cursor-pointer transition duration-200 ease-in-out rounded-md text-start hover:bg-gray-400/10 text-red-500 py-1 px-2">Excluir</button>
