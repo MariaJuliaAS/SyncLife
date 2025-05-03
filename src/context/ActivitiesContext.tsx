@@ -1,4 +1,4 @@
-import { addDoc, collection, deleteDoc, doc, getDoc, onSnapshot, query, updateDoc, where } from "firebase/firestore";
+import { addDoc, collection, deleteDoc, doc, getDoc, onSnapshot, orderBy, query, updateDoc, where } from "firebase/firestore";
 import { createContext, FormEvent, ReactNode, useEffect, useState } from "react"
 import { auth, db } from "../services/firebaseConnection";
 import toast from "react-hot-toast";
@@ -48,7 +48,8 @@ function ActivitiesProvider({ children }: ActivitiesProviderProps) {
     useEffect(() => {
         const q = query(
             collection(db, 'activities'),
-            where('userId', '==', auth.currentUser?.uid)
+            where('userId', '==', auth.currentUser?.uid),
+            orderBy('dateTime', 'asc')
         )
 
         const unsub = onSnapshot(q, (snapshot) => {
