@@ -1,4 +1,4 @@
-import { addDoc, collection, deleteDoc, doc, onSnapshot, query, updateDoc, where } from "firebase/firestore";
+import { addDoc, collection, deleteDoc, doc, getDoc, onSnapshot, query, updateDoc, where } from "firebase/firestore";
 import { createContext, FormEvent, ReactNode, useEffect, useState } from "react"
 import { auth, db } from "../services/firebaseConnection";
 import toast from "react-hot-toast";
@@ -14,6 +14,10 @@ interface ActivitiesContextData {
     handleAddActivity: (e: FormEvent, activities: ActitivitiesProps) => Promise<void>;
     handleMoveActivity: (docId: string, status: string) => Promise<void>;
     handleDeleteActivity: (docId: string) => Promise<void>;
+    getSpecificActivity: (docId: string) => Promise<void>;
+    handleEditActivity: (e: FormEvent, docId: string) => Promise<void>;
+    specificActivity: ActitivitiesProps;
+    setSpecificActivity: React.Dispatch<React.SetStateAction<ActitivitiesProps>>;
 }
 
 export interface GetActivitiesProps {
@@ -32,6 +36,12 @@ export const ActivitiesContext = createContext({} as ActivitiesContextData)
 
 function ActivitiesProvider({ children }: ActivitiesProviderProps) {
     const [activitiesList, setActivitiesList] = useState<GetActivitiesProps[]>([])
+    const [specificActivity, setSpecificActivity] = useState<ActitivitiesProps>({
+        subject: "",
+        details: "",
+        dateTime: "",
+        status: ""
+    })
 
     useEffect(() => {
         const q = query(
@@ -65,6 +75,35 @@ function ActivitiesProvider({ children }: ActivitiesProviderProps) {
         toDo: activitiesList.filter((item) => item.status === 'A Fazer'),
         inProgress: activitiesList.filter((item) => item.status === 'Em Andamento'),
         completed: activitiesList.filter((item) => item.status === 'Concluído')
+    }
+
+    async function getSpecificActivity(docId: string) {
+        const docRef = doc(db, 'activities', docId)
+        await getDoc(docRef)
+            .then((snapshot) => {
+                const item = snapshot.data()
+                setSpecificActivity({
+                    subject: item?.subject,
+                    details: item?.details,
+                    dateTime: item?.dateTime,
+                    status: item?.status,
+                })
+            })
+            .catch((error) => {
+                console.log('Erro ao carregar atividade: ' + error)
+            })
+    }
+
+    async function handleEditActivity(e: FormEvent, docId: string) {
+        e.preventDefault()
+        const docRef = doc(db, 'activities', docId)
+        await updateDoc(docRef, { ...specificActivity })
+            .then(() => {
+                toast.success('Atividade editada com sucesso!')
+            })
+            .catch((error) => {
+                console.log('Erro ao editar atividade: ' + error)
+            })
     }
 
     async function handleAddActivity(e: FormEvent, activities: ActitivitiesProps) {
@@ -107,7 +146,7 @@ function ActivitiesProvider({ children }: ActivitiesProviderProps) {
     }
 
     return (
-        <ActivitiesContext.Provider value={{ filterActivities, handleAddActivity, handleMoveActivity, handleDeleteActivity }}>
+        <ActivitiesContext.Provider value={{ filterActivities, handleAddActivity, handleMoveActivity, handleDeleteActivity, handleEditActivity, getSpecificActivity, specificActivity, setSpecificActivity }}>
             {children}
         </ActivitiesContext.Provider>
     )

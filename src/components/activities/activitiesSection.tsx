@@ -3,6 +3,7 @@ import { FormatDate } from "../../utils/formatDate";
 import { useContext, useState } from "react";
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 import { ActivitiesContext, GetActivitiesProps } from "../../context/ActivitiesContext";
+import { ModalEditActivity } from "./modal/modalEditActivity";
 
 interface ActivitiesSectionProps {
     list: GetActivitiesProps[];
@@ -11,6 +12,8 @@ interface ActivitiesSectionProps {
 
 export function ActivitiesSection({ list, status }: ActivitiesSectionProps) {
     const [activeMenu, setActiveMenu] = useState<string | null>(null)
+    const [modalEdit, setModalEdit] = useState(false)
+    const [docId, setDocId] = useState('')
     const { handleMoveActivity, handleDeleteActivity } = useContext(ActivitiesContext)
 
     return (
@@ -41,13 +44,15 @@ export function ActivitiesSection({ list, status }: ActivitiesSectionProps) {
                             </DropdownMenu.Trigger>
                             <DropdownMenu.Portal>
                                 <DropdownMenu.Content side="bottom" align="end" className="bg-white border border-gray-200 rounded-lg flex flex-col items-start p-4 z-50"  >
-                                    <button className="w-full cursor-pointer transition duration-200 ease-in-out rounded-md text-start hover:bg-gray-400/10 py-1 px-2">Editar</button>
+                                    <button onClick={() => { setModalEdit(true), setActiveMenu(null), setDocId(item.docId) }} className="w-full cursor-pointer transition duration-200 ease-in-out rounded-md text-start hover:bg-gray-400/10 py-1 px-2">Editar</button>
+
                                     {['A Fazer', 'Em Andamento', 'Concluído']
                                         .filter((status) => status !== item.status)
                                         .map((status) => (
                                             <button key={status} onClick={() => { handleMoveActivity(item.docId, status), setActiveMenu(null) }} className="w-full cursor-pointer transition duration-200 ease-in-out rounded-md text-start hover:bg-gray-400/10 py-1 px-2">Mover para {status}</button>
                                         ))
                                     }
+
                                     <button onClick={() => handleDeleteActivity(item.docId)} className="w-full cursor-pointer transition duration-200 ease-in-out rounded-md text-start hover:bg-gray-400/10 text-red-500 py-1 px-2">Excluir</button>
                                 </DropdownMenu.Content>
                             </DropdownMenu.Portal>
@@ -65,6 +70,9 @@ export function ActivitiesSection({ list, status }: ActivitiesSectionProps) {
                 </article>
             ))}
 
+            {modalEdit && <ModalEditActivity closeModal={() => setModalEdit(false)} docId={docId} />}
+
         </section>
+
     )
 }
