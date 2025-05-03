@@ -11,7 +11,7 @@ interface ActivitiesSectionProps {
 
 export function ActivitiesSection({ list, status }: ActivitiesSectionProps) {
     const [activeMenu, setActiveMenu] = useState<string | null>(null)
-    const { handleMoveActivity } = useContext(ActivitiesContext)
+    const { handleMoveActivity, handleDeleteActivity } = useContext(ActivitiesContext)
 
     return (
         <section className="bg-white rounded-md border border-gray-200 shadow-lg py-2 px-4 overflow-y-auto" style={{ maxHeight: 'calc(100vh - 115px)' }}>
@@ -48,7 +48,7 @@ export function ActivitiesSection({ list, status }: ActivitiesSectionProps) {
                                             <button key={status} onClick={() => { handleMoveActivity(item.docId, status), setActiveMenu(null) }} className="w-full cursor-pointer transition duration-200 ease-in-out rounded-md text-start hover:bg-gray-400/10 py-1 px-2">Mover para {status}</button>
                                         ))
                                     }
-                                    <button className="w-full cursor-pointer transition duration-200 ease-in-out rounded-md text-start hover:bg-gray-400/10 text-red-500 py-1 px-2">Excluir</button>
+                                    <button onClick={() => handleDeleteActivity(item.docId)} className="w-full cursor-pointer transition duration-200 ease-in-out rounded-md text-start hover:bg-gray-400/10 text-red-500 py-1 px-2">Excluir</button>
                                 </DropdownMenu.Content>
                             </DropdownMenu.Portal>
                         </DropdownMenu.Root>

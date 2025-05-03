@@ -1,4 +1,4 @@
-import { addDoc, collection, doc, onSnapshot, query, updateDoc, where } from "firebase/firestore";
+import { addDoc, collection, deleteDoc, doc, onSnapshot, query, updateDoc, where } from "firebase/firestore";
 import { createContext, FormEvent, ReactNode, useEffect, useState } from "react"
 import { auth, db } from "../services/firebaseConnection";
 import toast from "react-hot-toast";
@@ -13,6 +13,7 @@ interface ActivitiesContextData {
     }
     handleAddActivity: (e: FormEvent, activities: ActitivitiesProps) => Promise<void>;
     handleMoveActivity: (docId: string, status: string) => Promise<void>;
+    handleDeleteActivity: (docId: string) => Promise<void>;
 }
 
 export interface GetActivitiesProps {
@@ -95,8 +96,18 @@ function ActivitiesProvider({ children }: ActivitiesProviderProps) {
             })
     }
 
+    async function handleDeleteActivity(docId: string) {
+        await deleteDoc(doc(db, 'activities', docId))
+            .then(() => {
+                toast.success('Atividade excluída com sucesso!')
+            })
+            .catch((error) => {
+                console.log('Error ao excluir atividade: ' + error)
+            })
+    }
+
     return (
-        <ActivitiesContext.Provider value={{ filterActivities, handleAddActivity, handleMoveActivity }}>
+        <ActivitiesContext.Provider value={{ filterActivities, handleAddActivity, handleMoveActivity, handleDeleteActivity }}>
             {children}
         </ActivitiesContext.Provider>
     )
