@@ -26,7 +26,7 @@ export function ActivitiesSection({ list, status }: ActivitiesSectionProps) {
             </header>
 
             {list.length === 0 && (
-                <span className="flex items-center justify-center text-gray-500 h-7/12">
+                <span className="flex items-center justify-center text-gray-500 mb-4">
                     Nenhuma atividade cadastrada
                 </span>
             )}
