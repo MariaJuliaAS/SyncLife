@@ -24,6 +24,7 @@ export interface GetActivitiesProps {
     subject: string;
     details: string;
     dateTime: string;
+    deliveryMethod: string;
     status: 'A Fazer' | 'Em Andamento' | 'Concluído';
     docId: string;
 }
@@ -40,6 +41,7 @@ function ActivitiesProvider({ children }: ActivitiesProviderProps) {
         subject: "",
         details: "",
         dateTime: "",
+        deliveryMethod: '',
         status: ""
     })
 
@@ -59,6 +61,7 @@ function ActivitiesProvider({ children }: ActivitiesProviderProps) {
                     subject: item.subject,
                     details: item.details,
                     dateTime: item.dateTime,
+                    deliveryMethod: item.deliveryMethod,
                     status: item.status,
                     docId: doc.id
                 })
@@ -86,6 +89,7 @@ function ActivitiesProvider({ children }: ActivitiesProviderProps) {
                     subject: item?.subject,
                     details: item?.details,
                     dateTime: item?.dateTime,
+                    deliveryMethod: item?.deliveryMethod,
                     status: item?.status,
                 })
             })

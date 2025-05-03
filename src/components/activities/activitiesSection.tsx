@@ -64,7 +64,7 @@ export function ActivitiesSection({ list, status }: ActivitiesSectionProps) {
                         <p>{item.details}</p>
                         <span className="flex items-center mt-2.5 text-gray-400 text-sm">
                             <GoCalendar className="mr-2" />
-                            Entrega: {FormatDate(item.dateTime).dateHourFormatted}
+                            Entrega: {FormatDate(item.dateTime).dateHourFormatted} - {item.deliveryMethod}
                         </span>
                     </div>
                 </article>

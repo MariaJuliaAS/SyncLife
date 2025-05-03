@@ -31,6 +31,17 @@ export function LayoutModalAddActivity({ activities, setActivities }: LayoutModa
                 value={activities.dateTime}
                 onChange={(e) => setActivities(prev => ({ ...prev, dateTime: e.target.value }))}
             />
+            <label className="sm:text-base text-sm mb-2 font-medium">Modo de Entrega</label>
+            <select
+                required
+                className="border border-gray-200 h-10 rounded-md outline-none px-2 mb-4 bg-white"
+                value={activities.deliveryMethod}
+                onChange={(e) => setActivities(prev => ({ ...prev, deliveryMethod: e.target.value }))}
+            >
+                <option value="Sala">Sala</option>
+                <option value="Sigaa">Sigaa</option>
+                <option value="Não precisa entregar">Não precisa entregar</option>
+            </select>
             <label className="sm:text-base text-sm mb-2 font-medium">Status</label>
             <select
                 required

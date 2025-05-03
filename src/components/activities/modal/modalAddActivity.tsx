@@ -8,6 +8,7 @@ export interface ActitivitiesProps {
     subject: string;
     details: string;
     dateTime: string;
+    deliveryMethod: string;
     status: string;
 }
 
@@ -17,6 +18,7 @@ export function ModalAddActivity({ closeModal }: ModalProps) {
         subject: "",
         details: "",
         dateTime: "",
+        deliveryMethod: '',
         status: ""
     })
     const { handleAddActivity } = useContext(ActivitiesContext)
