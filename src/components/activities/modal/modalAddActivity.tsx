@@ -18,8 +18,8 @@ export function ModalAddActivity({ closeModal }: ModalProps) {
         subject: "",
         details: "",
         dateTime: "",
-        deliveryMethod: '',
-        status: ""
+        deliveryMethod: "Sala",
+        status: "A Fazer"
     })
     const { handleAddActivity } = useContext(ActivitiesContext)
 
