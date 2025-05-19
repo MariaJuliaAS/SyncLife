@@ -30,6 +30,14 @@ export function Home() {
     const [dateSelected, setDateSelected] = useState('')
     const [events, setEvents] = useState<EventsCalendarProps[]>([])
 
+    function hexToRga(hex: string, alpha: number = 0.4) {
+        const r = parseInt(hex.slice(1, 3), 16)
+        const g = parseInt(hex.slice(3, 5), 16)
+        const b = parseInt(hex.slice(5, 7), 16)
+        return `rgba(${r}, ${g}, ${b}, ${alpha})`
+    }
+
+
     useEffect(() => {
         const q = query(
             collection(db, 'events'),
@@ -40,12 +48,14 @@ export function Home() {
             let list: EventsCalendarProps[] = []
 
             snapshot.forEach((item) => {
+                const isConcluded = item.data().status
+
                 list.push({
-                    title: item.data().title,
+                    title: isConcluded ? `${item.data().title} - Concluído` : item.data().title,
                     start: item.data().start,
                     end: item.data().end,
-                    backgroundColor: item.data().backgroundColor,
-                    borderColor: item.data().borderColor,
+                    backgroundColor: isConcluded ? hexToRga(item.data().backgroundColor) : item.data().backgroundColor,
+                    borderColor: isConcluded ? hexToRga(item.data().borderColor) : item.data().borderColor,
                     id: item.id,
                 })
             })
